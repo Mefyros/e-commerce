@@ -13,6 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+// si besoin d'etre log pour avoir acces
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
+
+Route::get('/products', function (Request $request) {
+    return [
+        'oui' => 'ceci est un test',
+    ];
 });
