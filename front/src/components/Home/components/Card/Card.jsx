@@ -1,46 +1,33 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import CartIcon from '@material-ui/icons/CardTravel';
-
-const useStyles = makeStyles(theme => ({
-  card: {
-    width: 300,
-    borderTopLeftRadius: 0,
-    borderTopRightRadius: 0,
-    margin: '2vh',
-    
-    
-  },
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
-}));
-
-const product = {
-    price: 42,
-    name: "Petit oisal",
-}
+import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import useStyles from './style';
 
 export default (props) => {
   const classes = useStyles();
-  const { price, name } = product;
+  const { price, name, id } = props.product;
+  const productLink = `/product/${id}`;
+  const productLinkId = `product${id}`;
 
   const showProduct = e => {
-    console.log('test');
+    if (e.target.id !== 'add-to-cart' && e.target.tagName !== 'path' && e.target.tagName !== 'svg') {
+      const redirect = document.getElementById(productLinkId);
+      redirect.click();
+    }
+  }
+
+  const addToCart = e => {
+    console.log(`${productLinkId} add to cart`);
   }
 
   return (
-    <Card 
-        className={classes.card}
-        onClick={showProduct}
-    >
+    <Card className={classes.card} onClick={showProduct}>
       <CardMedia
         className={classes.media}
         image="https://jardinage.lemonde.fr/images/dossiers/2017-12/pic-epeiche-1-135005.jpg"
@@ -55,10 +42,11 @@ export default (props) => {
         </Typography>
       </CardContent>
       <CardActions disableSpacing>
-        <IconButton aria-label="Add to cart">
-          <CartIcon />
+        <IconButton id="add-to-cart" aria-label="Add to cart" onClick={addToCart}>
+          <ShoppingCartIcon id="add-to-cart"/>
         </IconButton>
       </CardActions>
+      <Link id={productLinkId} to={productLink}/>
     </Card>
   );
 }
