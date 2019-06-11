@@ -2,8 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Products;
-use App\Http\Ressources\ProductsCollection;
-use App\Http\Ressources\ProductsRessource;
+use App\Http\Ressources\ProductCollection;
+use App\Http\Controllers\Products\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,8 +20,7 @@ use App\Http\Ressources\ProductsRessource;
 //     return $request->user();
 // });
 
-Route::get('/products', function (Request $request) {
-    // return [
-    //     'oui' => 'oui'
-    // ];
+Route::get('/products', function (){
+    return ['oui' => 'oui'];
 });
+// Route::create('/product/{id}/')
