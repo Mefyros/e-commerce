@@ -20,6 +20,11 @@ use Illuminate\Http\Request;
 
 Route::get('/products', function (Request $request) {
     return [
-        'oui' => 'ceci est un test',
+        [
+            'oui' => 'ceci est un test'
+        ],
+        [
+            'oui' => 'ceci est un test',
+        ]
     ];
 });
