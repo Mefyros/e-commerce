@@ -1,7 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-
+use App\Products;
+use App\Http\Ressources\ProductsCollection;
+use App\Http\Ressources\ProductsRessource;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -19,12 +21,7 @@ use Illuminate\Http\Request;
 // });
 
 Route::get('/products', function (Request $request) {
-    return [
-        [
-            'oui' => 'ceci est un test'
-        ],
-        [
-            'oui' => 'ceci est un test',
-        ]
-    ];
+    // return [
+    //     'oui' => 'oui'
+    // ];
 });
