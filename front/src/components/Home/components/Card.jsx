@@ -14,6 +14,8 @@ const useStyles = makeStyles(theme => ({
     borderTopLeftRadius: 0,
     borderTopRightRadius: 0,
     margin: '2vh',
+    
+    
   },
   media: {
     height: 0,
@@ -30,12 +32,19 @@ export default (props) => {
   const classes = useStyles();
   const { price, name } = product;
 
+  const showProduct = e => {
+    console.log('test');
+  }
+
   return (
-    <Card className={classes.card}>
+    <Card 
+        className={classes.card}
+        onClick={showProduct}
+    >
       <CardMedia
         className={classes.media}
         image="https://jardinage.lemonde.fr/images/dossiers/2017-12/pic-epeiche-1-135005.jpg"
-        title="Paella dish"
+        title="Bird"
       />
       <CardContent>
         <Typography variant="h5" component="h2">
