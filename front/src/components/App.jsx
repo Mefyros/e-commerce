@@ -1,17 +1,44 @@
 import React from 'react';
-// import ProductForm from './Form/ProductForm';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from './Home/Home';
-// import Panel from './Panel/Panel';
-// import Product from './Product/Product';
+import Product from './Product/Product';
+import Panel from './Panel/Panel';
+import ProductForm from './Form/ProductForm';
+import Header from './Navbar/Navbar';
 
-export default () => {
+function App() {
   return (
-    <div>
-      {/* <p>Hello world !</p> */}
-      {/* <ProductForm /> */}
-      <Home />
-      {/* <Panel /> */}
-      {/* <Product /> */}
-    </div>
+    <Router>
+      <div>
+        <Header />
+
+        <Route
+          exact path="/"
+          component={Home}
+        />
+
+        {/* To get params in this components => this.props.match.params.id */}
+        <Route
+          exact path="/product/:id"
+          component={Product}
+        />
+        <Route
+          exact path="/panel"
+          component={Panel}
+        />
+        <Route
+          exact path="/product/create"
+          component={ProductForm}
+        />
+        
+        {/* To get params in this components => this.props.match.params.id */}
+        <Route
+          exact path="/product/:id/edit"
+          component={ProductForm}
+        />
+      </div>
+    </Router>
   );
 }
+
+export default App;
