@@ -6,11 +6,12 @@ import Button from '@material-ui/core/Button';
 
 export default (props) => {
   const classes = useStyles();
+  const url = `/product/${props.productId}/edit`;
 
   return(
       <>
         <Typography className={classes.box} variant="p">
-            <Button className={classes.button} component={Link} to={props.action}>{props.name}</Button>
+            <Button className={classes.buttonSmall} component={Link} to={url}>Edit</Button>
         </Typography>
       </>
   );
