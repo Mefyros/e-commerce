@@ -8,8 +8,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import AddButton from './components/button/AddButton';
-// import { ProductsContainer } from './style';
 import ProductCard from './components/Product/Card';
+import {
+  TempSpace,
+} from './style';
 
 const fakeList = [
   {
@@ -59,6 +61,7 @@ export default class Panel extends React.Component {
     super(props);
     this.state = {
       searchProduct: '',
+      products: [...fakeList],
     };
   }
 
@@ -67,9 +70,12 @@ export default class Panel extends React.Component {
   }
 
   render() {
+    const { products } = this.state;
+
     return(
       <React.Fragment>
         <CssBaseline />
+        <TempSpace />
         <Container maxWidth="lg">
           <AddButton />
           <FormControl>
@@ -89,9 +95,10 @@ export default class Panel extends React.Component {
             />
           </FormControl>
         </Container>
+        <TempSpace />
         <Container maxWidth="lg">
           {
-            fakeList.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
+            products.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
           }
         </Container>
       </React.Fragment>

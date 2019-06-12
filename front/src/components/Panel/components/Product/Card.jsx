@@ -4,14 +4,17 @@ import EditButton from '../button/EditButton';
 import { 
   Container,
   Title, 
+  ButtonContainer,
 } from './style';
 
 export default (props) => {
   return(
     <Container>
       <Title>{props.name}</Title>
-      <DeleteButton />
-      <EditButton />
+      <ButtonContainer>
+        <DeleteButton productId={props.productId}/>
+        <EditButton productId={props.productId}/>
+      </ButtonContainer>
     </Container>
   );
 }
