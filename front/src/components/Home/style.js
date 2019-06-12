@@ -1,5 +1,9 @@
-import styled from 'styled-components'
+import { makeStyles } from '@material-ui/core/styles';
 
-export const Container = styled.div`
-    margin: 3em 3em;
-`;
+export default makeStyles(theme => ({
+    container: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+    },
+}));
