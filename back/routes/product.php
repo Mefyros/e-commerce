@@ -1,8 +1,9 @@
 <?php
 
 use Illuminate\Http\Request;
-use App\Products;
-use App\Http\Ressources\ProductCollection;
+use App\Product;
+use App\Http\Resources\ProductCollection;
+use App\Http\Resources\ProductResource;
 use App\Http\Controllers\Products\ProductsController;
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,16 @@ use App\Http\Controllers\Products\ProductsController;
 // });
 
 Route::get('/products', function (){
-    return ['oui' => 'oui'];
+    return new ProductCollection(Product::all());
 });
-// Route::create('/product/{id}/')
+Route::get('/product/{id}', function ($id){
+    $product = Product::find($id);
+    if($product){
+        return ['data' => $product];
+    } else {
+        return ['error' => 'not found'];
+    }
+});
+Route::post('/product', 'Products\ProductsController@productCreate');
+Route::delete('/product/{id}', 'Products\ProductsController@delete');
+Route::put('/product/{id}', 'Products\ProductsController@update');
