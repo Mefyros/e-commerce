@@ -11,6 +11,8 @@ export default makeStyles({
     borderRadius: 3,
     boxShadow: '-1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.01)',
     padding: '.7em 1.1em',
+    textTransform: 'none',
+    // fontWeight: 'normal',
 
     '&:hover': {
       cursor: 'pointer',
