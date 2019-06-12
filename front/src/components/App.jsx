@@ -5,12 +5,17 @@ import Product from './Product/Product';
 import Panel from './Panel/Panel';
 import ProductForm from './Form/ProductForm';
 import Header from './Navbar/Navbar';
+import { useStyles, Space } from './style';
 
-function App() {
+export default () => {
+  const classes = useStyles();
+
   return (
     <Router>
       <div>
         <Header />
+
+        <Space />
 
         <Route
           exact path="/"
@@ -40,5 +45,3 @@ function App() {
     </Router>
   );
 }
-
-export default App;
