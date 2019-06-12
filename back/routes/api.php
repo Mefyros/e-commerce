@@ -35,3 +35,15 @@ Route::get('/product/{id}', function ($id){
 Route::post('/product', 'Products\ProductsController@productCreate');
 Route::delete('/product/{id}', 'Products\ProductsController@delete');
 Route::put('/product/{id}', 'Products\ProductsController@update');
+
+
+Route::middleware('auth:api')->get('/user', function (Request $request) {
+    return $request->user();
+});
+Route::post('login', 'UserController@login');
+Route::post('register', 'UserController@register');
+
+Route::group(['middleware' => 'auth:api'], function(){
+Route::post('details', 'API\UserController@details');
+
+});
