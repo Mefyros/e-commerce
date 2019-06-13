@@ -105,7 +105,7 @@ sendData(){
     formData.append('name',this.state.name);
     formData.append('description', this.state.description);
     formData.append('specifications', this.state.specification);
-    formData.append('photos', this.state.file);
+    formData.append('photos', this.state.file[0]);
     formData.append('price', this.state.price);
     console.log(this.state.specification);
 

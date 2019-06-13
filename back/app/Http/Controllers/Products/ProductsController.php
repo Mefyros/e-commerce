@@ -21,17 +21,15 @@ class ProductsController extends Controller
         ]);
         if($validator === true){
             $file = $this->getPhotos($request->photos);
-            $file;
-            return response()->json("ok");
-            // $inserted =
-            // Product::create([
-            //     'name' => $request->name,
-            //     'specs' => json_encode($request->specifications),
-            //     'description' => $request->description,
-            //     'price' => intval($request->price),
-            //     'photos' => json_encode($file)
-            // ]);
-            // return response()->json(['response' => 'inserted']);
+            $inserted =
+            Product::create([
+                'name' => $request->name,
+                // 'specs' => json_encode($request->specifications),
+                'description' => $request->description,
+                'price' => intval($request->price),
+                'photos' => json_encode($file)
+            ]);
+            return response()->json(['response' => 'inserted']);
         } else {
             return response()->json(['ok' => 'ok']);
         }
@@ -52,23 +50,22 @@ class ProductsController extends Controller
         }
     }
     public function getPhotos($files){
-        return response()->json("photos");
         if(is_array($files)){
-            // $paths = [];
-            // foreach($files as $file){
-            //     if($file->isValid()){
-            //         $path = $file->store('public/productImages');
-            //         $path = str_replace('public', 'storage', asset($path));
-            //         $paths[] = asset($path);
-            //     }
-            // }
-            // return $paths;
+            $paths = [];
+            foreach($files as $file){
+                if($file->isValid()){
+                    $path = $file->store('public/productImages');
+                    $path = str_replace('public', 'storage', asset($path));
+                    $paths[] = asset($path);
+                }
+            }
+            return $paths;
         } else {
-            // if($files->isValid()){
-            //     $path = $files->store('public/productImages');
-            //     $path = str_replace('public', 'storage', asset($path));
-            //     return [asset($path)];
-            // }
+            if($files->isValid()){
+                $path = $files->store('public/productImages');
+                $path = str_replace('public', 'storage', asset($path));
+                return [asset($path)];
+            }
         }
     }
     public function delete($id){

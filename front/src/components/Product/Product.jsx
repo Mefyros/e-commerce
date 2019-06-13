@@ -5,10 +5,10 @@ import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import useStyles from './style';
+import axios from 'axios';
 
-    export default (props) => {
+    export default async (props) => {
       const classes = useStyles();
-      
       return(
         <Container maxWidth="lg">
           <div className={classes.root}>

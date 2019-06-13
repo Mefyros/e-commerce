@@ -11,9 +11,10 @@ import useStyles from './style';
 
 export default (props) => {
   const classes = useStyles();
-  const { price, name, id } = props.product;
+  const { price, name, id, photos } = props.product;
   const productLink = `/product/${id}`;
   const productLinkId = `product${id}`;
+  let array = [];
 
   const showProduct = e => {
     if (e.target.id !== 'add-to-cart' && e.target.tagName !== 'path' && e.target.tagName !== 'svg') {
@@ -25,12 +26,12 @@ export default (props) => {
   const addToCart = e => {
     console.log(`${productLinkId} add to cart`);
   }
-
+  let photo = JSON.parse(photos)
   return (
     <Card className={classes.card} onClick={showProduct}>
       <CardMedia
         className={classes.media}
-        image="https://jardinage.lemonde.fr/images/dossiers/2017-12/pic-epeiche-1-135005.jpg"
+        image={photo[0]}
         title="Bird"
       />
       <CardContent>
