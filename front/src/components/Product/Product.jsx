@@ -14,14 +14,17 @@ import useStyles from './style';
           <div className={classes.root}>
             <Grid container spacing={3}>
               <Grid item md={4}>
-                <Paper className={classes.paper}><img className={classes.zozio} src="https://jardinage.lemonde.fr/images/dossiers/2017-12/pic-epeiche-1-135005.jpg" alt="oisal"/></Paper>
-                <Paper className={classes.paperpay}>42,42€ ─ <Button variant="contained" color="primary" className={classes.button}>
-                <ShoppingCartIcon id="add-to-cart"/>
-              </Button>
-            </Paper>
-            <Paper className={classes.paperprice}>
-              <h3 style={{ color: 'red' }}>Stock: Not available</h3>
-            </Paper>
+                <Paper className={classes.paper}>
+                  <img className={classes.zozio} src="https://jardinage.lemonde.fr/images/dossiers/2017-12/pic-epeiche-1-135005.jpg" alt="oisal"/>
+                  </Paper>
+                <Paper className={classes.paperpay}>42,42€ ─ 
+                  <Button variant="contained" color="primary" className={classes.button}>
+                    <ShoppingCartIcon id="add-to-cart"/>
+                  </Button>
+                </Paper>
+                <Paper className={classes.paperprice}>
+                  <h3 style={{ color: 'red' }}>Stock: Not available</h3>
+                </Paper>
               </Grid>
               <Grid item md={8}>
                 <Paper className={classes.paper}>Petit Oisal Gris - Gold Édition</Paper>
