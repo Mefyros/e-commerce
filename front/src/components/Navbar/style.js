@@ -14,6 +14,7 @@ export default makeStyles({
         backgroundColor: 'transparent',
         transform: 'scale(1.05)',
         textDecoration: 'underline',
+        cursor: 'pointer',
       }
     },
 });

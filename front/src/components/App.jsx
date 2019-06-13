@@ -6,6 +6,7 @@ import Panel from './Panel/Panel';
 import ProductForm from './Form/ProductForm/ProductForm';
 import Header from './Navbar/Navbar';
 import { useStyles, Space } from './style';
+import './index.css';
 
 export default () => {
   const classes = useStyles();
