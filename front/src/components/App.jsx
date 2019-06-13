@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Home from './Home/Home';
 import Product from './Product/Product';
 import Panel from './Panel/Panel';
-import ProductForm from './Form/ProductForm';
+import ProductForm from './Form/ProductForm/ProductForm';
 import Header from './Navbar/Navbar';
 import { useStyles, Space } from './style';
 
