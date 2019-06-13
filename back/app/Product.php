@@ -5,11 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use App\Photos;
 
-class Products extends Model
+class Product extends Model
 {
     //
     protected $table = 'products';
-    protected $fillables = [
+    protected $fillable = [
         'description',
         'price',
         'specs',

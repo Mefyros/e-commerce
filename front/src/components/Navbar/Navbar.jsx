@@ -10,17 +10,15 @@ export default (props) => {
   const classes = useStyles();
 
   return (
-    <div>
-      <AppBar className={classes.header} position="static" color="default">
-        <Toolbar>
-          <Typography variant="h6" color="inherit">
-            <Button className={classes.button} component={Link} color="inherit" to="/">Home</Button>
-          </Typography>
-          <Typography variant="h6" color="inherit">
-            <Button className={classes.button} component={Link} color="inherit" to="/panel">Panel</Button>
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </div>
+    <AppBar className={classes.header} position="static" color="default">
+      <Toolbar>
+        <Typography variant="h6" color="inherit">
+          <Button className={classes.button} component={Link} color="inherit" to="/">Home</Button>
+        </Typography>
+        <Typography variant="h6" color="inherit">
+          <Button className={classes.button} component={Link} color="inherit" to="/panel">Panel</Button>
+        </Typography>
+      </Toolbar>
+    </AppBar>
   );
 }
