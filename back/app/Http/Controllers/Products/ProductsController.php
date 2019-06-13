@@ -24,22 +24,22 @@ class ProductsController extends Controller
             'specifications',
             'photos'
         ]);
-        return response()->json(['ok' => 'ok']);
-        // $photos = ['photo1', 'photos2', 'photo3'];
-        // if($validator === true){
-        //     $file = $this->getPhotos($request->photos);
-        //     $inserted =
-        //     Product::create([
-        //         'name' => $request->name,
-        //         'specs' => json_encode($request->specifications),
-        //         'description' => $request->description,
-        //         'price' => intval($request->price),
-        //         'photos' => json_encode($file)
-        //     ]);
-        //     return ['response' => 'inserted'];
-        // } else {
-        //     return $validator;
-        // }
+        // return response()->json(['ok' => 'ok']);
+        $photos = ['photo1', 'photos2', 'photo3'];
+        if($validator === true){
+            $file = $this->getPhotos($request->photos);
+            $inserted =
+            Product::create([
+                'name' => $request->name,
+                'specs' => json_encode($request->specifications),
+                'description' => $request->description,
+                'price' => intval($request->price),
+                'photos' => json_encode($file)
+            ]);
+            return response()->json(['response' => 'inserted']);
+        } else {
+            return response()->json(['ok' => 'ok']);
+        }
     }
     public function formCreateValidator($request, $fields){
         $validity = 0;
