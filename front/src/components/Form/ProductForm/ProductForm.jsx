@@ -109,7 +109,7 @@ sendData(){
     formData.append('price', this.state.price);
     console.log(this.state.specification);
 
-    axios.post(`http://localhost:3000/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
+    axios.post(`http://127.0.0.1:8000/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
         console.log(res);
         console.log(res.data);

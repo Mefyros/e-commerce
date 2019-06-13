@@ -22,7 +22,7 @@ use App\Http\Controllers\Products\ProductsController;
 // });
 
 Route::get('/products', function (){
-    return new ProductCollection(Product::all());
+    return Product::all();
 });
 Route::get('/product/{id}', function ($id){
     $product = Product::find($id);
