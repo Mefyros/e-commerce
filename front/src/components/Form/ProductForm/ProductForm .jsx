@@ -100,16 +100,21 @@ appendDisplaySpec() {
      }
 
 sendData(){
-    console.log('send');
-    var formData = new FormData();
+  var formData = new FormData();
+    var file_array = [];
+    var temp = [];
+    for (let [key, value] of Object.entries(this.state.file)) {
+      file_array.push(value);
+    }
+    for (let [key, value] of Object.entries(this.state.specification)) {
+      formData.append('specifications['+value.name+']', value.specification);
+    }
     formData.append('name',this.state.name);
     formData.append('description', this.state.description);
-    formData.append('specifications', this.state.specification);
-    formData.append('photos', this.state.file);
+    formData.append('photos', file_array);
     formData.append('price', this.state.price);
-    console.log(this.state.specification);
 
-    axios.post(`http://127.0.0.1:8000/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
+    axios.post(`http://localhost:3000/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
         console.log(res);
         console.log(res.data);

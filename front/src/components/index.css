@@ -16,3 +16,9 @@ code {
   color: #242424;
   /* background-color: #ffa200; */
 }
+
+.container-products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
