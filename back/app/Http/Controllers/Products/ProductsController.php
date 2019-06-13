@@ -11,11 +11,6 @@ class ProductsController extends Controller
 {
     
     public function productCreate(Request $request){
-        $validatedData = 
-        $array = [];
-        foreach($request as $param){    
-            array_push($array, $param);
-        }
         $validator = $this->formCreateValidator($request, [
             'name',
             'description',
@@ -24,14 +19,12 @@ class ProductsController extends Controller
             'specifications',
             'photos'
         ]);
-        // return response()->json(['ok' => 'ok']);
-        $photos = ['photo1', 'photos2', 'photo3'];
         if($validator === true){
             $file = $this->getPhotos($request->photos);
             $inserted =
             Product::create([
                 'name' => $request->name,
-                'specs' => json_encode($request->specifications),
+                // 'specs' => json_encode($request->specifications),
                 'description' => $request->description,
                 'price' => intval($request->price),
                 'photos' => json_encode($file)
@@ -91,7 +84,7 @@ class ProductsController extends Controller
 
             }
             $product->name = $request->name;
-            $product->specs = json_encode($request->specifications);
+            // $product->specs = json_encode($request->specifications);
             $product->description = $request->description;
             $product->price = intval($request->price);
             $product->save();

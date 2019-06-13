@@ -105,9 +105,9 @@ sendData(){
     formData.append('name',this.state.name);
     formData.append('description', this.state.description);
     formData.append('specifications', this.state.specification);
-    formData.append('photos', this.state.file);
+    formData.append('photos', this.state.file[0]);
     formData.append('price', this.state.price);
-    console.log(this.state.specification);
+    console.log(this.state.file);
 
     axios.post(`http://127.0.0.1:8000/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
