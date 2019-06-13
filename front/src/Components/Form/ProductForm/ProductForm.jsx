@@ -104,7 +104,7 @@ sendData(){
     var file_array = [];
     var temp = [];
     for (let [key, value] of Object.entries(this.state.file)) {
-      file_array.push(value);
+      formData.append('photos[]', value);
     }
     for (let [key, value] of Object.entries(this.state.specification)) {
       formData.append('specifications['+value.name+']', value.specification);
@@ -114,7 +114,7 @@ sendData(){
     formData.append('photos', file_array);
     formData.append('price', this.state.price);
 
-    axios.post(`http://localhost:3000/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
+    axios.post(`http://localhost:8000/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
         console.log(res);
         console.log(res.data);
