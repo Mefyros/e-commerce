@@ -10,7 +10,7 @@ export default (props) => {
   return(
       <>
         <Typography className={classes.box} variant="p">
-            <Button className={classes.button} component={Link} to="/product/create">Add new product</Button>
+            <Button className={classes.button} component={Link} to="/new/product">Add new product</Button>
         </Typography>
       </>
   );

@@ -33,7 +33,7 @@ export default () => {
           component={Panel}
         />
         <Route
-          exact path="/product/create"
+          exact path="/new/product"
           component={ProductForm}
         />
         
