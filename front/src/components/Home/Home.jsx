@@ -16,10 +16,9 @@ export default class Home extends React.Component {
   componentDidMount = () => {
     Axios.get("http://127.0.0.1:8000/api/products")
       .then(res => {
-        console.log(res);
         this.setState({
           isReady: true,
-          products: [], 
+          products: res.data, 
         });
       })
       .catch(err => {
@@ -42,7 +41,7 @@ export default class Home extends React.Component {
       <>
         <React.Fragment>
           <CssBaseline />
-          <Container maxWidth="lg">
+          <Container maxWidth="lg" className="container-products">
             {
               products.map((product, key) => <Card key={key} product={product}/>)
             }
