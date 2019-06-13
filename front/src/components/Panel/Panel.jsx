@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
@@ -67,6 +68,13 @@ export default class Panel extends React.Component {
 
   handleChangeSearchBar = e => {
     this.setState({ searchProduct: e.target.value });
+  }
+
+  componentDidMount () {
+    axios.get(`http://127.0.0.1:8000/api/products`)
+    .then(res => {
+      this.setState({products: res.data})
+    })
   }
 
   render() {

@@ -11,11 +11,6 @@ class ProductsController extends Controller
 {
     
     public function productCreate(Request $request){
-        $validatedData = 
-        $array = [];
-        foreach($request as $param){    
-            array_push($array, $param);
-        }
         $validator = $this->formCreateValidator($request, [
             'name',
             'description',
@@ -24,19 +19,19 @@ class ProductsController extends Controller
             'specifications',
             'photos'
         ]);
-        // return response()->json(['ok' => 'ok']);
-        $photos = ['photo1', 'photos2', 'photo3'];
         if($validator === true){
             $file = $this->getPhotos($request->photos);
-            $inserted =
-            Product::create([
-                'name' => $request->name,
-                'specs' => json_encode($request->specifications),
-                'description' => $request->description,
-                'price' => intval($request->price),
-                'photos' => json_encode($file)
-            ]);
-            return response()->json(['response' => 'inserted']);
+            $file;
+            return response()->json("ok");
+            // $inserted =
+            // Product::create([
+            //     'name' => $request->name,
+            //     'specs' => json_encode($request->specifications),
+            //     'description' => $request->description,
+            //     'price' => intval($request->price),
+            //     'photos' => json_encode($file)
+            // ]);
+            // return response()->json(['response' => 'inserted']);
         } else {
             return response()->json(['ok' => 'ok']);
         }
@@ -57,22 +52,23 @@ class ProductsController extends Controller
         }
     }
     public function getPhotos($files){
+        return response()->json("photos");
         if(is_array($files)){
-            $paths = [];
-            foreach($files as $file){
-                if($file->isValid()){
-                    $path = $file->store('public/productImages');
-                    $path = str_replace('public', 'storage', asset($path));
-                    $paths[] = asset($path);
-                }
-            }
-            return $paths;
+            // $paths = [];
+            // foreach($files as $file){
+            //     if($file->isValid()){
+            //         $path = $file->store('public/productImages');
+            //         $path = str_replace('public', 'storage', asset($path));
+            //         $paths[] = asset($path);
+            //     }
+            // }
+            // return $paths;
         } else {
-            if($files->isValid()){
-                $path = $files->store('public/productImages');
-                $path = str_replace('public', 'storage', asset($path));
-                return [asset($path)];
-            }
+            // if($files->isValid()){
+            //     $path = $files->store('public/productImages');
+            //     $path = str_replace('public', 'storage', asset($path));
+            //     return [asset($path)];
+            // }
         }
     }
     public function delete($id){
