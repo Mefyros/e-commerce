@@ -34,6 +34,12 @@ class ClasseController extends Controller
         $classe->delete();
         return ['deleted' => true];
     }
+    public function getCategorie($id){
+        $cat = Categorie::where([
+            'classe_id' => $id,
+        ])->get();
+        return $cat;
+    }
     public function DeleteRelation($classe){
         foreach($classe->categories as $categorie){
             foreach($categorie->subCategorie as $sub){

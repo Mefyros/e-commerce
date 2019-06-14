@@ -39,6 +39,7 @@ Route::put('/product/{id}', 'Products\ProductsController@update');
 Route::get('/classes', 'ClasseController@index');
 Route::post('/classe', 'ClasseController@create');
 Route::delete('/classe/{id}', 'ClasseController@delete');
+Route::get('/classe/{id}', 'ClasseController@getCategorie');
 
 Route::post('/categorie', 'CategorieController@create');
 Route::get('/categories', 'CategorieController@index');
