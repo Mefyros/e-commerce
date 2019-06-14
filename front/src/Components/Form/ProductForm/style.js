@@ -1,5 +1,3 @@
-import styled from 'styled-components'
+import { css } from '@emotion/core';
+import Color from '../../Color';
 
-export const Example = styled.div`
-
-`;
