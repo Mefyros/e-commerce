@@ -4,21 +4,23 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
-import useStyles from './style';
+import { css }  from 'emotion';
+import { header, button } from './style';
 
-export default (props) => {
-  const classes = useStyles();
+export default class Navbar extends React.Component {
 
-  return (
-    <AppBar className={classes.header} position="static" color="default">
-      <Toolbar>
-        <Typography variant="h6" color="inherit">
-          <Button className={classes.button} component={Link} color="inherit" to="/">Home</Button>
-        </Typography>
-        <Typography variant="h6" color="inherit">
-          <Button className={classes.button} component={Link} color="inherit" to="/panel">Panel</Button>
-        </Typography>
-      </Toolbar>
-    </AppBar>
-  );
-}
+  render() {
+    return (
+      <AppBar className={css(header)} position="static" color="default">
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            <Button className={css(button)} component={Link} color="inherit" to="/">Home</Button>
+          </Typography>
+          <Typography variant="h6" color="inherit">
+            <Button className={css(button)} component={Link} color="inherit" to="/panel">Panel</Button>
+          </Typography>
+        </Toolbar>
+      </AppBar>
+    );
+  }
+  }
