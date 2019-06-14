@@ -3,7 +3,7 @@ import Axios from 'axios';
 export default class ProductService {
   static async getAll()
   {
-    return Axios.get("http://127.0.0.1:8000/api/products")
+    return Axios.get("/api/products", {headers : {"Content-type": "application/json"}})
       .then(res => {
         return res;
       })
@@ -14,7 +14,7 @@ export default class ProductService {
 
   static async getById(id)
   {
-    return Axios.get(`http://127.0.0.1:8000/api/product/${id}`)
+    return Axios.get(`/api/product/${id}`)
       .then(res => {
         return res;
       })
@@ -25,7 +25,7 @@ export default class ProductService {
 
   static async create(data)
   {
-    return Axios.post(`http://127.0.0.1:8000/api/product`, data, {headers: {'Content-Type': 'multipart/form-data' }})
+    return Axios.post(`/api/product`, data, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
         return res;
       })
@@ -36,7 +36,7 @@ export default class ProductService {
 
   static async update(id, data)
   {
-    return Axios.put(`http://127.0.0.1:8000/api/product/${id}`, data, {headers: {'Content-Type': 'multipart/form-data' }})
+    return Axios.put(`/api/product/${id}`, data, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
         return res;
       })
@@ -47,7 +47,7 @@ export default class ProductService {
 
   static async delete(id)
   {
-    return Axios.delete(`http://127.0.0.1:8000/api/product/${id}`)
+    return Axios.delete(`/api/product/${id}`)
       .then(res => {
         return res;
       })
@@ -58,7 +58,7 @@ export default class ProductService {
 
   static async visited(id)
   {
-    return Axios.delete(`http://127.0.0.1:8000/api/visit/${id}`)
+    return Axios.delete(`/api/visit/${id}`)
       .then(res => {
         return res;
       })
@@ -69,7 +69,7 @@ export default class ProductService {
 
   static async getByPopularity()
   {
-    return Axios.get(`http://127.0.0.1:8000/api/products/popular`)
+    return Axios.get(`/api/products/popular`)
       .then(res => {
         return res;
       })
