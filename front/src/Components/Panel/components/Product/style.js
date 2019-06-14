@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import { css } from '@emotion/core';
 import Color from '../../../Color';
 
-export const Container = styled.div`
+export const container = css`
   width: 100%;
   height: 50px;
   margin: .4em 0 0 0;
@@ -14,11 +14,11 @@ export const Container = styled.div`
   border-radius: 2px;
 `;
 
-export const ButtonContainer = styled.div`
+export const buttonContainer = css`
   display: flex;
 `;
 
-export const Title = styled.p`
+export const title = css`
   margin: 0;
   margin-left: 1.5em;
 `;

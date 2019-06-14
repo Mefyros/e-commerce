@@ -1,20 +1,21 @@
 import React from 'react';
 import DeleteButton from '../button/DeleteButton';
 import EditButton from '../button/EditButton';
+import { css } from 'emotion';
 import { 
-  Container,
-  Title, 
-  ButtonContainer,
+  container,
+  title, 
+  buttonContainer,
 } from './style';
 
 export default (props) => {
   return(
-    <Container>
-      <Title>{props.name}</Title>
-      <ButtonContainer>
+    <div className={css(container)}>
+      <p className={css(title)}>{props.name}</p>
+      <div className={css(buttonContainer)}>
         <DeleteButton productId={props.productId}/>
         <EditButton productId={props.productId}/>
-      </ButtonContainer>
-    </Container>
+      </div>
+    </div>
   );
 }

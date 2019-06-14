@@ -1,7 +1,6 @@
-import styled from 'styled-components';
+import { css } from '@emotion/core';
 import Color from '../Color';
 
-export const TempSpace = styled.div`
-  width: 100%;
-  height: 2em;
+export const tempSpace = css`
+  margin-top: 2em;
 `;

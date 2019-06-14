@@ -10,59 +10,15 @@ import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import AddButton from './components/button/AddButton';
 import ProductCard from './components/Product/Card';
-import {
-  TempSpace,
-} from './style';
-
-const fakeList = [
-  {
-    id: 1,
-    name: 'test comp'
-  },
-  {
-    id: 2,
-    name: 'test comp'
-  },
-  {
-    id: 3,
-    name: 'test comp'
-  },
-  {
-    id: 4,
-    name: 'test comp'
-  },
-  {
-    id: 5,
-    name: 'test comp'
-  },
-  {
-    id: 6,
-    name: 'test comp'
-  },
-  {
-    id: 7,
-    name: 'test comp'
-  },
-  {
-    id: 8,
-    name: 'test comp'
-  },
-  {
-    id: 9,
-    name: 'test comp'
-  },
-  {
-    id: 10,
-    name: 'test comp'
-  }
-];
+import { css } from 'emotion';
+import { tempSpace } from './style';
 
 export default class Panel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchProduct: '',
-      products: [...fakeList],
+      products: [],
     };
   }
 
@@ -73,25 +29,27 @@ export default class Panel extends React.Component {
   componentDidMount () {
     axios.get(`http://127.0.0.1:8000/api/products`)
     .then(res => {
-      this.setState({products: res.data})
+      this.setState({
+        products: res.data,
+        isReady: true,
+      });
     })
   }
 
   render() {
-    const { products } = this.state;
+    const { products, searchProduct } = this.state;
 
     return(
       <React.Fragment>
         <CssBaseline />
-        <TempSpace />
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={css(tempSpace)}>
           <AddButton />
           <FormControl>
             <InputLabel htmlFor="search-bar">Search product</InputLabel>
             <Input
               id="search-bar"
               type="text"
-              value={this.state.searchProduct}
+              value={searchProduct}
               onChange={this.handleChangeSearchBar}
               endAdornment={
                 <InputAdornment position="end">
@@ -103,8 +61,7 @@ export default class Panel extends React.Component {
             />
           </FormControl>
         </Container>
-        <TempSpace />
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" className={css(tempSpace)}>
           {
             products.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
           }
