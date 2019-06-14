@@ -11,7 +11,6 @@ export default class Home extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isReady: false,
       products: [],
     }
   }
@@ -20,7 +19,6 @@ export default class Home extends React.Component {
     Axios.get("http://127.0.0.1:8000/api/products")
       .then(res => {
         this.setState({
-          isReady: true,
           products: res.data, 
         });
       })
@@ -30,15 +28,7 @@ export default class Home extends React.Component {
   }
 
   render() {
-    const { isReady, products } = this.state;
-
-    if (!isReady) {
-      return(
-        <>
-        
-        </>
-      );
-    }
+    const { products } = this.state;
 
     return(
       <>
