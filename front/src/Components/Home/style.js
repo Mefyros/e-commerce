@@ -1,9 +1,8 @@
-import { makeStyles } from '@material-ui/core/styles';
+import { css } from '@emotion/core';
+import Color from '../Color';
 
-export default makeStyles(theme => ({
-    container: {
-        display: 'flex',
-        flexWrap: 'wrap',
-        justifyContent: 'center',
-    },
-}));
+export const container = css`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+`;

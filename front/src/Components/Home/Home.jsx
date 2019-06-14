@@ -3,6 +3,8 @@ import Axios from 'axios';
 import Card from './components/Card/Card';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
+import { css } from 'emotion';
+import { container } from './style';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -41,7 +43,7 @@ export default class Home extends React.Component {
       <>
         <React.Fragment>
           <CssBaseline />
-          <Container maxWidth="lg" className="container-products">
+          <Container maxWidth="lg" className={css(container)}>
             {
               products.map((product, key) => <Card key={key} product={product}/>)
             }

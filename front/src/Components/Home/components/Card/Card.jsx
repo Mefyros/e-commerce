@@ -7,47 +7,56 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import useStyles from './style';
+import { cardStyle, media } from './style';
+import { css } from 'emotion';
 
-export default (props) => {
-  const classes = useStyles();
-  const { price, name, id, photos } = props.product;
-  const productLink = `/product/${id}`;
-  const productLinkId = `product${id}`;
-  let array = [];
+export default class CustomCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ...props.product,
+      photos: JSON.parse(props.product.photos),
+    }
+    this.productLink = `/product/${props.product.id}`;
+    this.productLinkId = `product${props.product.id}`;
+  }
 
-  const showProduct = e => {
+  showProduct = e => {
     if (e.target.id !== 'add-to-cart' && e.target.tagName !== 'path' && e.target.tagName !== 'svg') {
-      const redirect = document.getElementById(productLinkId);
+      const redirect = document.getElementById(this.productLinkId);
       redirect.click();
     }
   }
 
-  const addToCart = e => {
-    console.log(`${productLinkId} add to cart`);
+  addToCart = e => {
+    console.log(`${this.productLinkId} add to cart`);
   }
-  let photo = JSON.parse(photos)
-  return (
-    <Card className={classes.card} onClick={showProduct}>
-      <CardMedia
-        className={classes.media}
-        image={photo[0]}
-        title="Bird"
-      />
-      <CardContent>
-        <Typography variant="h5" component="h2">
-          {name}
-        </Typography>
-        <Typography variant="body2" color="textSecondary" component="h2">
-          Price: {price}$
-        </Typography>
-      </CardContent>
-      <CardActions disableSpacing>
-        <IconButton id="add-to-cart" aria-label="Add to cart" onClick={addToCart}>
-          <ShoppingCartIcon id="add-to-cart"/>
-        </IconButton>
-      </CardActions>
-      <Link id={productLinkId} to={productLink}/>
-    </Card>
-  );
+  
+  render() {
+    const { name, photos, price } = this.state;
+
+    return (
+      <Card className={css(cardStyle)} onClick={this.showProduct}>
+        <CardMedia
+          className={css(media)}
+          image={photos[0]}
+          title="Bird"
+        />
+        <CardContent>
+          <Typography variant="h5" component="h2">
+            {name}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="h2">
+            Price: {price}$
+          </Typography>
+        </CardContent>
+        <CardActions disableSpacing>
+          <IconButton id="add-to-cart" aria-label="Add to cart" onClick={this.addToCart}>
+            <ShoppingCartIcon id="add-to-cart"/>
+          </IconButton>
+        </CardActions>
+        <Link id={this.productLinkId} to={this.productLink}/>
+      </Card>
+    );
+  }
 }
