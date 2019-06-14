@@ -28,7 +28,8 @@ class ProductsController extends Controller
                 'specs' => json_encode($request->specifications),
                 'description' => $request->description,
                 'price' => intval($request->price),
-                'photos' => json_encode($file)
+                'photos' => json_encode($file),
+                'sub_categorie_id' => $request->sub_categorie_id
             ]);
             return response()->json(['response' => 'inserted']);
         } else {
