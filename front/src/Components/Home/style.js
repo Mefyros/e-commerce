@@ -6,3 +6,12 @@ export const container = css`
     flex-wrap: wrap;
     justify-content: center;
 `;
+
+export const containerPopu = css`
+    margin-top: 50px;
+`;
+
+export const popTitle = css `
+    text-align: center;
+    margin-bottom: 25px;
+`;
