@@ -25,8 +25,12 @@ export default {
   `,
 
   formControl: css`
-    min-width: 40% !important;
+    min-width: 45% !important;
     margin-bottom: 2em !important;
+  `,
+
+  textField: css`
+    min-width: 45% !important;
   `,
 }
 
