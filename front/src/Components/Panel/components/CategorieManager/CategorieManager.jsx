@@ -134,11 +134,25 @@ export default class CategorieManager extends React.Component {
         "categorie_id": categorieSelectValue,
       });
     }
-    this.resetFields();
+    this.resetStates();
     this.getClass();
   }
 
-  resetFields = () => {
+  handleDeleteCscc = async () => {
+    const { classSelectValue, categorieSelectValue, subCategorieSelectValue } = this.state;
+
+    if (Number.isInteger(subCategorieSelectValue))
+      await SubCategorieService.delete(subCategorieSelectValue);
+    else if (Number.isInteger(categorieSelectValue))
+      await CategorieService.delete(categorieSelectValue);
+    else if (Number.isInteger(classSelectValue))
+      await ClassService.delete(classSelectValue);
+    
+    this.resetStates();
+    this.getClass();
+  }
+
+  resetStates = () => {
     this.setState({ 
       classSelectValue: "",
       categorieSelectValue: "",
@@ -146,6 +160,9 @@ export default class CategorieManager extends React.Component {
       newClassName: "",
       newCategorieName: "",
       newSubCategorieName: "",
+      classes: [],
+      categories: [],
+      subCategories: [],
     });
   }
 
@@ -160,10 +177,10 @@ export default class CategorieManager extends React.Component {
     const newCategorie = categorieSelectValue === "new-categorie" ? true : false;
     const newSubCategorie = subCategorieSelectValue === "new-sub-categorie" ? true : false;
 
-    const createNewCcsc = newClass || newCategorie || newSubCategorie ? true : false;
-
+    const showNewCcscButton = newClass || newCategorie || newSubCategorie ? true : false;
     const showCategorieSelect = classSelectValue === "new-class" || classSelectValue === "" ? false : true;
     const showSubCategorieSelect = categorieSelectValue === "new-class" || categorieSelectValue === "" ? false : true;
+    const showDeleteButton = !showNewCcscButton && (Number.isInteger(classSelectValue) || Number.isInteger(categorieSelectValue) ||Number.isInteger(subCategorieSelectValue)) ? true : false;
 
     return(
       <div className={css(style.container)}>
@@ -257,9 +274,13 @@ export default class CategorieManager extends React.Component {
             )
           }
           {
-            createNewCcsc ? (
+            showNewCcscButton ? (
               <Typography className={css(style.buttonBox)}>
-                <Button className={css(style.button)} onClick={this.handleAddNewCscc}>Create new</Button>
+                <Button className={css(style.createButton)} onClick={this.handleAddNewCscc}>Create new</Button>
+              </Typography>
+            ) : showDeleteButton ? (
+              <Typography className={css(style.buttonBox)}>
+                <Button className={css(style.deleteButton)} onClick={this.handleDeleteCscc}>Delete</Button>
               </Typography>
             ) : (
               null

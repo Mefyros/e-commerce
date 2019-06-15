@@ -37,7 +37,7 @@ export default {
     margin: 2vh;
   `,
 
-  button: css`
+  createButton: css`
     background-color: ${Color.madForMango} !important;
     border: solid 1px ${Color.lightGrey} !important;
     border-radius: 3px !important;
@@ -49,6 +49,22 @@ export default {
     &:hover {
       cursor: pointer;
       background-color: ${Color.madForMangoHover} !important;
+      box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.1) !important;
+    }
+  `,
+
+  deleteButton: css`
+    background-color: ${Color.red} !important;
+    border: solid 1px ${Color.lightGrey} !important;
+    border-radius: 3px !important;
+    box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.01) !important;
+    padding: .3em .7em !important;
+    margin-top: 1em !important;
+    text-transform: none !important;
+
+    &:hover {
+      cursor: pointer;
+      background-color: ${Color.darkRed} !important;
       box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.1) !important;
     }
   `,
