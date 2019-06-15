@@ -2,17 +2,19 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
+  "proxy" : "https://5378f85a.ngrok.io",
   "dependencies": {
+    "@emotion/core": "^10.0.10",
+    "@emotion/styled": "^10.0.12",
     "@material-ui/core": "^4.1.0",
     "@material-ui/icons": "^4.1.0",
     "axios": "^0.19.0",
-    "codyhouse-framework": "^1.2.1",
     "emotion": "^10.0.9",
+    "mdbreact": "^4.16.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-router-dom": "^5.0.1",
-    "react-scripts": "3.0.1",
-    "styled-components": "^4.3.1"
+    "react-scripts": "3.0.1"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -34,5 +36,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@babel/preset-react": "^7.0.0",
+    "@emotion/babel-preset-css-prop": "^10.0.9"
   }
 }
