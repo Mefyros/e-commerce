@@ -12,7 +12,7 @@ import AddButton from './components/button/AddButton';
 import ProductCard from './components/Product/Card';
 import CategorieManager from './components/CategorieManager/CategorieManager';
 import { css } from 'emotion';
-import { tempSpace, categorieContainer } from './style';
+import style from './style';
 
 const fakeProduct = [
   {
@@ -69,7 +69,7 @@ export default class Panel extends React.Component {
         <CssBaseline />
         <Grid container spacing={2}>
           <Grid item xs={12} md={7}>
-            <Container maxWidth="lg" className={css(tempSpace)}>
+            <Container maxWidth="lg" className={css(style.tempSpace)}>
               <AddButton />
               <FormControl>
                 <InputLabel htmlFor="search-bar">Search product</InputLabel>
@@ -88,13 +88,13 @@ export default class Panel extends React.Component {
                 />
               </FormControl>
             </Container>
-            <Container maxWidth="lg" className={css(tempSpace)}>
+            <Container maxWidth="lg" className={css(style.tempSpace)}>
               {
                 products.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
               }
             </Container>
           </Grid>
-          <Grid item xs={12} md={5} className={css(categorieContainer)}>
+          <Grid item xs={12} md={5} className={css(style.categorieContainer)}>
             <CategorieManager />
           </Grid>
         </Grid>
