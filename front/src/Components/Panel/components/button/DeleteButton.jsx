@@ -1,21 +1,25 @@
 import React from 'react';
-import Axios from 'axios';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { css } from 'emotion';
 import style from './style';
+import ProductService from '../../../../Service/ProductService';
 
-export default (props) => {
-  const deleteProduct = productId => {
-    const url = `127.0.0.1:8000/product/${productId}`;
-    // Axios.delete(url);
+export default class DeleteButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  return(
-      <>
-        <Typography className={css(style.buttonBox)}>
-            <Button className={css(style.deleteButton)} onClick={() => deleteProduct(props.productId)}>Delete</Button>
-        </Typography>
-      </>
-  );
+  deleteProduct = async () => {
+    await ProductService.delete(this.props.productId);
+  }
+
+  render() {
+    return(
+      <Typography className={css(style.buttonBox)}>
+          <Button className={css(style.deleteButton)} onClick={this.deleteProduct}>Delete</Button>
+      </Typography>
+    );
+  }
 }
