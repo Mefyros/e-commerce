@@ -4,6 +4,8 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import { css } from 'emotion';
 import style from './style';
 
@@ -18,7 +20,7 @@ export default class CategorieManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classSelectValue: "",
+      classSelectValue: "new-class",
       categorieSelectValue: "",
       subCategorieSelectValue: "",
       newClassName: "",
@@ -82,6 +84,17 @@ export default class CategorieManager extends React.Component {
     });
   }
 
+  handleAddNewCscc = e => {
+    const { newClassName, newCategorieName, newSubCategorieName } = this.state;
+
+    if (newClassName !== "") {
+
+    } else if (newCategorieName !== "") {
+
+    } else if (newSubCategorieName !== "") {
+      
+    }
+  }
 
   render() {
     const { 
@@ -92,6 +105,8 @@ export default class CategorieManager extends React.Component {
     const newClass = classSelectValue === "new-class" ? true : false;
     const newCategorie = categorieSelectValue === "new-categorie" ? true : false;
     const newSubCategorie = subCategorieSelectValue === "new-sub-categorie" ? true : false;
+
+    const createNewCcsc = newClass || newCategorie || newSubCategorie ? true : false;
 
     const showCategorieSelect = classSelectValue === "new-class" || classSelectValue === "" ? false : true;
     const showSubCategorieSelect = categorieSelectValue === "new-class" || categorieSelectValue === "" ? false : true;
@@ -121,7 +136,6 @@ export default class CategorieManager extends React.Component {
                   id="new-class"
                   label="Class Name"
                   value={newClassName}
-                  className={style.textField}
                   onChange={this.handleChangeClassTextInput}
                   margin="normal"
                 />
@@ -152,7 +166,6 @@ export default class CategorieManager extends React.Component {
                 id="new-class"
                 label="Categorie Name"
                 value={newCategorieName}
-                className={style.textField}
                 onChange={this.handleChangeCategorieTextInput}
                 margin="normal"
               />
@@ -182,10 +195,18 @@ export default class CategorieManager extends React.Component {
                 id="new-class"
                 label="Sub categorie Name"
                 value={newSubCategorieName}
-                className={style.textField}
                 onChange={this.handleChangeSubCategorieTextInput}
                 margin="normal"
               />
+            ) : (
+              null
+            )
+          }
+          {
+            createNewCcsc ? (
+              <Typography className={css(style.buttonBox)}>
+                <Button className={css(style.button)} onClick={this.handleAddNewCscc}>Create new</Button>
+              </Typography>
             ) : (
               null
             )

@@ -10,7 +10,7 @@ export default (props) => {
 
   return(
       <>
-        <Typography className={css(box)} variant="p">
+        <Typography className={css(box)}>
             <Button className={css(buttonSmall)} component={Link} to={url}>Edit</Button>
         </Typography>
       </>

@@ -8,7 +8,7 @@ import { box, button } from './style';
 export default (props) => {
   return(
       <>
-        <Typography className={css(box)} variant="p">
+        <Typography className={css(box)}>
             <Button className={css(button)} component={Link} to="/new/product">Add new product</Button>
         </Typography>
       </>
