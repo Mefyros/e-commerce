@@ -13,36 +13,14 @@ import ProductCard from './components/Product/Card';
 import CategorieManager from './components/CategorieManager/CategorieManager';
 import { css } from 'emotion';
 import style from './style';
-
-const fakeProduct = [
-  {
-    id: 1,
-    name: "test"
-  },
-  {
-    id: 2,
-    name: "ceci est un telephone" 
-  },
-  {
-    id: 3,
-    name: "Pc Portable"
-  },
-  {
-    id: 4,
-    name: "disque dur"
-  },
-  {
-    id: 5,
-    name: "blabla"
-  }
-];
+import ProductService from '../../Service/ProductService';
 
 export default class Panel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchProduct: '',
-      products: [...fakeProduct, ...fakeProduct],
+      products: [],
     };
   }
 
@@ -50,19 +28,13 @@ export default class Panel extends React.Component {
     this.setState({ searchProduct: e.target.value });
   }
 
-  componentDidMount () {
-    // axios.get(`http://127.0.0.1:8000/api/products`)
-    // .then(res => {
-    //   this.setState({
-    //     products: res.data,
-    //   });
-    // });
+  componentDidMount = async () => {
+    const products = await ProductService.getAll();
+    this.setState({ products: products.data });
   }
 
   render() {
     const { products, searchProduct } = this.state;
-
-
 
     return(
       <Container maxWidth="lg">

@@ -8,29 +8,36 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { css } from 'emotion';
 import style from './style';
-
-const CLASS = [
-  {
-    id: 1,
-    name: "test"
-  }
-]
+import ClassService from '../../../../Service/ClassService';
+import CategorieService from '../../../../Service/CategoryService';
+import SubCategorieService from '../../../../Service/SubCatService';
 
 export default class CategorieManager extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      classSelectValue: "new-class",
+      classSelectValue: "",
       categorieSelectValue: "",
       subCategorieSelectValue: "",
       newClassName: "",
       newCategorieName: "",
       newSubCategorieName: "",
       classes: [],
+      categories: [],
+      subCategories: [],
     }
   }
 
+  componentDidMount = async () => {
+    const classes = await ClassService.getAll();
+    this.setState({
+      classes: classes.data,
+    });
+  }
+
   handleClassInputChange = e => {
+    const { classes } = this.state;
+
     this.setState({ 
       classSelectValue: e.target.value,
       categorieSelectValue: "",
@@ -38,10 +45,21 @@ export default class CategorieManager extends React.Component {
       newClassName: "",
       newCategorieName: "",
       newSubCategorieName: "",
-     });
+    });
+
+    if (Number.isInteger(e.target.value)) {
+      const categories = classes.find(function(c){
+        return c.id === e.target.value;
+      });
+      this.setState({ 
+        categories: categories.categories,
+      });
+    }
   }
 
-  handleCategorieInputChange = e => {
+  handleCategorieInputChange = async e => {
+    const { categories } = this.state;
+
     this.setState({ 
       categorieSelectValue: e.target.value,
       subCategorieSelectValue: "",
@@ -49,6 +67,13 @@ export default class CategorieManager extends React.Component {
       newCategorieName: "",
       newSubCategorieName: "",
     });
+
+    if (Number.isInteger(e.target.value)) {
+      const categorie = await CategorieService.getById(e.target.value);
+      this.setState({
+        subCategories: categorie.data,
+      });
+    }
   }
 
   handleSubCategorieInputChange = e => {
@@ -84,22 +109,46 @@ export default class CategorieManager extends React.Component {
     });
   }
 
-  handleAddNewCscc = e => {
-    const { newClassName, newCategorieName, newSubCategorieName } = this.state;
-
+  handleAddNewCscc = async e => {
+    const { 
+      newClassName, newCategorieName, newSubCategorieName, classSelectValue, 
+      categorieSelectValue,
+    } = this.state;
+    
     if (newClassName !== "") {
-
-    } else if (newCategorieName !== "") {
-
-    } else if (newSubCategorieName !== "") {
-      
+      await ClassService.create({ name: newClassName });
     }
+    else if (newCategorieName !== "") {
+      await CategorieService.create({
+        name: newCategorieName,
+        "class_id": classSelectValue,
+      });
+    }
+    else if (newSubCategorieName !== "") {
+      await SubCategorieService.create({
+        name: newSubCategorieName,
+        "categorie_id": categorieSelectValue,
+      });
+    }
+    this.resetFields();
+  }
+
+  resetFields = () => {
+    this.setState({ 
+      classSelectValue: "",
+      categorieSelectValue: "",
+      subCategorieSelectValue: "",
+      newClassName: "",
+      newCategorieName: "",
+      newSubCategorieName: "",
+    });
   }
 
   render() {
     const { 
       classSelectValue, categorieSelectValue, subCategorieSelectValue,
-      newClassName, newCategorieName, newSubCategorieName
+      newClassName, newCategorieName, newSubCategorieName, classes, categories,
+      subCategories,
     } = this.state;
 
     const newClass = classSelectValue === "new-class" ? true : false;
@@ -126,7 +175,7 @@ export default class CategorieManager extends React.Component {
               <MenuItem value=""></MenuItem>
               <MenuItem value="new-class">New class</MenuItem>
               {
-                CLASS.map((c, k) => <MenuItem key={c.id} value={c.name}>{c.name}</MenuItem>)
+                classes.map((c, k) => <MenuItem key={k} value={c.id}>{c.name}</MenuItem>)
               }
             </Select>
           </FormControl>
@@ -151,7 +200,7 @@ export default class CategorieManager extends React.Component {
                     <MenuItem value=""></MenuItem>
                     <MenuItem value="new-categorie">New categorie</MenuItem>
                     {
-                      CLASS.map((c, k) => <MenuItem key={c.id} value={c.name}>{c.name}</MenuItem>)
+                      categories.map((c, k) => <MenuItem key={k} value={c.id}>{c.name}</MenuItem>)
                     }
                   </Select>
                 </FormControl>
@@ -181,7 +230,7 @@ export default class CategorieManager extends React.Component {
                   <MenuItem value=""></MenuItem>
                   <MenuItem value="new-sub-categorie">New sub-categorie</MenuItem>
                   {
-                    CLASS.map((c, k) => <MenuItem key={c.id} value={c.name}>{c.name}</MenuItem>)
+                    subCategories.map((c, k) => <MenuItem key={k} value={c.id}>{c.name}</MenuItem>)
                   }
                 </Select>
               </FormControl>
