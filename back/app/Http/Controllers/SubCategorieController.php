@@ -16,7 +16,11 @@ class SubCategorieController extends Controller
         ]);
     }
     public function index(){
-        return SubCategorie::all();
+        $categories = SubCategorie::all();
+        foreach($categories as $categorie){
+            $categorie->specs;
+        }
+        return $categories;
     }
     public function getProducts($id){
         $products = Product::where([
@@ -36,6 +40,12 @@ class SubCategorieController extends Controller
     public function DeleteRelation($sub){
         foreach($sub->products as $product){
             $product->delete();
+        }
+    }
+    public function getSpecs($id){
+        $categorie = SubCategorie::find($id);
+        if($categorie){
+            return $categorie->specs;
         }
     }
 }
