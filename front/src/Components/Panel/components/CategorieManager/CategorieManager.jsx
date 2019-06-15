@@ -28,7 +28,11 @@ export default class CategorieManager extends React.Component {
     }
   }
 
-  componentDidMount = async () => {
+  componentDidMount = () => {
+    this.getClass();
+  }
+
+  getClass = async () => {
     const classes = await ClassService.getAll();
     this.setState({
       classes: classes.data,
@@ -121,7 +125,7 @@ export default class CategorieManager extends React.Component {
     else if (newCategorieName !== "") {
       await CategorieService.create({
         name: newCategorieName,
-        "class_id": classSelectValue,
+        "classe_id": classSelectValue,
       });
     }
     else if (newSubCategorieName !== "") {
@@ -131,6 +135,7 @@ export default class CategorieManager extends React.Component {
       });
     }
     this.resetFields();
+    this.getClass();
   }
 
   resetFields = () => {

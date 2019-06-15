@@ -24,13 +24,13 @@ export default class Panel extends React.Component {
     };
   }
 
-  handleChangeSearchBar = e => {
-    this.setState({ searchProduct: e.target.value });
+  componentDidMount = async () => {
+    // const products = await ProductService.getAll();
+    // this.setState({ products: products.data });
   }
 
-  componentDidMount = async () => {
-    const products = await ProductService.getAll();
-    this.setState({ products: products.data });
+  handleChangeSearchBar = e => {
+    this.setState({ searchProduct: e.target.value });
   }
 
   render() {

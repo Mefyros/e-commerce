@@ -6,12 +6,16 @@ import { css } from 'emotion';
 import style from './style';
 
 export default (props) => {
-  const url = `/product/${props.productId}/edit`;
-
   return(
       <>
         <Typography className={css(style.buttonBox)}>
-            <Button className={css(style.editButton)} component={Link} to={url}>Edit</Button>
+            <Button 
+              className={css(style.editButton)} 
+              component={Link} 
+              to={`/product/${props.productId}/edit`}
+            >
+              Edit
+            </Button>
         </Typography>
       </>
   );

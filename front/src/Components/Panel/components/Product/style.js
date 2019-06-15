@@ -19,6 +19,7 @@ export default {
 
   title: css`
     margin: 0;
+    font-size: 1.2em;
 
     &:hover {
       cursor: pointer;
