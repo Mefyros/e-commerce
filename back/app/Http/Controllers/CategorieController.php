@@ -49,4 +49,13 @@ class CategorieController extends Controller
             $sub->delete();
         }
     }
+    public function updateCategorie(Request $request, $id){
+        if(null === $request->name){
+            return ['error' => 'empty body'];
+        }
+        $cat = Categorie::find($id);
+        $cat->name = $request->name;
+        $cat->save();
+        return ['success' => 'categorie updated'];
+    }
 }

@@ -33,7 +33,7 @@ class ProductsController extends Controller
             ]);
             return response()->json(['response' => 'inserted']);
         } else {
-            return response()->json(['ok' => 'ok']);
+            return $validator;
         }
     }
     public function formCreateValidator($request, $fields){
@@ -92,6 +92,25 @@ class ProductsController extends Controller
             $product->save();
             return ['product' => $product];
 
+        }
+    }
+    public function mostViewedProduct(){
+        $products = Product::where(
+            'visit',
+            '>',
+            0
+        )
+        ->orderBy('visit', 'DESC')
+        ->get()
+        ->take(4);
+        return $products;
+    }
+    public function visit($id){
+        $product = Product::find($id);
+        if($product){
+            $product->visit = $product->visit + 1;
+            $product->save();
+            return $product;
         }
     }
     
