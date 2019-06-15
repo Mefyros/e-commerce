@@ -5,16 +5,21 @@ import { css } from 'emotion';
 import style from './style';
 import ProductService from '../../../../Service/ProductService';
 
-export default (props) => {
-  const deleteProduct = () => {
-    ProductService.delete(props.productId);
+export default class DeleteButton extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
   }
 
-  return(
-      <>
-        <Typography className={css(style.buttonBox)}>
-            <Button className={css(style.deleteButton)} onClick={() => deleteProduct()}>Delete</Button>
-        </Typography>
-      </>
-  );
+  deleteProduct = async () => {
+    await ProductService.delete(this.props.productId);
+  }
+
+  render() {
+    return(
+      <Typography className={css(style.buttonBox)}>
+          <Button className={css(style.deleteButton)} onClick={this.deleteProduct}>Delete</Button>
+      </Typography>
+    );
+  }
 }

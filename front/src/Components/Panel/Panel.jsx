@@ -24,53 +24,57 @@ export default class Panel extends React.Component {
     };
   }
 
-  componentDidMount = async () => {
-    // const products = await ProductService.getAll();
-    // this.setState({ products: products.data });
+  componentDidMount = () => {
+    this.getProducts();
   }
 
   handleChangeSearchBar = e => {
     this.setState({ searchProduct: e.target.value });
   }
 
+  getProducts = async () => {
+    const products = await ProductService.getAll();
+    this.setState({ products: products.data });
+  } 
+
   render() {
     const { products, searchProduct } = this.state;
 
     return(
-      <Container maxWidth="lg">
-        <CssBaseline />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={7}>
-            <Container maxWidth="lg" className={css(style.tempSpace)}>
-              <AddButton />
-              <FormControl>
-                <InputLabel htmlFor="search-bar">Search product</InputLabel>
-                <Input
-                  id="search-bar"
-                  type="text"
-                  value={searchProduct}
-                  onChange={this.handleChangeSearchBar}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-            </Container>
-            <Container maxWidth="lg" className={css(style.tempSpace)}>
-              {
-                products.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
-              }
-            </Container>
+        <Container maxWidth="lg">
+          <CssBaseline />
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={7}>
+              <Container maxWidth="lg" className={css(style.tempSpace)}>
+                <AddButton />
+                <FormControl>
+                  <InputLabel htmlFor="search-bar">Search product</InputLabel>
+                  <Input
+                    id="search-bar"
+                    type="text"
+                    value={searchProduct}
+                    onChange={this.handleChangeSearchBar}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton>
+                          <SearchIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+              </Container>
+              <Container maxWidth="lg" className={css(style.tempSpace)}>
+                {
+                  products.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
+                }
+              </Container>
+            </Grid>
+            <Grid item xs={12} md={5} className={css(style.categorieContainer)}>
+              <CategorieManager />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={5} className={css(style.categorieContainer)}>
-            <CategorieManager />
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
     );
   }
 }

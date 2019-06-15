@@ -8,9 +8,8 @@ import style from './style';
 export default class Crad extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
+    this.state = {};
+    // console.log(this);
   }
 
   handleClick = () => {

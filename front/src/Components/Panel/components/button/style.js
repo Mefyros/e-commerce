@@ -1,7 +1,7 @@
 import { css } from '@emotion/core';
 import Color from '../../../Color';
 
-const btnBorderRadius = '3px !important';
+const btnBorderRadius = '0px !important';
 const btnPadding = '.35em .55em !important';
 const btnBorder = `solid 1px ${Color.lightGrey} !important`;
 const btnShadow = '-1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.01) !important';
@@ -49,6 +49,7 @@ export default {
     box-shadow: ${btnShadow};
     padding: ${btnPadding};
     text-transform: none !important;
+    margin-right: 1em !important;
 
     &:hover {
       cursor: pointer !important;

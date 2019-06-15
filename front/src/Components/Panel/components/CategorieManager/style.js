@@ -40,7 +40,7 @@ export default {
   createButton: css`
     background-color: ${Color.madForMango} !important;
     border: solid 1px ${Color.lightGrey} !important;
-    border-radius: 3px !important;
+    border-radius: 0px !important;
     box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.01) !important;
     padding: .3em .7em !important;
     margin-top: 1em !important;
@@ -56,7 +56,7 @@ export default {
   deleteButton: css`
     background-color: ${Color.red} !important;
     border: solid 1px ${Color.lightGrey} !important;
-    border-radius: 3px !important;
+    border-radius: 0px !important;
     box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.01) !important;
     padding: .3em .7em !important;
     margin-top: 1em !important;
