@@ -1,35 +1,36 @@
 import React from 'react';
 import DeleteButton from '../button/DeleteButton';
 import EditButton from '../button/EditButton';
+import StockButton from '../button/StockButton';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { css } from 'emotion';
-import style from './style';
+import { Container, ButtonContainer, Title } from './style';
 
 export default class Crad extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
-    // console.log(this);
+    this.state = {
+      ...this.props.product,
+    };
   }
 
-  handleClick = () => {
-    const { productId } = this.props;
-    const link = document.getElementById(`product${productId}`);
+  handleTitleClick = () => {
+    const link = document.getElementById(`product${this.state.id}`);
     link.click();
   }
 
   render() {
-    const { name, productId } = this.props;
+    const { name, id, quantity } = this.state;
 
     return(
-      <div className={css(style.container)}>
-        <p className={css(style.title)} onClick={this.handleClick}>{name}</p>
-        <div className={css(style.buttonContainer)}>
-          <DeleteButton productId={productId}/>
-          <EditButton productId={productId}/>
-          <Link id={`product${productId}`} to={`/product/${productId}`}/>
-        </div>
-      </div>
+      <Container>
+        <Title onClick={this.handleTitleClick}>{name}</Title>
+        <ButtonContainer>
+          <DeleteButton productId={id}/>
+          <EditButton productId={id}/>
+          <StockButton id={id} quantity={quantity}/>
+          <Link id={`product${id}`} to={`/product/${id}`}/>
+        </ButtonContainer>
+      </Container>
     );
   }
 }
