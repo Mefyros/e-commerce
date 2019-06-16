@@ -5,6 +5,7 @@ import Product from './Product/Product';
 import Panel from './Panel/Panel';
 import ProductForm from './Form/ProductForm/ProductForm';
 import Navbar from './Navbar/Navbar';
+import Menuccsc from './Menuccsc/Menu';
 import { css } from 'emotion';
 import { space } from './style';
 import './index.css';
@@ -45,18 +46,18 @@ export default class App extends React.Component {
           />
 
           <Route
-            exact path="/c/:class"
-            component={Home}
+            exact path="/c/:classes"
+            component={Menuccsc}
           />
 
           <Route
-            exact path="/c/:class/:categorie"
-            component={Home}
+            exact path="/c/:classes/:categorie"
+            component={Menuccsc}
           />
 
           <Route
-            exact path="/c/:class/:categorie/:subcategorie"
-            component={Home}
+            exact path="/c/:classes/:categorie/:subcategorie"
+            component={Menuccsc}
           />
 
         </div>
