@@ -15,7 +15,7 @@ export default {
   darkOrange: '#e84118',
 
   lightGreen: '#badc58',
-  green: '#4cd137',
+  green: '#4cd137', //#6ab04c
   darkGreen: '#009432',
 
   lightYellow: '#ffdd59',
@@ -33,6 +33,10 @@ export default {
   lightPink: '#f8a5c2',
   pink: '#FDA7DF',
   darkPink: '#D980FA',
+
+  lightBrown: '#662b00',
+  brown: '#3c1900',
+  darkBrown: '#2d1300',
 
   madForMango: '#ffa200',
   madForMangoHover: '#f68900',
