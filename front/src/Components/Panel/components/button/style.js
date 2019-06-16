@@ -84,6 +84,7 @@ export default {
     box-shadow: ${btnShadow};
     padding: ${btnPadding};
     text-transform: none !important;
+    margin-top: 1em !important;
 
     &:hover {
       cursor: pointer !important;
@@ -103,8 +104,19 @@ export default {
     top: 100px !important;
     left: calc(50vw - 200px) !important;
   `,
+
+  formControl: css`
+    width: 130px !important;
+    margin-right: 2em !important;
+  `,
 }
 
 export const ModalTitle = styled.h5`
   margin: 0;
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 1.5em 0 .5em 0 !important;
 `;
