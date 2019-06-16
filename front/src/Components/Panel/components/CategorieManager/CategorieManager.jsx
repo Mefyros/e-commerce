@@ -56,7 +56,7 @@ export default class CategorieManager extends React.Component {
         return c.id === e.target.value;
       });
       this.setState({ 
-        categories: categories.categories,
+        categories: categories.children,
       });
     }
   }
@@ -75,7 +75,7 @@ export default class CategorieManager extends React.Component {
     if (Number.isInteger(e.target.value)) {
       const categorie = await CategorieService.getById(e.target.value);
       this.setState({
-        subCategories: categorie.data,
+        subCategories: categorie.data.children,
       });
     }
   }

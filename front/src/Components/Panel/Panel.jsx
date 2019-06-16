@@ -45,7 +45,7 @@ export default class Panel extends React.Component {
           <CssBaseline />
           <Grid container spacing={2}>
             <Grid item xs={12} md={7}>
-              <Container maxWidth="lg" className={css(style.tempSpace)}>
+              <Container maxWidth="lg" className={css(style.navContainer)}>
                 <AddButton />
                 <FormControl>
                   <InputLabel htmlFor="search-bar">Search product</InputLabel>
@@ -64,9 +64,9 @@ export default class Panel extends React.Component {
                   />
                 </FormControl>
               </Container>
-              <Container maxWidth="lg" className={css(style.tempSpace)}>
+              <Container maxWidth="lg">
                 {
-                  products.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
+                  products.map((product, key) => <ProductCard key={key} product={product}/>)
                 }
               </Container>
             </Grid>
