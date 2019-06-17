@@ -34,9 +34,9 @@ export default class StockButton extends React.Component {
 
     if (inStock === 'in' && quantity === '') {
       this.setState({ quantity: 0 });
-      // await ProductService.updateStock(id, 0);
+      await ProductService.updateQuantity(id, 0);
     } else {
-      // await ProductService.updateStock(id, quantity);
+      await ProductService.updateQuantity(id, quantity);
     }
 
     this.setState({ open: false });
