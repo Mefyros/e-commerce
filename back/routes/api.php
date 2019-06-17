@@ -27,14 +27,24 @@ Route::get('/products', function (){
 Route::get('/product/{id}', function ($id){
     $product = Product::find($id);
     if($product){
-        return ['data' => $product];
+        $temp = $product;
+        $temp['parent'] = $product->subCategorie;
+        $temp['parent']['parent'] = $product->subCategorie->categorie;
+        $temp['parent']['parent']['parent'] = $product->subCategorie->categorie->classe;
+        unset($temp['subCategorie']['categorie']['classe']);
+        unset($temp['subCategorie']['categorie']);
+        unset($temp['subCategorie']);
+        return ['data' => $temp];
     } else {
         return ['error' => 'not found'];
     }
 });
 Route::post('/product', 'Products\ProductsController@productCreate');
+Route::post('/product/{id}/quantity', 'Products\ProductsController@setQuantity');
+Route::get('/products/popular', 'Products\ProductsController@mostViewedProduct');
 Route::delete('/product/{id}', 'Products\ProductsController@delete');
 Route::put('/product/{id}', 'Products\ProductsController@update');
+Route::get('/product/{id}/visit', 'Products\ProductsController@visit');
 
 Route::get('/classes', 'ClasseController@index');
 Route::post('/classe', 'ClasseController@create');
@@ -45,12 +55,21 @@ Route::post('/categorie', 'CategorieController@create');
 Route::get('/categories', 'CategorieController@index');
 Route::delete('/categorie/{id}', 'CategorieController@delete');
 Route::get('/categorie/{id}', 'CategorieController@getCategorie');
+Route::put('/categorie/{id}', 'CategorieController@updateCategorie');
 
 Route::post('/subcategorie', 'SubCategorieController@create');
 Route::get('/subcategories', 'SubCategorieController@index');
 Route::delete('/subcategorie/{id}', 'SubCategorieController@delete');
 Route::get('/subcategorie/{id}', 'SubCategorieController@getProducts');
+Route::get('/subcategorie/{id}/specs', 'SubCategorieController@getSpecs');
 
+Route::post('/specs', 'SpecController@create');
+Route::get('/specs', 'SpecController@getAll');
+Route::post('/link/{categorie}/{spec}', 'CategorieSpecController@link');
+
+Route::get('/search/categorie/{categorie}/{keyword}', 'SearchController@byCategorie');
+Route::get('/search/{keyword}', 'SearchController@byKeyword');
+Route::post('/search/specs', 'SearchController@filter');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
