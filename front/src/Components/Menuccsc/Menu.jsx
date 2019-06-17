@@ -26,24 +26,24 @@ export default class Menuccsc extends React.Component {
 
     if (Number.isInteger(parseInt(subcategorie))) {
       const subCat = await SubCategoryService.getById(subcategorie);
-      if (subCat.data.children === undefined) {
-        subCat.data.children = [];
+      if (subCat.children === undefined) {
+        subCat.children = [];
       }
-      this.setStartStateData(subCat.data.name, subCat.data.children);
+      this.setStartStateData(subCat.name, subCat.children);
     } 
     else if (Number.isInteger(parseInt(categorie))) {
       const cat = await CategoryService.getById(categorie);
-      if (cat.data.children === undefined) {
-        cat.data.children = [];
+      if (cat.children === undefined) {
+        cat.children = [];
       }
-      this.setStartStateData(cat.data.name, cat.data.children);
+      this.setStartStateData(cat.name, cat.children);
     } 
     else if (Number.isInteger(parseInt(classes))) {
       const cla = await ClassService.getById(classes);
-      if (cla.data.children === undefined) {
-        cla.data.children = [];
+      if (cla.children === undefined) {
+        cla.children = [];
       }
-      this.setStartStateData(cla.data.name, cla.data.children);
+      this.setStartStateData(cla.name, cla.children);
     }
   }
 

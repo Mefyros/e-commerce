@@ -33,10 +33,7 @@ export default class CategorieManager extends React.Component {
   }
 
   getClass = async () => {
-    const classes = await ClassService.getAll();
-    this.setState({
-      classes: classes.data,
-    });
+    this.setState({ classes: await ClassService.getAll() });
   }
 
   handleClassInputChange = e => {
@@ -62,8 +59,6 @@ export default class CategorieManager extends React.Component {
   }
 
   handleCategorieInputChange = async e => {
-    const { categories } = this.state;
-
     this.setState({ 
       categorieSelectValue: e.target.value,
       subCategorieSelectValue: "",
@@ -75,7 +70,7 @@ export default class CategorieManager extends React.Component {
     if (Number.isInteger(e.target.value)) {
       const categorie = await CategorieService.getById(e.target.value);
       this.setState({
-        subCategories: categorie.data.children,
+        subCategories: categorie.children,
       });
     }
   }

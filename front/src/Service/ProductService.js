@@ -5,7 +5,7 @@ export default class ProductService {
   {
     return Axios.get("/api/products", {headers : {"Content-type": "application/json"}})
       .then(res => {
-        return res;
+        return res.data;
       })
       .catch(err => {
         return err;
@@ -16,7 +16,7 @@ export default class ProductService {
   {
     return Axios.get(`/api/product/${id}`)
       .then(res => {
-        return res;
+        return res.data.data;
       })
       .catch(err => {
         return err;
@@ -27,7 +27,7 @@ export default class ProductService {
   {
     return Axios.post(`/api/product`, data, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
-        return res;
+        return res.data;
       })
       .catch(err => {
         return err;
@@ -38,7 +38,7 @@ export default class ProductService {
   {
     return Axios.put(`/api/product/${id}`, data, {headers: {'Content-Type': 'multipart/form-data' }})
       .then(res => {
-        return res;
+        return res.data;
       })
       .catch(err => {
         return err;
@@ -49,7 +49,7 @@ export default class ProductService {
   {
     return Axios.delete(`/api/product/${id}`)
       .then(res => {
-        return res;
+        return res.data;
       })
       .catch(err => {
         return err;
@@ -60,7 +60,7 @@ export default class ProductService {
   {
     return Axios.delete(`/api/visit/${id}`)
       .then(res => {
-        return res;
+        return res.data;
       })
       .catch(err => {
         return err;
@@ -71,7 +71,7 @@ export default class ProductService {
   {
     return Axios.get(`/api/products/popular`)
       .then(res => {
-        return res;
+        return res.data;
       })
       .catch(err => {
         return err;

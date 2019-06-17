@@ -9,7 +9,7 @@ export default class ProductService {
                 }
             })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
@@ -23,7 +23,7 @@ export default class ProductService {
                 }
             })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
@@ -38,7 +38,7 @@ export default class ProductService {
                     }
                 })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
@@ -53,7 +53,7 @@ export default class ProductService {
                     }
                 })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
@@ -67,7 +67,7 @@ export default class ProductService {
                 }
             })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
