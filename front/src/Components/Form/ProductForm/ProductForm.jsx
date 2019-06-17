@@ -175,7 +175,7 @@ export default class ProductForm extends React.Component {
         formData.append('photos', file_array);
         formData.append('price', this.state.price);
 
-       await axios.post(`https://76c57576.ngrok.io/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
+       await axios.post(`/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
           .then(res => {
             console.log(res);
             console.log(res.data);
