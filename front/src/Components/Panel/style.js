@@ -2,8 +2,11 @@ import { css } from '@emotion/core';
 import Color from '../Color';
 
 export default {
-  tempSpace: css`
+  navContainer: css`
+    display: flex;
     margin-top: 2em;
+    margin-bottom: 2em;
+    align-items: center;
   `,
 
   categorieContainer: css`

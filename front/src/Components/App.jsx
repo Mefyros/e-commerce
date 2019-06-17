@@ -4,7 +4,8 @@ import Home from './Home/Home';
 import Product from './Product/Product';
 import Panel from './Panel/Panel';
 import ProductForm from './Form/ProductForm/ProductForm';
-import Header from './Navbar/Navbar';
+import Navbar from './Navbar/Navbar';
+import Menuccsc from './Menuccsc/Menu';
 import { css } from 'emotion';
 import { space } from './style';
 import './index.css';
@@ -15,7 +16,7 @@ export default class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header />
+          <Navbar />
   
           <div className={css(space)}/>
   
@@ -43,6 +44,22 @@ export default class App extends React.Component {
             exact path="/product/:id/edit"
             component={ProductForm}
           />
+
+          <Route
+            exact path="/c/:classes"
+            component={Menuccsc}
+          />
+
+          <Route
+            exact path="/c/:classes/:categorie"
+            component={Menuccsc}
+          />
+
+          <Route
+            exact path="/c/:classes/:categorie/:subcategorie"
+            component={Menuccsc}
+          />
+
         </div>
       </Router>
     );

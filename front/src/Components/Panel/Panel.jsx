@@ -13,92 +13,68 @@ import ProductCard from './components/Product/Card';
 import CategorieManager from './components/CategorieManager/CategorieManager';
 import { css } from 'emotion';
 import style from './style';
-
-const fakeProduct = [
-  {
-    id: 1,
-    name: "test"
-  },
-  {
-    id: 2,
-    name: "ceci est un telephone" 
-  },
-  {
-    id: 3,
-    name: "Pc Portable"
-  },
-  {
-    id: 4,
-    name: "disque dur"
-  },
-  {
-    id: 5,
-    name: "blabla"
-  }
-];
+import ProductService from '../../Service/ProductService';
 
 export default class Panel extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       searchProduct: '',
-      products: [...fakeProduct, ...fakeProduct],
+      products: [],
     };
+  }
+
+  componentDidMount = () => {
+    this.getProducts();
   }
 
   handleChangeSearchBar = e => {
     this.setState({ searchProduct: e.target.value });
   }
 
-  componentDidMount () {
-    // axios.get(`http://127.0.0.1:8000/api/products`)
-    // .then(res => {
-    //   this.setState({
-    //     products: res.data,
-    //   });
-    // });
-  }
+  getProducts = async () => {
+    const products = await ProductService.getAll();
+    this.setState({ products: products.data });
+  } 
 
   render() {
     const { products, searchProduct } = this.state;
 
-
-
     return(
-      <Container maxWidth="lg">
-        <CssBaseline />
-        <Grid container spacing={2}>
-          <Grid item xs={12} md={7}>
-            <Container maxWidth="lg" className={css(style.tempSpace)}>
-              <AddButton />
-              <FormControl>
-                <InputLabel htmlFor="search-bar">Search product</InputLabel>
-                <Input
-                  id="search-bar"
-                  type="text"
-                  value={searchProduct}
-                  onChange={this.handleChangeSearchBar}
-                  endAdornment={
-                    <InputAdornment position="end">
-                      <IconButton>
-                        <SearchIcon />
-                      </IconButton>
-                    </InputAdornment>
-                  }
-                />
-              </FormControl>
-            </Container>
-            <Container maxWidth="lg" className={css(style.tempSpace)}>
-              {
-                products.map((product, key) => <ProductCard key={key} name={product.name} productId={product.id}/>)
-              }
-            </Container>
+        <Container maxWidth="lg">
+          <CssBaseline />
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={7}>
+              <Container maxWidth="lg" className={css(style.navContainer)}>
+                <AddButton />
+                <FormControl>
+                  <InputLabel htmlFor="search-bar">Search product</InputLabel>
+                  <Input
+                    id="search-bar"
+                    type="text"
+                    value={searchProduct}
+                    onChange={this.handleChangeSearchBar}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton>
+                          <SearchIcon />
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                  />
+                </FormControl>
+              </Container>
+              <Container maxWidth="lg">
+                {
+                  products.map((product, key) => <ProductCard key={key} product={product}/>)
+                }
+              </Container>
+            </Grid>
+            <Grid item xs={12} md={5} className={css(style.categorieContainer)}>
+              <CategorieManager />
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={5} className={css(style.categorieContainer)}>
-            <CategorieManager />
-          </Grid>
-        </Grid>
-      </Container>
+        </Container>
     );
   }
 }

@@ -77,4 +77,15 @@ export default class ProductService {
         return err;
       });
   }
+
+  static async updateQuantity(id, quantity)
+  {
+    return Axios.post(`/api/product/${id}/quantity`, { quantity }, {headers: {'Content-Type': "application/json" }})
+      .then(res => {
+        return res.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  }
 }

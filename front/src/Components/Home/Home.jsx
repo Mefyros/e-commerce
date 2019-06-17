@@ -6,6 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { css } from 'emotion';
 import { container, containerPopu, popTitle } from './style';
+import ProductService from '../../Service/ProductService';
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -15,17 +16,11 @@ export default class Home extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    Axios.get("http://127.0.0.1:8000/api/products")
-      .then(res => {
-        this.setState({
-          products: res.data, 
-        });
-      })
-      .catch(err => {
-        console.log(err);
-      });
-  }
+  componentDidMount = async () => {
+    const product = await ProductService.getByPopularity();
+    console.log(product.data);
+    this.setState({products:product.data})
+  };
 
   render() {
     const { products } = this.state;
