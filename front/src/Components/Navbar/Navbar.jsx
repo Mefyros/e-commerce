@@ -25,12 +25,20 @@ export default class Navbar extends React.Component {
     super(props);
     this.state = {
       categorie_list: [],
+      id_categorie: null,
+      search_value: '',
       input_searc: '',
     }
   }
   async componentDidMount(){
     var categories = await CategoryService.getAll();
-    this.setState({categorie_list: categories});
+    this.setState({categorie_list: categories.data});
+    console.log(this.state.categorie_list);
+  }
+
+  async handleChangeSelect(event){
+    console.log(event.target.value);
+    this.setState({id_categorie: event.target.value});
   }
 
   render() {
@@ -45,7 +53,7 @@ export default class Navbar extends React.Component {
           </Typography>
         <div className={css(searchbar)}>
           <div className={css(searchChildren)}>
-            <select value='hey' className={css(searchSelect)}>
+            <select onChange={this.handleChangeSelect.bind(this)} value={this.state.id_categorie} className={css(searchSelect)}>
             {
               this.state.categorie_list.map((categorie) => <option value={categorie.id}>{categorie.name}</option>)
             }
