@@ -9,6 +9,7 @@ import Menuccsc from './Menuccsc/Menu';
 import { css } from 'emotion';
 import { space } from './style';
 import './index.css';
+import Panier from "./Panier/Panier";
 
 export default class App extends React.Component {
 
@@ -60,6 +61,20 @@ export default class App extends React.Component {
             component={Menuccsc}
           />
 
+          <Route
+              exact path="/cart"
+              component={Panier}
+          />
+
+          <Route
+              exact path="/search"
+              component={Home}
+          />
+
+          <Route
+              exact path="/panel_gestion"
+              component={Home}
+          />
         </div>
       </Router>
     );
