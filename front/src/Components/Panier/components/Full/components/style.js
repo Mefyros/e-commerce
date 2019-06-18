@@ -1,8 +1,16 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-// import Color from '../Color';
+import Color from '../../../../Color';
 
-export const Img = styled.img`
-   width: 100px;
+export default {
+
+};
+
+export const Container = styled.div`
+  width: 100%;
 `;
 
+export const BasketContent = styled.div`
+  width: 100%;
+  height: 50px;
+`;

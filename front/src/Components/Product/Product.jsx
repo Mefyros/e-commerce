@@ -46,8 +46,13 @@ export default class Product extends React.Component {
   }
 
   handleAddToCart = () => {
-    const { id } = this.state;
-    CartService.addToCart(id);
+    const { id, name, price, photos } = this.state;
+    CartService.addToCart({
+      id,
+      name,
+      price,
+      image: photos[0],
+    });
   }
 
   render() {
