@@ -1,77 +1,35 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
 import Breadcrumbs from '@material-ui/core/Breadcrumbs';
 import Link from '@material-ui/core/Link';
 import HomeIcon from '@material-ui/icons/Home';
-import WhatshotIcon from '@material-ui/icons/Whatshot';
-import GrainIcon from '@material-ui/icons/Grain';
+import NavigateNextIcon from '@material-ui/icons/NavigateNext';
+import { css } from 'emotion';
+import style from './style';
 
-const useStyles = makeStyles(theme => ({
-    root: {
-        padding: theme.spacing(1, 2),
-    },
-    link: {
-        display: 'flex',
-    },
-    icon: {
-        marginRight: theme.spacing(0.5),
-        width: 20,
-        height: 20,
-    },
-}));
+export default (props) => {
+  return (
+    <Paper elevation={0} className={css(style.root)}>
+      <Breadcrumbs aria-label="Breadcrumb" separator={<NavigateNextIcon fontSize="small" />}>
+        <Link color="inherit" href="/" className={css(style.link)}>
+          <HomeIcon className={css(style.icon)} /> Home
+        </Link>
 
-function handleClick(event) {
-    event.preventDefault();
-    alert('You clicked a breadcrumb.');
-}
+        {
+          props.links.map((link, key) => (
+            <Link
+              key={key}
+              color="inherit"
+              href={link.url}
+              className={css(style.link)}
+            >
+              {link.name}
+            </Link>
+          ))
+        }
 
-export default function BreadcrumbsMain() {
-    const classes = useStyles();
-
-    return (
-        <Paper elevation={0} className={classes.root}>
-            <Breadcrumbs aria-label="Breadcrumb">
-                <Link color="inherit" href="/" onClick={handleClick} className={classes.link}>
-                    <HomeIcon className={classes.icon} />
-                    Home
-                </Link>
-                <Link
-                    color="inherit"
-                    href="/getting-started/installation/"
-                    onClick={handleClick}
-                    className={classes.link}
-                >
-                    Class
-                </Link>
-                <Link
-                    color="inherit"
-                    href="/getting-started/installation/"
-                    onClick={handleClick}
-                    className={classes.link}
-                >
-                    Category
-                </Link>
-                <Link
-                    color="inherit"
-                    href="/getting-started/installation/"
-                    onClick={handleClick}
-                    className={classes.link}
-                >
-                    Sub-Category
-                </Link>
-                <Link
-                    color="inherit"
-                    href="/getting-started/installation/"
-                    onClick={handleClick}
-                    className={classes.link}
-                >
-                    articles
-                </Link>
-
-            </Breadcrumbs>
-        </Paper>
-    );
+      </Breadcrumbs>
+    </Paper>
+  );
 }
 
