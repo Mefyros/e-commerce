@@ -7,6 +7,7 @@ import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { css } from 'emotion';
 import style from './style';
 import ProductsService from '../../Service/ProductService';
+import CartService from '../../Service/CartService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 
 export default class Product extends React.Component {
@@ -44,6 +45,11 @@ export default class Product extends React.Component {
     });
   }
 
+  handleAddToCart = () => {
+    const { id } = this.state;
+    CartService.addToCart(id);
+  }
+
   render() {
     const { id, name, photos, price, quantity, specs, description, categorie, classe, subCategorie } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
@@ -67,9 +73,19 @@ export default class Product extends React.Component {
 
               <Paper className={css(style.paperpay)}>
                 <h6 className={css(style.price)}>{price}€</h6>
-                <Button variant="contained" color="primary" className={css(style.button)}>
-                  <ShoppingCartIcon id="add-to-cart"/>
-                </Button>
+                {
+                  quantity > 0 ? (
+                    <Button 
+                      variant="contained" 
+                      color="primary" 
+                      className={css(style.button)}
+                      onClick={this.handleAddToCart}
+                    >
+                      <ShoppingCartIcon id="add-to-cart"/>
+                    </Button>
+                  ) : ( null )
+                }
+                
               </Paper>
 
               <Paper className={css(style.paperprice)}>
