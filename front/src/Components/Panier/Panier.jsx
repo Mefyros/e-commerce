@@ -17,9 +17,9 @@ export default class Panier extends React.Component {
                     <EmptyCard/>
                     <br/>
                     else -> show full
-                    <Container maxWidth="md">
+                    {/*<Container maxWidth="lg">*/}
                         <FullCard/>
-                    </Container>
+                    {/*</Container>*/}
 
                 </React.Fragment>
             </>
