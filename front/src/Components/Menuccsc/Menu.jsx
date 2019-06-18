@@ -24,7 +24,7 @@ export default class Menuccsc extends React.Component {
   createBreadcrumLinks = name => {
     const { classes, categorie, subcategorie } = this.props.match.params;
     let links = [];
-    console.log(name)
+    
     if (classes !== undefined) {
       links.push({
         id: classes,
