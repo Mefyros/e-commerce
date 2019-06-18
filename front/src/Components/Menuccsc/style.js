@@ -10,6 +10,7 @@ export default {
     padding: 0 !important;
     border: 1px solid ${Color.lightGrey};
     border-bottom: none;
+    text-align: center;
   `,
 
   cardContainer: css`
@@ -27,7 +28,7 @@ export default {
 export const Title = styled.h2`
   width: calc(100% - 3em);
   margin: 0;
-  margin-left: 3em;
+  /* margin-left: 3em; */
   padding: .5em 1em;
   font-size: 1.2em;
   font-weight: bold;

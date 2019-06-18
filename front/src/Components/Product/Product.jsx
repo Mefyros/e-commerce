@@ -41,12 +41,12 @@ export default class Product extends React.Component {
         name: subCategorie.name,
         url: `/c/${classe.id}/${categorie.id}/${subCategorie.id}`
       }
-    }, () => console.log(this.state));
+    });
   }
 
   render() {
-    const { name, photos, price, quantity, specs, description, categorie, classe, subCategorie } = this.state;
-    const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie] : [];
+    const { id, name, photos, price, quantity, specs, description, categorie, classe, subCategorie } = this.state;
+    const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
 
     return(
       <Container maxWidth="lg">
