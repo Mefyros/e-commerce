@@ -32,12 +32,12 @@ export default class Navbar extends React.Component {
   }
   async componentDidMount(){
     var categories = await CategoryService.getAll();
-    this.setState({categorie_list: categories.data});
-    console.log(this.state.categorie_list);
+    this.setState({ categorie_list: categories });
+    // console.log(this.state.categorie_list);
   }
 
   async handleChangeSelect(event){
-    console.log(event.target.value);
+    // console.log(event.target.value);
     this.setState({id_categorie: event.target.value});
   }
 
@@ -55,7 +55,7 @@ export default class Navbar extends React.Component {
           <div className={css(searchChildren)}>
             <select onChange={this.handleChangeSelect.bind(this)} value={this.state.id_categorie} className={css(searchSelect)}>
             {
-              this.state.categorie_list.map((categorie) => <option value={categorie.id}>{categorie.name}</option>)
+              this.state.categorie_list.map((categorie, key) => <option key={key} value={categorie.id}>{categorie.name}</option>)
             }
             </select>
             <input placeholder={'Search...'} className={css(searchInput)}type="text"/>

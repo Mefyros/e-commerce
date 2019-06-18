@@ -9,7 +9,7 @@ export default class ClassService {
                 }
             })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
@@ -23,7 +23,7 @@ export default class ClassService {
                 }
             })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
@@ -39,7 +39,7 @@ export default class ClassService {
                     }
                 })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
@@ -53,7 +53,7 @@ export default class ClassService {
                 }
             })
             .then(res => {
-                return res;
+                return res.data;
             })
             .catch(err => {
                 return err;
