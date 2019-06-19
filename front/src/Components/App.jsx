@@ -10,7 +10,6 @@ import Cart from './Panier/Panier';
 import { css } from 'emotion';
 import { space } from './style';
 import './index.css';
-import Panier from "./Panier/Panier";
 
 export default class App extends React.Component {
 
