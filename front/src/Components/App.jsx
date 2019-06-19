@@ -6,10 +6,11 @@ import Panel from './Panel/Panel';
 import ProductForm from './Form/ProductForm/ProductForm';
 import Navbar from './Navbar/Navbar';
 import Menuccsc from './Menuccsc/Menu';
-import CartDetail from './Panier/Panier';
+import Cart from './Panier/Panier';
 import { css } from 'emotion';
 import { space } from './style';
 import './index.css';
+import Panier from "./Panier/Panier";
 
 export default class App extends React.Component {
 
@@ -62,10 +63,19 @@ export default class App extends React.Component {
           />
 
           <Route
-            exact path="/cart"
-            component={CartDetail}
+              exact path="/cart"
+              component={Cart}
           />
 
+          <Route
+              exact path="/search"
+              component={Home}
+          />
+
+          <Route
+              exact path="/panel_gestion"
+              component={Home}
+          />
         </div>
       </Router>
     );
