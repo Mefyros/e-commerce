@@ -25,7 +25,9 @@ export default class BasketHeader extends React.Component {
         <PriceTitle>Unit Price</PriceTitle>
         <QuantityTitle>Quantity</QuantityTitle>
         <TotalTitle>Sub-Total</TotalTitle>
-        <ActionTitle><i className="far fa-trash-alt" onClick={this.handleTrashClick}></i></ActionTitle>
+        <ActionTitle>
+          <i className="far fa-trash-alt" onClick={this.handleTrashClick}></i>
+        </ActionTitle>
       </Container>
     );
   }

@@ -7,6 +7,7 @@ const baseTitle = css`
   padding: 0;
   text-align: center;
   font-weight: 300;
+  user-select: none;
 `;
 
 export const Container = styled.div`
