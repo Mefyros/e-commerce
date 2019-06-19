@@ -8,7 +8,7 @@ export default class SpecService {
               }
           })
           .then(res => {
-              return res;
+              return res.data;
           })
           .catch(err => {
               return err;
@@ -24,7 +24,7 @@ export default class SpecService {
                   }
               })
           .then(res => {
-              return res;
+              return res.data;
           })
           .catch(err => {
               return err;
@@ -37,7 +37,7 @@ export default class SpecService {
               }
           })
           .then(res => {
-              return res;
+              return res.data;
           })
           .catch(err => {
               return err;
@@ -50,7 +50,7 @@ export default class SpecService {
       }
       })
       .then(res => {
-          return res;
+          return res.data;
       })
       .catch(err => {
           return err;

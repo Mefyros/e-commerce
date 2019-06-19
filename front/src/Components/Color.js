@@ -6,8 +6,8 @@ export default {
   blue: '#0652DD',
   darkBlue: '#273c75',
 
-  lightGrey: '#ced6e0',
-  grey: '#2f3640',
+  lightGrey: '#ecf0f1',
+  grey: '#ced6e0',
   darkGrey: '#1e272e',
 
   lightOrange: '#F79F1F',

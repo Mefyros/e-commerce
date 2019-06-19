@@ -33,8 +33,7 @@ export default class Panel extends React.Component {
   }
 
   getProducts = async () => {
-    const products = await ProductService.getAll();
-    this.setState({ products: products.data });
+    this.setState({ products: await ProductService.getAll() });
   } 
 
   render() {
