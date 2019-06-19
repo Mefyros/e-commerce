@@ -120,7 +120,7 @@ export default class ProductForm extends React.Component {
       error.sub_categorie = false;
       await this.setState({error: error});
       var specs = await SpecService.getByIdCategori(this.state.id_sub_categorie);
-      await this.setState({specification_list: specs.data});
+      await this.setState({specification_list: specs});
       this.display_spec = [];
       this.forceUpdate();
     }
@@ -130,13 +130,14 @@ export default class ProductForm extends React.Component {
          specification_object.push({name: '', specification: ''});
 
         this.setState({ nbr_spec: this.state.nbr_spec + 1, specification: specification_object });
-        this.appendDisplaySpec();
+        this.appendDisplaySpec2();
       }
 
     appendDisplaySpec() {
             this.display_spec = [];
             var i = 0;
             this.state.specification.map((item) => {
+            var index = i;
             this.display_spec.push(<Grid container direction="row" justify="space-evenly" alignItems="baseline">
             <InputLabel>Type</InputLabel>
                     <Select fullWidth input={<OutlinedInput/>}  style={{height: 30, width: 100}} value={item.name} name={"select-"+i} onChange={this.HandleSpecChange.bind(this)}>>
@@ -145,10 +146,11 @@ export default class ProductForm extends React.Component {
                       }
                       </Select>
             <TextField variant="outlined"  label="Specification" margin="normal" name={"spec-"+i} value={item.value} onChange={this.HandleSpecChange.bind(this)}/>
-            <Button onClick={() => this.deleteSpec(i)} textSecondary style={{color:'red'}} variant="outlined" color="secondary">
+            <Button onClick={() => this.deleteSpec(index)} textSecondary style={{color:'red'}} variant="outlined" color="secondary">
                 Delete
             </Button>
             </Grid>);
+            console.log(i);
             i++;
           });
                 console.log(this.state.specification);
@@ -157,6 +159,26 @@ export default class ProductForm extends React.Component {
                postVal : ""
             });
          }
+
+         appendDisplaySpec2 () {
+           console.log('appendDisplaySpec2:', this.state.specification);
+                 return (
+                 this.state.specification.map((item, i) =>
+                 <Grid container direction="row" justify="space-evenly" alignItems="baseline">
+                 <InputLabel>Type</InputLabel>
+                         <Select fullWidth input={<OutlinedInput/>}  style={{height: 30, width: 100}} value={item.name} name={"select-"+i} onChange={this.HandleSpecChange.bind(this)}>>
+                           {
+                             this.state.specification_list.map((specs, key) => <MenuItem key={key} value={specs.name}>{specs.name}</MenuItem>)
+                           }
+                           </Select>
+                 <TextField variant="outlined"  label="Specification" margin="normal" name={"spec-"+i} value={item.specification} onChange={this.HandleSpecChange.bind(this)}/>
+                 <Button id={'delete-' + i} onClick={() => this.deleteSpec(i)} textSecondary style={{color:'red'}} variant="outlined" color="secondary">
+                     Delete
+                 </Button>
+                 </Grid>
+               )
+             );
+            }
 
     async sendData(){
     console.log('send');
@@ -256,20 +278,23 @@ export default class ProductForm extends React.Component {
 
     async componentDidMount() {
       var res = await CategoryService.getAll();
-      this.setState({categorie_list : res.data});
+      await this.setState({categorie_list : res});
     }
 
 
     //To finish soon
     async deleteSpec(index){
-      console.log(index);
-      await this.setState({nbr_spec: this.state.nbr_spec - 1});
-      var spec = this.state.specification;
-      console.log(spec);
-      console.log(spec.splice(3, 1));
-
-      // await this.setState({specification: spec2});
-      // await this.appendDisplaySpec();
+        var spec_temp = [];
+        console.log(index);
+        //await this.setState({nbr_spec: this.state.nbr_spec - 1});
+        var spec = this.state.specification;
+        for (var i = 0; i < spec.length; i++) {
+          if (i !== index) {
+            spec_temp.push(spec[i]);
+          }
+        }
+        await this.setState({specification: spec_temp});
+        console.log('Delete: ', this.state.specification);
     }
 
     render() {
@@ -325,9 +350,7 @@ export default class ProductForm extends React.Component {
                         </Grid>
                     </Container>
                     <Container maxWidth="sm">
-                        {this.display_spec.map((item) => {
-                            return item;
-                        })}
+                        {this.appendDisplaySpec2()}
                     </Container>
                     <Container style={{marginTop: 35}} maxWidth="sm">
                         <Grid container direction="row" justify="space-evenly" alignItems="baseline">
