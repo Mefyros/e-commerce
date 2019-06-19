@@ -10,6 +10,7 @@ import Cart from './Panier/Panier';
 import { css } from 'emotion';
 import { space } from './style';
 import './index.css';
+import SearchResult from './SearchResult/SearchResult'
 
 export default class App extends React.Component {
 
@@ -75,6 +76,17 @@ export default class App extends React.Component {
               exact path="/panel_gestion"
               component={Home}
           />
+
+          <Route
+            exact path="/search/:keyword"
+            component={SearchResult}
+          />
+
+          <Route
+            exact path="/search/categorie/:categorie/:keyword"
+            component={SearchResult}
+          />
+          
         </div>
       </Router>
     );

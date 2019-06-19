@@ -6,10 +6,10 @@ import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import CartStore from './Redux/Store/CartStore';
+import Store from './Redux/Store';
 
 ReactDOM.render(
-  <Provider store={CartStore}>
+  <Provider store={Store}>
     <App />
   </Provider>,
   document.getElementById('root')

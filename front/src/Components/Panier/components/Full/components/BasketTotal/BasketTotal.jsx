@@ -7,13 +7,30 @@ import style, {
   Price,
   CheckoutBtn,
 } from "./style";
+import { connect } from 'react-redux';
 
-export default class FullCard extends React.Component {
+const mapStateToProps = state => ({
+  ...state,
+})
+
+class FullCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: this.props.products
+      totalPrice: 0,
     }
+  }
+
+  componentDidMount = () => {
+    const { cart } = this.props;
+    let totalPrice = 0;
+
+    for (let i = 0; i < cart.length; ++i) {
+      const { price, quantity } = cart[i];
+      totalPrice += price * quantity;
+    }
+
+    this.setState({ totalPrice });
   }
 
   render() {
@@ -21,7 +38,7 @@ export default class FullCard extends React.Component {
     return (
       <Container>
         <Title>Basket's Total</Title>
-        <Price>Total: 500 $</Price>
+        <Price>Total: { this.state.totalPrice } $</Price>
         <CheckoutBtn href="#">Proceed To Checkout</CheckoutBtn>
       </Container>
       // <MDBCol>
@@ -41,3 +58,5 @@ export default class FullCard extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(FullCard);

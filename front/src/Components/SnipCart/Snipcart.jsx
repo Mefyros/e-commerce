@@ -11,69 +11,23 @@ import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-
 import { css } from 'emotion';
 import style from './style';
+import CartService from '../../Service/CartService.js';
 
 export default class Snipcart extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            wish_list: [
-                {
-                    product: {
-                        id: 1,
-                        name: 'Iphone 6',
-                        photos: 'https://...'
-                    },
-                    quantity: 1,
-                    price: 699
-                },
-                {
-                    product: {
-                        id: 2,
-                        name: 'Television Samsung 4K 34938',
-                        photos: 'https://...'
-                    },
-                    quantity: 1,
-                    price: 799
-                },
-                {
-                    product: {
-                        id: 2,
-                        name: 'Clopinette',
-                        photos: 'https://...'
-                    },
-                    quantity: 2,
-                    price: 42
-                },
-                {
-                    product: {
-                        id: 2,
-                        name: 'Playstation 4',
-                        photos: 'https://...'
-                    },
-                    quantity: 5,
-                    price: 400
-                },
-                {
-                    product: {
-                        id: 2,
-                        name: 'MacBook air',
-                        photos: 'https://...'
-                    },
-                    quantity: 3,
-                    price: 1200
-                },
-            ]
+            wish_list: []
         }
     }
-
     ListItem () {
         if (this.state.wish_list.length <= 0) {
             return <List><h5>Votre panier est vide</h5></List>
         }else {
              return(
+                 <div>
               <List>
               <ListItem>
                  <ListItemText><h6>Product / Quantity</h6></ListItemText>
@@ -88,16 +42,29 @@ export default class Snipcart extends React.Component {
                             <ImageIcon />
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText style={{marginRight: 30}} secondary={'x'+item.quantity}>{item.product.name}</ListItemText>
+                    <ListItemText style={{marginRight: 30}} secondary={'x'+item.quantity}>{item.name}</ListItemText>
                     <ListItemSecondaryAction>
                         <p>{item.price*item.quantity} €</p>
                     </ListItemSecondaryAction>
                 </ListItem>)
              }
-             </List>);
+             </List>
+             <Container style={{marginTop: 10, marginBottom: 10}} fixed>
+                 <Grid container direction='row' justify='center'>
+                 <h4>Total {this.totalPrice()} €</h4>
+                 </Grid>
+             </Container>
+             <Divider/>
+             <Container fixed>
+             <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
+                 <Button component={Link} color="inherit" to="/cart">Modifier mon panier</Button>
+                 <Button>checkout</Button>
+             </Grid>
+             </Container>
+             </div>
+         );
         }
     }
-
     totalPrice(){
       var snip = this.state.wish_list;
       var total = null;
@@ -106,7 +73,12 @@ export default class Snipcart extends React.Component {
       }
       return total;
     }
-
+    async componentDidMount(){
+        var cart = CartService.getCartContent();
+        if (cart !== null) {
+            this.setState({wish_list: cart});
+        }
+    }
     render(){
         return(
             <div>
@@ -117,18 +89,6 @@ export default class Snipcart extends React.Component {
             </Container>
             <Container fixed>
                     {this.ListItem()}
-            </Container>
-            <Container style={{marginTop: 10, marginBottom: 10}} fixed>
-                <Grid container direction='row' justify='center'>
-                <h4>Total {this.totalPrice()} €</h4>
-                </Grid>
-            </Container>
-            <Divider/>
-            <Container fixed>
-            <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
-                <Button component={Link} color="inherit" to="/cart">Modifier mon panier</Button>
-                <Button>checkout</Button>
-            </Grid>
             </Container>
             </div>
         );

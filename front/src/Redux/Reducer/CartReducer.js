@@ -10,36 +10,41 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case "ADD_TO_CART":
-      const { cart } = state;
-      const { id } = action.payload;
-      let productInCart = null;
+      return addToCart(JSON.parse(JSON.stringify(state)), action.payload)
 
-      for (let i = 0; i < cart.length; ++i) {
-        if (cart[i].id === id) {
-          productInCart = i;
-        };
-      }
-
-      if (productInCart !== null) {
-        const newCart = [...state.cart];
-        newCart[productInCart].quantity++;
-        state = {
-          ...state,
-          cart: newCart,
-        }
-      }
-      else {
-        state = {
-          ...state,
-          cart: [ ...cart, CartService.newCartItem(action.payload) ],
-        }
-      }
-      CartService.saveCart(state.cart);
-      break;
-  
     default:
       break;
   }
 
+  return state;
+};
+
+const addToCart = (state, payload) => {
+  const { cart } = state;
+
+  let productInCart = null;
+
+  for (let i = 0; i < cart.length; ++i) {
+    if (cart[i].id === payload.id) {
+      productInCart = i;
+    };
+  }
+
+  if (productInCart !== null) {
+    const newCart = [...state.cart];
+    newCart[productInCart].quantity++;
+    
+    state = {
+      ...state,
+      cart: newCart,
+    }
+  }
+  else {
+    state = {
+      ...state,
+      cart: [ ...cart, CartService.newCartItem(payload) ],
+    }
+  }
+  CartService.saveCart(state.cart);
   return state;
 };

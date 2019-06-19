@@ -11,9 +11,28 @@ const mapStateToProps = state => ({
   ...state,
 })
 
+// const mapDispatchToProps = dispatch => ({
+//   addToCart: (payload) => dispatch(addToCart(payload)),
+// });
+
 class Panier extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      cart: this.props.cart,
+    }
+  }
+
+  componentDidUpdate = (prevProps, prevState, snapshot) => {
+    if (prevProps.cart !== this.props.cart) {
+      console.log(prevProps.cart);
+      console.log(this.props.cart);
+      // this.setState({  });
+    }
+  }
+
   render() {
-    const { cart } = this.props;
+    const { cart } = this.state;
 
     return (
       <React.Fragment>
