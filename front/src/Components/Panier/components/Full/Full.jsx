@@ -2,6 +2,7 @@ import React from 'react';
 import BasketMenu from './components/BasketMenu';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import BasketTotal from './components/BasketTotal/BasketTotal';
 import { css } from 'emotion';
 import style, { 
   Title,
@@ -28,7 +29,7 @@ export default class FullCard extends React.Component {
           </Grid>
           
           <Grid item xs={12} md={4}>
-            
+            <BasketTotal />
           </Grid>
 
         </Grid>

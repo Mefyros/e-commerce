@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Color from '../../../Color';
+import Color from '../../../../../Color';
 
 export default {
 
@@ -12,5 +12,11 @@ export const Title = styled.h1`
   margin: 0;
   margin-bottom: 1em;
   user-select: none;
+`;
+
+export const blockFull = css`
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 `;
 
