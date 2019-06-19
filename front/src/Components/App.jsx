@@ -6,6 +6,7 @@ import Panel from './Panel/Panel';
 import ProductForm from './Form/ProductForm/ProductForm';
 import Navbar from './Navbar/Navbar';
 import Menuccsc from './Menuccsc/Menu';
+import CartDetail from './Panier/Panier';
 import { css } from 'emotion';
 import { space } from './style';
 import './index.css';
@@ -58,6 +59,11 @@ export default class App extends React.Component {
           <Route
             exact path="/c/:classes/:categorie/:subcategorie"
             component={Menuccsc}
+          />
+
+          <Route
+            exact path="/cart"
+            component={CartDetail}
           />
 
         </div>
