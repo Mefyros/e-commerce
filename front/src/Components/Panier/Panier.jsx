@@ -1,28 +1,43 @@
 import React from 'react';
-import Axios from 'axios';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import { css } from 'emotion';
-import EmptyCard from './components/Empty/Empty'
-import FullCard from './components/Full/Full'
+import EmptyCart from './components/Empty/Empty';
+import FullCart from './components/Full/Full';
+import CartService from '../../Service/CartService';
+// import { css } from 'emotion';
 
 export default class Panier extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: [],
+    };
+  }
 
-    render() {
-        return(
-            <>
-                <React.Fragment>
-                    <CssBaseline />
-                    if empty -> show empty
-                    <EmptyCard/>
-                    <br/>
-                    else -> show full
-                    {/*<Container maxWidth="lg">*/}
-                        <FullCard/>
-                    {/*</Container>*/}
-
-                </React.Fragment>
-            </>
-        );
+  componentDidMount = () => {
+    const products = CartService.getCartContent();
+    
+    if (products.length > 0) {
+      this.setState({ products });
     }
+  }
+
+  render() {
+    const { products } = this.state;
+    
+    return(
+      <React.Fragment>
+        <CssBaseline />
+        <Container maxWidth="lg">
+          {
+            products.length > 0 ? (
+              <FullCart products={products}/>
+            ) : (
+              <EmptyCart />
+            )
+          }
+        </Container>
+      </React.Fragment>
+    );
+  }
 }

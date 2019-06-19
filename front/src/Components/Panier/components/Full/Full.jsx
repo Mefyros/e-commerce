@@ -1,36 +1,39 @@
 import React from 'react';
-import BasketCard from './components/card';
+import BasketMenu from './components/BasketMenu';
+import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol } from 'mdbreact';
-import {blockFull} from "./style";
+import BasketTotal from './components/BasketTotal/BasketTotal';
 import { css } from 'emotion';
+import style, { 
+  Title,
+} from "./style";
 
 export default class FullCard extends React.Component {
-
-
-    render() {
-
-        return (
-            <div className={css(blockFull)}>
-                <Container maxWidth="md">
-                    <BasketCard/>
-                </Container>
-                <MDBCol>
-                    <MDBCard style={{ width: "22rem" }}>
-                        <MDBCardBody>
-                            <MDBCardTitle>Basket's SubTotal</MDBCardTitle>
-                            <MDBCardText>
-                                <h1>
-                                    $500
-                                </h1>
-
-                            </MDBCardText>
-                            <MDBBtn href="#">Proceed To Checkout</MDBBtn>
-                        </MDBCardBody>
-                    </MDBCard>
-                </MDBCol>
-            </div>
-
-        );
+  constructor(props) {
+    super(props);
+    this.state = {
+      products: this.props.products
     }
+  }
+
+  render() {
+
+    return (
+      <Container maxWidth="lg">
+        <Grid container spacing={2}>
+
+          <Title>My Cart</Title>
+          
+          <Grid item xs={12} md={8}>
+            <BasketMenu products={this.props.products}/>
+          </Grid>
+          
+          <Grid item xs={12} md={4}>
+            <BasketTotal />
+          </Grid>
+
+        </Grid>
+      </Container>
+    );
+  }
 }
