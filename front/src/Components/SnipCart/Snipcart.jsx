@@ -6,11 +6,11 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Button from '@material-ui/core/Button';
 import ImageIcon from '@material-ui/icons/Image';
-import WorkIcon from '@material-ui/icons/Work';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
 import { css } from 'emotion';
 import style from './style';
@@ -126,7 +126,7 @@ export default class Snipcart extends React.Component {
             <Divider/>
             <Container fixed>
             <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
-                <Button>Modifier mon panier</Button>
+                <Button component={Link} color="inherit" to="/cart">Modifier mon panier</Button>
                 <Button>checkout</Button>
             </Grid>
             </Container>
