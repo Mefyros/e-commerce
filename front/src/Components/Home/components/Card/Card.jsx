@@ -7,7 +7,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { cardStyle, media } from './style';
+import { cardStyle, media, addToCard, descript} from './style';
 import { css } from 'emotion';
 
 export default class CustomCard extends React.Component {
@@ -33,7 +33,7 @@ export default class CustomCard extends React.Component {
   }
   
   render() {
-    const { name, photos, price } = this.state;
+    const { name, photos, price, description } = this.state;
 
     return (
       <Card className={css(cardStyle)} onClick={this.showProduct}>
@@ -49,9 +49,12 @@ export default class CustomCard extends React.Component {
           <Typography variant="body2" color="textSecondary" component="h2">
             Price: {price}$
           </Typography>
+          <Typography className={css(descript)} variant="body2" color="textSecondary" component="h2">
+            {description.substring(0, 75)}...
+          </Typography>
         </CardContent>
-        <CardActions disableSpacing>
-          <IconButton id="add-to-cart" aria-label="Add to cart" onClick={this.addToCart}>
+        <CardActions className={css(addToCard)} disableSpacing>
+          <IconButton  id="add-to-cart" aria-label="Add to cart" onClick={this.addToCart}>
             <ShoppingCartIcon id="add-to-cart"/>
           </IconButton>
         </CardActions>

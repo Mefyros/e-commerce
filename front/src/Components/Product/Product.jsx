@@ -9,6 +9,7 @@ import style from './style';
 import ProductsService from '../../Service/ProductService';
 import CartService from '../../Service/CartService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import AddToCartBtn from './components/AddToCartBtn/AddToCartBtn';
 
 export default class Product extends React.Component {
   constructor(props) {
@@ -45,16 +46,6 @@ export default class Product extends React.Component {
     });
   }
 
-  handleAddToCart = () => {
-    const { id, name, price, photos } = this.state;
-    CartService.addToCart({
-      id,
-      name,
-      price,
-      image: photos[0],
-    });
-  }
-
   render() {
     const { id, name, photos, price, quantity, specs, description, categorie, classe, subCategorie } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
@@ -80,14 +71,7 @@ export default class Product extends React.Component {
                 <h6 className={css(style.price)}>{price}€</h6>
                 {
                   quantity > 0 ? (
-                    <Button 
-                      variant="contained" 
-                      color="primary" 
-                      className={css(style.button)}
-                      onClick={this.handleAddToCart}
-                    >
-                      <ShoppingCartIcon id="add-to-cart"/>
-                    </Button>
+                    <AddToCartBtn product={{id, name, price, image: photos[0]}}/>
                   ) : ( null )
                 }
                 

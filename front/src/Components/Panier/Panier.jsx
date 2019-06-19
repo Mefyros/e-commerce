@@ -4,34 +4,43 @@ import Container from '@material-ui/core/Container';
 import EmptyCart from './components/Empty/Empty';
 import FullCart from './components/Full/Full';
 import CartService from '../../Service/CartService';
+import { connect } from 'react-redux';
 // import { css } from 'emotion';
 
-export default class Panier extends React.Component {
+const mapStateToProps = state => ({
+  ...state,
+})
+
+// const mapDispatchToProps = dispatch => ({
+//   addToCart: (payload) => dispatch(addToCart(payload)),
+// });
+
+class Panier extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
-    };
+      cart: this.props.cart,
+    }
   }
 
-  componentDidMount = () => {
-    const products = CartService.getCartContent();
-    
-    if (products.length > 0) {
-      this.setState({ products });
+  componentDidUpdate = (prevProps, prevState, snapshot) => {
+    if (prevProps.cart !== this.props.cart) {
+      console.log(prevProps.cart);
+      console.log(this.props.cart);
+      // this.setState({  });
     }
   }
 
   render() {
-    const { products } = this.state;
-    
-    return(
+    const { cart } = this.state;
+
+    return (
       <React.Fragment>
         <CssBaseline />
         <Container maxWidth="lg">
           {
-            products.length > 0 ? (
-              <FullCart products={products}/>
+            cart.length > 0 ? (
+              <FullCart products={cart}/>
             ) : (
               <EmptyCart />
             )
@@ -41,3 +50,5 @@ export default class Panier extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps)(Panier);

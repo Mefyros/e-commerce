@@ -4,7 +4,7 @@ export default class Auth {
         if(undefined === localStorage.eToken){
             return false
         } else {
-            return Axios.get('api/user/isadmin', {
+            return Axios.get('/api/user/isadmin', {
                 headers: {
                     'Content-type': 'application/json',
                     'Accept': 'application/json',
@@ -25,7 +25,7 @@ export default class Auth {
         if(undefined === token){
             return false
         } else {
-            return Axios.get('api/user/', {
+            return Axios.get('/api/user/', {
                 headers: {
                     'Content-type': 'application/json',
                     'Accept': 'application/json',

@@ -22,7 +22,7 @@ export default class User_panel_dropdown extends React.Component {
     this.state = {
       register: false,
       token: null,
-      user: null
+      user: this.props.user
     };
   }
 
@@ -131,11 +131,12 @@ async logout(){
   }
 
   panelUser(){
+    console.log(this.state);
     return(
       <div>
       <Container>
         <Grid container direction='row' justify='center'>
-        <Avatar style={{width: 60, height: 60}}>{this.state.user.name[0]}</Avatar>
+        <Avatar style={{width: 60, height: 60}}>img</Avatar>
         </Grid>
       </Container>
       <Container style={{marginTop: 10}}>
@@ -165,7 +166,7 @@ async logout(){
   }
 
   display(){
-    if (this.state.token !== null) {
+    if (this.state.token !== null && this.state.user !== null && typeof this.state.user !== 'undefined') {
       return this.panelUser();
     }else {
       if (this.state.register === true) {
@@ -179,7 +180,7 @@ async logout(){
    async componentDidMount(){
      var user = await AuthService.getUser(localStorage.getItem('eToken'));
      await this.setState({token: localStorage.getItem('eToken'), user: user.user});
-      await this.setState({token: localStorage.getItem('eToken')});
+     await this.setState({token: localStorage.getItem('eToken')});
     }
 
   render(){
