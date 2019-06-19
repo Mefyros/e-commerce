@@ -21,7 +21,7 @@ export default (state = initialState, action) => {
 
 const addToCart = (state, payload) => {
   const { cart } = state;
-
+  let newCart = {};
   let productInCart = null;
 
   for (let i = 0; i < cart.length; ++i) {
@@ -30,21 +30,16 @@ const addToCart = (state, payload) => {
     };
   }
 
+  console.log(state)
   if (productInCart !== null) {
-    const newCart = [...state.cart];
-    newCart[productInCart].quantity++;
-    
-    state = {
-      ...state,
-      cart: newCart,
-    }
+    Object.assign(newCart, state);
+    newCart.cart[productInCart].quantity++;
   }
   else {
-    state = {
-      ...state,
-      cart: [ ...cart, CartService.newCartItem(payload) ],
-    }
+    Object.assign(newCart, state);
+    newCart.cart.push(CartService.newCartItem(payload));
   }
-  CartService.saveCart(state.cart);
-  return state;
+  console.log(newCart);
+  // CartService.saveCart(state.cart);
+  return newCart;
 };

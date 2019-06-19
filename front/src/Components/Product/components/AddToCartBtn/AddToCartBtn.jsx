@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToCart: (payload) => dispatch(addToCart(payload)),
+  addToCart: payload => dispatch(addToCart(payload)),
 });
 
 class AddToCartBtn extends React.Component {
