@@ -7,23 +7,29 @@ import CartService from '../../Service/CartService';
 import { connect } from 'react-redux';
 // import { css } from 'emotion';
 
-const mapStateToProps = state => {
-  return { products: state.cart };
-}
+const mapStateToProps = state => ({
+  ...state,
+})
 
-const Panier = ({ products }) => (
-  <React.Fragment>
-    <CssBaseline />
-    <Container maxWidth="lg">
-      {
-        products.length > 0 ? (
-          <FullCart products={products}/>
-        ) : (
-          <EmptyCart />
-        )
-      }
-    </Container>
-  </React.Fragment>
-);
+class Panier extends React.Component {
+  render() {
+    const { cart } = this.props;
+
+    return (
+      <React.Fragment>
+        <CssBaseline />
+        <Container maxWidth="lg">
+          {
+            cart.length > 0 ? (
+              <FullCart products={cart}/>
+            ) : (
+              <EmptyCart />
+            )
+          }
+        </Container>
+      </React.Fragment>
+    );
+  }
+}
 
 export default connect(mapStateToProps)(Panier);

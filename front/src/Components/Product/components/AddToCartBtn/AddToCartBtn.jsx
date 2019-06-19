@@ -5,29 +5,42 @@ import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { css } from 'emotion';
 import style from './style';
 import CartService from '../../../../Service/CartService';
+import { addToCart } from '../../../../Redux/Action/CartAction';
 
 const mapStateToProps = state => {
   return { products: state.cart };
 }
 
-const handleAddToCart = ({ id, name, price, image }) => {
-  CartService.addToCart({
-    id,
-    name,
-    price,
-    image,
-  });
+const mapDispatchToProps = dispatch => ({
+  addToCart: (payload) => dispatch(addToCart(payload)),
+});
+
+class AddToCartBtn extends React.Component {
+  handleAddToCart = () => {
+    const { product, addToCart } = this.props;
+    
+    addToCart(product);
+    // CartService.addToCart({
+    //   id,
+    //   name,
+    //   price,
+    //   image,
+    // });
+  }
+
+  render() {
+    return (
+      <Button 
+          variant="contained" 
+          color="primary" 
+          className={css(style.button)}
+          onClick={this.handleAddToCart}
+      >
+          <ShoppingCartIcon id="add-to-cart"/>
+      </Button>
+    );
+  }
 }
+ 
 
-const AddToCartBtn = ({ product }) => (
-    <Button 
-        variant="contained" 
-        color="primary" 
-        className={css(style.button)}
-        onClick={() => handleAddToCart(product)}
-    >
-        <ShoppingCartIcon id="add-to-cart"/>
-    </Button>
-);
-
-export default connect(mapStateToProps)(AddToCartBtn);
+export default connect(mapStateToProps, mapDispatchToProps)(AddToCartBtn);

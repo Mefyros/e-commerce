@@ -122,7 +122,7 @@ export default class CartService {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  static newCartItem(id, name, image, price, quantity = 1) {
+  static newCartItem({id, name, image, price, quantity = 1}) {
     return {
       id,
       name,
@@ -130,5 +130,9 @@ export default class CartService {
       quantity,
       price,
     }
+  }
+
+  static saveCart(cartContent) {
+    localStorage.setItem('cart', JSON.stringify(cartContent));
   }
 }
