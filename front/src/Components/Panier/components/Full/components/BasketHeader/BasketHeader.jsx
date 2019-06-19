@@ -14,8 +14,7 @@ import CartService from '../../../../../../Service/CartService';
 export default class BasketHeader extends React.Component {
 
   handleTrashClick = () => {
-    // CartService.clearCart();
-    console.log('clear cart');
+    CartService.clearCart();
   }
 
   render() {

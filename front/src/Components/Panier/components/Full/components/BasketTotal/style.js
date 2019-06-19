@@ -6,17 +6,42 @@ export default {
 
 };
 
-export const Title = styled.h1`
+export const Container = styled.div`
   width: 100%;
-  text-align: center;
+  padding: 2em 0;
+  border: 1px solid ${Color.lightGrey};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: ${Color.shadow};
+`;
+
+export const CheckoutBtn = styled.button`
   margin: 0;
-  margin-bottom: 1em;
+  margin-top: 1em;
+  border: 1px solid ${Color.orange};
+  background-color: ${Color.madForMango};
+  padding: .5em 1em;
+  transition-duration: 200ms;
+  box-shadow: ${Color.shadow};
+  user-select: none;
+
+  &:hover {
+    box-shadow: ${Color.hoverShadow};
+    background-color: ${Color.madForMangoHover};
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const Title = styled.h4`
   user-select: none;
 `;
 
-export const blockFull = css`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+export const Price = styled.h6`
+  margin: 1em 0;
+  user-select: none;
 `;
-

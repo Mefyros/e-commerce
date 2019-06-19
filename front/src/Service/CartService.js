@@ -94,7 +94,7 @@ export default class CartService {
     const newCart = [];
     
     for (let i = 0; i < cart.length; ++i) {
-      if (i !== itemId) {
+      if (cart[i].id !== parseInt(itemId)) {
         newCart.push({...cart[i]});
       }
     }
