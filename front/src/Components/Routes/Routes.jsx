@@ -1,13 +1,13 @@
 import React from 'react';
 import { Switch ,Route } from "react-router-dom";
 
-import Home from './Home/Home';
-import Product from './Product/Product';
-import Panel from './Panel/Panel';
-import ProductForm from './Form/ProductForm/ProductForm';
-import Menuccsc from './Menuccsc/Menu';
-import Cart from './Panier/Panier';
-import SearchResult from './SearchResult/SearchResult'
+import Home from '../Home/Home';
+import Product from '../Product/Product';
+import Panel from '../Panel/Panel';
+import ProductForm from '../Form/ProductForm/ProductForm';
+import Menuccsc from '../Menuccsc/Menu';
+import Cart from '../Panier/Panier';
+import SearchResult from '../SearchResult/SearchResult'
 
 export default () => (
   <Switch>
@@ -31,6 +31,9 @@ export default () => (
       <Route exact path="/search" component={Home} />
       <Route exact path="/search/:keyword" component={SearchResult} />
       <Route exact path="/search/categorie/:categorie/:keyword" component={SearchResult} />
+
+      <Route exact path="/checkout" component={Home} />
+      <Route exact path="/payment" component={Home} />
 
   </Switch>
 );

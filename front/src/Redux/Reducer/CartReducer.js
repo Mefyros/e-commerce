@@ -12,10 +12,8 @@ export default (state = initialState, action) => {
       return addToCart(JSON.parse(JSON.stringify(state)), action.payload)
 
     default:
-      break;
+      return state;
   }
-
-  return state;
 };
 
 const addToCart = (state, payload) => {
