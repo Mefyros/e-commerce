@@ -15,16 +15,9 @@ import { css } from 'emotion';
 import CartService from '../../../../../../Service/CartService';
 
 
-export default class BasketItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...props.product,
-    }
-  }
-
+export default class CartItem extends React.Component {
   handleTrashClick = e => {
-    CartService.deleteCartItem(e.target.id);
+    // CartService.deleteCartItem(e.target.id);
   }
 
   handleChangeQuantity = e => {
@@ -33,7 +26,7 @@ export default class BasketItem extends React.Component {
   }
 
   render() {
-    const { id, name, price, image, quantity } = this.state;
+    const { id, name, price, image, quantity } = this.props.cartItem;
     const { index } = this.props;
 
     const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
