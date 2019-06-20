@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use App\Http\Controllers\Controller;
 use App\Product;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductsController extends Controller
 {
@@ -22,16 +24,20 @@ class ProductsController extends Controller
         if($validator === true){
             $file = $this->getPhotos($request->photos);
             $file;
+            $temp = [];
+            foreach($request->specifications as $key => $value){
+                $temp[] = ['name' => $key, 'specification' => $value];
+            }
             $inserted =
             Product::create([
                 'name' => $request->name,
-                'specs' => json_encode($request->specifications),
+                'specs' => json_encode($temp),
                 'description' => $request->description,
                 'price' => intval($request->price),
                 'photos' => json_encode($file),
                 'sub_categorie_id' => $request->sub_categorie_id
             ]);
-            return response()->json(['response' => 'inserted']);
+            return response()->json(['response' => 'inserted', 'product' => $inserted]);
         } else {
             return $validator;
         }
@@ -70,6 +76,22 @@ class ProductsController extends Controller
             }
         }
     }
+    public function updateProductPhotos($product, $photos){
+        $productPhotos = json_decode($product->photos);
+        $temp = [];
+        foreach($photos as $key2 => $photo){
+            foreach($productPhotos as $key => $productPhoto){
+                $productPhoto = explode('/', $productPhoto);
+                $photo = explode('/', $photo);
+                if (end($photos) === end($productPhoto)){
+                    unset($productPhotos[$key]);
+                    $temp[] = $productPhotos[$key];
+                }
+            }
+        }
+        Storage::delete($temp);
+        return $productPhotos;
+    }
     public function delete($id){
         $product = Product::find($id);
         if($product){
@@ -82,9 +104,10 @@ class ProductsController extends Controller
     public function update(Request $request, $id){
         $product = Product::find($id);
         if($product){
-            if($product->photos !== $request->photos){
-
+            if(!is_empty($request->delete)){
+                $files = $this->updateProductPhotos();
             }
+            return $files;
             $product->name = $request->name;
             $product->specs = json_encode($request->specifications);
             $product->description = $request->description;
@@ -102,13 +125,21 @@ class ProductsController extends Controller
         )
         ->orderBy('visit', 'DESC')
         ->get()
-        ->take(4);
+        ->take(5);
         return $products;
     }
     public function visit($id){
         $product = Product::find($id);
         if($product){
             $product->visit = $product->visit + 1;
+            $product->save();
+            return $product;
+        }
+    }
+    public function setQuantity(Request $request, $id){
+        $product = Product::find($id);
+        if($request->quantity){
+            $product->quantity = intval($request->quantity);
             $product->save();
             return $product;
         }
