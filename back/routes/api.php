@@ -27,12 +27,22 @@ Route::get('/products', function (){
 Route::get('/product/{id}', function ($id){
     $product = Product::find($id);
     if($product){
-        return ['data' => $product];
+
+        $temp = $product;
+        $temp['parent'] = $product->subCategorie;
+        $temp['parent']['parent'] = $product->subCategorie->categorie;
+        $temp['parent']['parent']['parent'] = $product->subCategorie->categorie->classe;
+        unset($temp['subCategorie']['categorie']['classe']);
+        unset($temp['subCategorie']['categorie']);
+        unset($temp['subCategorie']);
+        $temp->specs = json_decode($temp->specs);
+        return ['data' => $temp];
     } else {
         return ['error' => 'not found'];
     }
 });
 Route::post('/product', 'Products\ProductsController@productCreate');
+Route::post('/product/{id}/quantity', 'Products\ProductsController@setQuantity');
 Route::get('/products/popular', 'Products\ProductsController@mostViewedProduct');
 Route::delete('/product/{id}', 'Products\ProductsController@delete');
 Route::put('/product/{id}', 'Products\ProductsController@update');
@@ -41,6 +51,7 @@ Route::get('/product/{id}/visit', 'Products\ProductsController@visit');
 Route::get('/classes', 'ClasseController@index');
 Route::post('/classe', 'ClasseController@create');
 Route::delete('/classe/{id}', 'ClasseController@delete');
+Route::get('/classe/{id}', 'ClasseController@getCategorie');
 
 Route::post('/categorie', 'CategorieController@create');
 Route::get('/categories', 'CategorieController@index');
@@ -60,6 +71,7 @@ Route::post('/link/{categorie}/{spec}', 'CategorieSpecController@link');
 
 Route::get('/search/categorie/{categorie}/{keyword}', 'SearchController@byCategorie');
 Route::get('/search/{keyword}', 'SearchController@byKeyword');
+Route::get('/search/descript/{keyword}', 'SearchController@inDescript');
 Route::post('/search/specs', 'SearchController@filter');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
@@ -69,6 +81,8 @@ Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
-Route::post('details', 'API\UserController@details');
-
+    Route::post('details', 'UserController@details');
+    // Route::get('/user/cart', 'UserCartController@getCart');
+    // Route::post('/user/cart', 'UserCartController@addProduct');
+    Route::get('/user/isadmin', 'UserController@isAdmin');
 });
