@@ -8,12 +8,17 @@ import InputLabel from "@material-ui/core/InputLabel";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
 
 
 //Services
-import CategoryService from '../../../Service/CategoryService.js';
+import CategoryService from '../../../Service/CategoryService.js'
 import SubCatService from '../../../Service/SubCatService.js'
 import SpecService from '../../../Service/SpecService.js'
+import ProductService from '../../../Service/ProductService.js'
 
 import axios from 'axios';
 
@@ -57,9 +62,9 @@ export default class ProductForm extends React.Component {
           showdata : this.displayData,
           postVal : "",
           nbr_spec: 0,
+          image: [],
         }
         this.handleInputChange = this.handleInputChange.bind(this);
-        this.appendDisplaySpec = this.appendDisplaySpec.bind(this);
         this.sendData = this.sendData.bind(this);
         this.checkError = this.checkError.bind(this);
         this.submit = this.submit.bind(this);
@@ -92,7 +97,6 @@ export default class ProductForm extends React.Component {
       var error = this.state.error;
       error.specifications = false;
       this.setState({error: error})
-      console.log(this.state.specification);
   }
 
     async HandleCategorieChange(event) {
@@ -133,35 +137,7 @@ export default class ProductForm extends React.Component {
         this.appendDisplaySpec2();
       }
 
-    appendDisplaySpec() {
-            this.display_spec = [];
-            var i = 0;
-            this.state.specification.map((item) => {
-            var index = i;
-            this.display_spec.push(<Grid container direction="row" justify="space-evenly" alignItems="baseline">
-            <InputLabel>Type</InputLabel>
-                    <Select fullWidth input={<OutlinedInput/>}  style={{height: 30, width: 100}} value={item.name} name={"select-"+i} onChange={this.HandleSpecChange.bind(this)}>>
-                      {
-                        this.state.specification_list.map((specs, key) => <MenuItem key={key} value={specs.name}>{specs.name}</MenuItem>)
-                      }
-                      </Select>
-            <TextField variant="outlined"  label="Specification" margin="normal" name={"spec-"+i} value={item.value} onChange={this.HandleSpecChange.bind(this)}/>
-            <Button onClick={() => this.deleteSpec(index)} textSecondary style={{color:'red'}} variant="outlined" color="secondary">
-                Delete
-            </Button>
-            </Grid>);
-            console.log(i);
-            i++;
-          });
-                console.log(this.state.specification);
-            this.setState({
-               showdata : this.display_spec,
-               postVal : ""
-            });
-         }
-
-         appendDisplaySpec2 () {
-           console.log('appendDisplaySpec2:', this.state.specification);
+    appendDisplaySpec2 () {
                  return (
                  this.state.specification.map((item, i) =>
                  <Grid container direction="row" justify="space-evenly" alignItems="baseline">
@@ -276,16 +252,45 @@ export default class ProductForm extends React.Component {
       await this.checkError(true);
 }
 
+    async addForEdit(){
+      var id_product = this.props.match.params.id;
+      var product = await ProductService.getById(id_product);
+      await this.setState({
+        name: product.name,
+        description: product.description,
+        id_categorie: product.parent.categorie_id,
+        id_sub_categorie: product.sub_categorie_id,
+        price: product.price,
+        image: JSON.parse(product.photos),
+      });
+      for (var i = 0; i < this.state.categorie_list.length; i++) {
+        if (this.state.categorie_list[i].id === product.parent.categorie_id) {
+          await this.setState({sub_categorie_list: this.state.categorie_list[i].children});
+          break;
+        }
+      }
+      await this.setState({id_sub_categorie: product.sub_categorie_id});
+      var specs = await SpecService.getByIdCategori(this.state.id_sub_categorie);
+      await this.setState({specification_list: specs});
+
+
+      const specification_object = this.state.specification;
+      for (var i = 0; i < product.specs.length; i++) {
+        specification_object.push(product.specs[i]);
+      }
+      this.setState({ nbr_spec: this.state.nbr_spec + 1, specification: specification_object });
+    }
+
     async componentDidMount() {
       var res = await CategoryService.getAll();
       await this.setState({categorie_list : res});
+      if (this.props.match.params.id) {
+        this.addForEdit();
+      }
     }
 
-
-    //To finish soon
     async deleteSpec(index){
         var spec_temp = [];
-        console.log(index);
         //await this.setState({nbr_spec: this.state.nbr_spec - 1});
         var spec = this.state.specification;
         for (var i = 0; i < spec.length; i++) {
@@ -294,7 +299,19 @@ export default class ProductForm extends React.Component {
           }
         }
         await this.setState({specification: spec_temp});
-        console.log('Delete: ', this.state.specification);
+    }
+
+    imageCard(){
+      return(
+        <Grid styles={{backgroundColor: "#2c3e50"}} container direction="row" justify="space-evenly" alignItems="baseline">
+        {
+          this.state.image.map((item) =>
+          <Card style={{width: 250, height: 250, margin:30}}>
+          <CardMedia style={{width: '100%', height: '100%'}} image={item} title="photo"/>
+          </Card>)
+        }
+        </Grid>
+      );
     }
 
     render() {
@@ -307,7 +324,7 @@ export default class ProductForm extends React.Component {
         if (this.state.sub_categorie_list.length <= 0) {
           var categories_container = <Grid container direction="row" justify="space-evenly" alignItems="baseline">
           <InputLabel ref={'categorie'} htmlFor="categorie">Categorie</InputLabel>
-          <Select error={this.state.error.categorie} input={<OutlinedInput/>} name='categorie_choice' onChange={this.HandleCategorieChange.bind(this)} value={this.state.id_categorie} fullWidth>
+          <Select error={this.state.error.categorie} input={<OutlinedInput/>} value={this.state.categorie_choice} name='categorie_choice' onChange={this.HandleCategorieChange.bind(this)} value={this.state.id_categorie} fullWidth>
           {
             this.state.categorie_list.map((categorie, key) => <MenuItem key={key} value={categorie.id}>{categorie.name}</MenuItem>)
           }
@@ -332,10 +349,10 @@ export default class ProductForm extends React.Component {
         return(
                 <form encType="multipart/form-data" noValidate autoComplete="off" style={{marginBottom: 30}}>
                     <Container maxWidth="sm">
-                        <TextField error={this.state.error.name} helperText='Required' fullWidth label="Nom de l'annonce" margin="normal" name='name' onChange={this.handleInputChange}/>
+                        <TextField error={this.state.error.name} helperText='Required' fullWidth label="Nom de l'annonce" margin="normal" value={this.state.name} name='name' onChange={this.handleInputChange}/>
                     </Container>
                         <Container maxWidth="sm">
-                            <TextField error={this.state.error.description} helperText='Required' fullWidth multiline={true} rows={10} label="Description" name='description' margin="normal" variant="outlined" onChange={this.handleInputChange}
+                            <TextField error={this.state.error.description} helperText='Required' fullWidth multiline={true} rows={10} label="Description" value={this.state.description} name='description' margin="normal" variant="outlined" onChange={this.handleInputChange}
                         />
                     </Container>
                     <Container maxWidth="sm">
@@ -343,7 +360,7 @@ export default class ProductForm extends React.Component {
                     </Container>
                     <Container maxWidth="sm">
                         <Grid container direction="row" justify="space-evenly" alignItems="baseline">
-                            <TextField error={this.state.error.price} helperText='Required' label="Prix" name='price' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
+                            <TextField error={this.state.error.price} helperText='Required' label="Prix" value={this.state.price} name='price' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
                             <Button variant="outlined" color="primary" onClick={this.addSpec}>
                                 Specifications +
                             </Button>
@@ -362,6 +379,11 @@ export default class ProductForm extends React.Component {
                         </label>
                         </Grid>
                     </Container>
+                    <div style={{backgroundColor: '#2c3e50'}}>
+                    <Container style={{backgroundColor: '#2c3e50'}} fluid>
+                    {this.imageCard()}
+                    </Container>
+                    </div>
                     <Container maxWidth="sm">
                         <Grid container direction="row" justify="space-evenly" alignItems="baseline">
                             {spec_error}
