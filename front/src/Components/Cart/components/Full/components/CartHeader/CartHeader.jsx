@@ -1,5 +1,5 @@
 import React from 'react';
-import style, { 
+import { 
     Container,
     NameTitle,
     PriceTitle,
@@ -7,7 +7,6 @@ import style, {
     QuantityTitle,
     ActionTitle,
 } from "./style";
-import { css } from 'emotion';
 // import CartService from '../../../../../../Service/CartService';
 
 

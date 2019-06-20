@@ -10,9 +10,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import Grid from '@material-ui/core/Grid';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { css } from 'emotion';
-import style from './style';
+import { Link } from "react-router-dom";
 import CartService from '../../Service/CartService.js';
 
 export default class Snipcart extends React.Component {
@@ -35,8 +33,8 @@ export default class Snipcart extends React.Component {
               </ListItem>
               <Divider/>
              {
-                this.state.wish_list.map((item) =>
-                <ListItem style={{marginRight: 30}} button>
+                this.state.wish_list.map((item, key) =>
+                <ListItem key={key} style={{marginRight: 30}} button>
                     <ListItemAvatar>
                         <Avatar>
                             <ImageIcon />
@@ -57,7 +55,7 @@ export default class Snipcart extends React.Component {
              <Divider/>
              <Container fixed>
              <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
-                 <Button component={Link} color="inherit" to="/cart">Modifier mon panier</Button>
+                 <Button component={Link} color="inherit" to="/">Modifier mon panier</Button>
                  <Button>checkout</Button>
              </Grid>
              </Container>

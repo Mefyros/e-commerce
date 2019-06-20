@@ -2,7 +2,7 @@ import React from 'react';
 import DeleteButton from '../button/DeleteButton';
 import EditButton from '../button/EditButton';
 import StockButton from '../button/StockButton';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Container, ButtonContainer, Title } from './style';
 
 export default class Crad extends React.Component {

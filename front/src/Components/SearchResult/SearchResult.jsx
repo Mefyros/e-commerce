@@ -3,8 +3,6 @@ import CustomCard from '../Home/components/Card/Card'
 import Container from '@material-ui/core/Container';
 import SearchService from '../../Service/SearchService'
 import Grid from '@material-ui/core/Grid';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { css } from 'emotion';
 
 export default class SearchResult extends Component{
     constructor(props){

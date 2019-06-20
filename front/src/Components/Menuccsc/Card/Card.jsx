@@ -1,7 +1,6 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import style, { CardContainer, CardContent, Image, CardText } from './style';
-import { css } from 'emotion';
+import { Link } from "react-router-dom";
+import { CardContainer, CardContent, Image, CardText } from './style';
 
 export default class CustomCard extends React.Component {
   constructor(props) {

@@ -1,6 +1,5 @@
 import React from 'react';
-import { css } from 'emotion';
-import style, { 
+import { 
   Container,
   BasketContent,
 } from "./style";
@@ -21,7 +20,7 @@ class CartMenu extends React.Component {
         <BasketHeader />
         <BasketContent>
           {
-            cart.map((item, key) => <BasketItem key={key} cartItem={item} index={key}/>)
+            cart.map((item, key) => <BasketItem key={key} id={item.id} number={key}/>)
           }
         </BasketContent>
       </Container>

@@ -3,10 +3,7 @@ import BasketMenu from './components/CartMenu';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import BasketTotal from './components/CartTotal/CartTotal';
-import { css } from 'emotion';
-import style, { 
-  Title,
-} from "./style";
+import { Title } from "./style";
 
 export default class FullCard extends React.Component {
   render() {
