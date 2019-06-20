@@ -28,8 +28,7 @@ export default class Navbar extends React.Component {
   
   async componentDidMount(){
     var categories = await CategoryService.getAll();
-    this.setState({ categorie_list: categories });
-    // console.log(this.state.categorie_list);
+    this.setState({ categorie_list: Array.isArray(categories) ? categories : [] });
   }
 
   async handleChangeSelect(event){

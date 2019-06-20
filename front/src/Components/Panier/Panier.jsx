@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 // import { css } from 'emotion';
 
 const mapStateToProps = state => ({
-  ...state,
-})
+  cart: state.cart,
+});
 
 // const mapDispatchToProps = dispatch => ({
 //   addToCart: (payload) => dispatch(addToCart(payload)),

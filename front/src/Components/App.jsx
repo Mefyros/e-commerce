@@ -4,7 +4,7 @@ import { css } from 'emotion';
 import style, { Space } from './style';
 
 import './index.css';
-import Router from './Router';
+import Routes from './Routes/Routes';
 import Navbar from './Navbar/Navbar';
 
 
@@ -15,7 +15,7 @@ export default class App extends React.Component {
       <div>
         <Navbar />
         <Space />
-        <Router />
+        <Routes />
       </div>
     );
   }
