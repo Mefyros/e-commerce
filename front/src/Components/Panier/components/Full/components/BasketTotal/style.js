@@ -45,3 +45,7 @@ export const Price = styled.h6`
   margin: 1em 0;
   user-select: none;
 `;
+
+export const Quantity = styled.p`
+
+`;
