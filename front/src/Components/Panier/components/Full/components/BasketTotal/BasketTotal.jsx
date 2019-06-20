@@ -31,7 +31,7 @@ class FullCard extends React.Component {
     for (let i = 0; i < cart.length; ++i) {
       const { price, quantity } = cart[i];
       totalPrice += price * quantity;
-      ++totalProduct;
+      totalProduct += quantity;
     }
 
     this.setState({ totalPrice, totalProduct });
