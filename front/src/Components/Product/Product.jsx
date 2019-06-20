@@ -24,8 +24,6 @@ export default class Product extends React.Component {
     const categorie = product.parent.parent;
     const subCategorie = product.parent;
 
-    console.log(product)
-
     this.setState({ 
       ...product,
       photos: JSON.parse(product.photos),
