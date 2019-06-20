@@ -1,15 +1,14 @@
 import CartService from '../../Service/CartService';
 
-const cart = CartService.getCartContent();
+let cart = CartService.getCartContent();
+cart = cart === null ? [] : cart;
 
-const initialState = {
-  cart: cart.length > 0 && Array.isArray(cart) ? cart : [],
-};
+const initialState = cart.length > 0 && Array.isArray(cart) ? cart : [];
 
 export default (state = initialState, action) => {
 
   switch (action.type) {
-    case "ADD_TO_CART":
+    case "ADD":
       return addToCart(JSON.parse(JSON.stringify(state)), action.payload)
 
     default:
@@ -20,8 +19,7 @@ export default (state = initialState, action) => {
 };
 
 const addToCart = (state, payload) => {
-  const { cart } = state;
-  let newCart = {};
+  let newCart = [];
   let productInCart = null;
 
   for (let i = 0; i < cart.length; ++i) {
@@ -30,16 +28,13 @@ const addToCart = (state, payload) => {
     };
   }
 
-  console.log(state)
   if (productInCart !== null) {
-    Object.assign(newCart, state);
-    newCart.cart[productInCart].quantity++;
+    newCart = [ ...state ];
+    newCart[productInCart].quantity++;
+  } else {
+    newCart = [ ...state, CartService.newCartItem(payload)];
   }
-  else {
-    Object.assign(newCart, state);
-    newCart.cart.push(CartService.newCartItem(payload));
-  }
-  console.log(newCart);
-  // CartService.saveCart(state.cart);
+
+  CartService.saveCart(newCart);
   return newCart;
 };
