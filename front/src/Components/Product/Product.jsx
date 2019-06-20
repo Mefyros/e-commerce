@@ -18,7 +18,7 @@ export default class Product extends React.Component {
     };
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     const product = await ProductsService.getById(this.props.match.params.id);
     const classe = product.parent.parent.parent;
     const categorie = product.parent.parent;
@@ -27,7 +27,6 @@ export default class Product extends React.Component {
     this.setState({ 
       ...product,
       photos: JSON.parse(product.photos),
-      specs: JSON.parse(product.specs),
       classe: {
         id: classe.id,
         name: classe.name,
