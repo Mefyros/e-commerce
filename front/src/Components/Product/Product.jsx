@@ -1,13 +1,10 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
-import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { css } from 'emotion';
 import style from './style';
 import ProductsService from '../../Service/ProductService';
-import CartService from '../../Service/CartService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import AddToCartBtn from './components/AddToCartBtn/AddToCartBtn';
 
@@ -46,7 +43,7 @@ export default class Product extends React.Component {
   }
 
   render() {
-    const { id, name, photos, price, quantity, specs, description, categorie, classe, subCategorie } = this.state;
+    const { id, name, photos, price, quantity, description, categorie, classe, subCategorie } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
 
     return(

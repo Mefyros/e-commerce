@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import Card from './components/Card/Card';
 import CarouselPage from './components/Carousel/Banner';
 import CssBaseline from '@material-ui/core/CssBaseline';

@@ -4,7 +4,6 @@ import Button from '@material-ui/core/Button';
 import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { css } from 'emotion';
 import style from './style';
-import CartService from '../../../../Service/CartService';
 import { addToCart } from '../../../../Redux/Action/CartAction';
 
 const mapStateToProps = state => {

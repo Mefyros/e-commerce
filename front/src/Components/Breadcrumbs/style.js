@@ -1,6 +1,6 @@
-import styled from '@emotion/styled';
+// import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Color from '../Color';
+// import Color from '../Color';
 
 export default {
   root: css`

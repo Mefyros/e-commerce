@@ -1,5 +1,4 @@
 import { css } from '@emotion/core';
-import Color from '../../../Color';
 
 export const carouselInner = css `
 height: 450px !important;

@@ -6,7 +6,7 @@ import Product from '../Product/Product';
 import Panel from '../Panel/Panel';
 import ProductForm from '../Form/ProductForm/ProductForm';
 import Menuccsc from '../Menuccsc/Menu';
-import Cart from '../Panier/Panier';
+import Cart from '../Cart/Cart';
 import SearchResult from '../SearchResult/SearchResult'
 
 export default () => (

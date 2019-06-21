@@ -1,23 +1,12 @@
 import React from 'react';
-import BasketMenu from './components/BasketMenu';
+import BasketMenu from './components/CartMenu';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import BasketTotal from './components/BasketTotal/BasketTotal';
-import { css } from 'emotion';
-import style, { 
-  Title,
-} from "./style";
+import BasketTotal from './components/CartTotal/CartTotal';
+import { Title } from "./style";
 
 export default class FullCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      products: this.props.products
-    }
-  }
-
   render() {
-
     return (
       <Container maxWidth="lg">
         <Grid container spacing={2}>
@@ -25,7 +14,7 @@ export default class FullCard extends React.Component {
           <Title>My Cart</Title>
           
           <Grid item xs={12} md={8}>
-            <BasketMenu products={this.props.products}/>
+            <BasketMenu />
           </Grid>
           
           <Grid item xs={12} md={1} />

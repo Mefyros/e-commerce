@@ -23,7 +23,6 @@ export default class StockButton extends React.Component {
   }
 
   handleUpdateStockClick = () => {
-    const { id, quantity } = this.state;
     this.setState({
       open: true,
     });

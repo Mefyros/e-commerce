@@ -1,5 +1,5 @@
 import React from 'react';
-import style, { 
+import { 
     Container,
     NameTitle,
     PriceTitle,
@@ -7,14 +7,13 @@ import style, {
     QuantityTitle,
     ActionTitle,
 } from "./style";
-import { css } from 'emotion';
-import CartService from '../../../../../../Service/CartService';
+// import CartService from '../../../../../../Service/CartService';
 
 
-export default class BasketHeader extends React.Component {
+export default class CartHeader extends React.Component {
 
   handleTrashClick = () => {
-    CartService.clearCart();
+    // CartService.clearCart();
   }
 
   render() {
