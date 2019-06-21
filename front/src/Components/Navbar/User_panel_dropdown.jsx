@@ -1,11 +1,8 @@
 import React from 'react';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import Avatar from '@material-ui/core/Avatar';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
@@ -30,7 +27,7 @@ export default class User_panel_dropdown extends React.Component {
       const target = event.target;
       const value = target.type === 'checkbox' ? target.checked : target.value;
       const name = target.name;
-      if (target.type == 'file') {
+      if (target.type === 'file') {
           await this.setState({[name]: event.target.files});
       }else {
           await this.setState({[name]: value});
@@ -39,25 +36,25 @@ export default class User_panel_dropdown extends React.Component {
 
   async submit(context){
     if (context === 'login') {
-      var res = await LoginRegisterService.login({
+      const res = await LoginRegisterService.login({
         email: this.state.email,
         password: this.state.password,
       });
         await localStorage.setItem('eToken', res.data.success.token);
-        var user = await AuthService.getUser(res.data.success.token);
+        const user = await AuthService.getUser(res.data.success.token);
         console.log(user);
         console.log(res.data.success.toke);
         await this.setState({token: res.data.success.token, user: user.user});
     }
     if (context === 'register') {
-      var res = await LoginRegisterService.register({
+      const res = await LoginRegisterService.register({
         name: this.state.name,
         email: this.state.email,
         password: this.state.password,
         c_password: this.state.password_verif
       });
       await localStorage.setItem('eToken', res.data.success.token);
-      var user = await AuthService.getUser(res.data.success.token);
+      const user = await AuthService.getUser(res.data.success.token);
       await this.setState({user: user.user, token: res.data.success.token });
     }
 }

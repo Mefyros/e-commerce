@@ -33,7 +33,10 @@ export default class CategorieManager extends React.Component {
   }
 
   getClass = async () => {
-    this.setState({ classes: await ClassService.getAll() });
+    const classes = await ClassService.getAll();
+    this.setState({ 
+      classes: Array.isArray(classes) ? classes : [],
+    });
   }
 
   handleClassInputChange = e => {

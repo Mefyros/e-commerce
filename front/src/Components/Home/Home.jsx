@@ -16,7 +16,8 @@ export default class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    this.setState({ products: await ProductService.getByPopularity() });
+    const products = await ProductService.getByPopularity();
+    this.setState({ products: Array.isArray(products) ? products : [] });
   };
 
   render() {
