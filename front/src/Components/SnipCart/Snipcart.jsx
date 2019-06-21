@@ -55,7 +55,7 @@ export default class Snipcart extends React.Component {
              <Divider/>
              <Container fixed>
              <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
-                 <Button component={Link} color="inherit" to="/">Modifier mon panier</Button>
+                 <Button component={Link} color="inherit" to="/cart">Modifier mon panier</Button>
                  <Button>checkout</Button>
              </Grid>
              </Container>

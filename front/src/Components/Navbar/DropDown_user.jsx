@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
-import User_panel_dropdown from './User_panel_dropdown';
+import UserPanelDropdown from './User_panel_dropdown';
 
 import Icon from '@material-ui/core/Icon';
 
@@ -21,10 +21,10 @@ export default function SimpleMenu() {
   }
 
   async function getUser(){
-    var user = await AuthService.getUser(localStorage.getItem('eToken')
-  ).then(function(res){
-    return res.user;
-  });
+    await AuthService.getUser(localStorage.getItem('eToken'))
+    .then(function(res){
+      return res.user;
+    });
   }
 
 
@@ -50,7 +50,7 @@ export default function SimpleMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <User_panel_dropdown user={getUser()}/>
+        <UserPanelDropdown user={getUser()}/>
       </Menu>
     </div>
   );

@@ -17,29 +17,32 @@ export default class Product extends React.Component {
 
   componentDidMount = async () => {
     const product = await ProductsService.getById(this.props.match.params.id);
-    const classe = product.parent.parent.parent;
-    const categorie = product.parent.parent;
-    const subCategorie = product.parent;
 
-    this.setState({ 
-      ...product,
-      photos: JSON.parse(product.photos),
-      classe: {
-        id: classe.id,
-        name: classe.name,
-        url: `/c/${classe.id}`
-      },
-      categorie: {
-        id: categorie.id,
-        name: categorie.name,
-        url: `/c/${classe.id}/${categorie.id}`
-      },
-      subCategorie: {
-        id: subCategorie.id,
-        name: subCategorie.name,
-        url: `/c/${classe.id}/${categorie.id}/${subCategorie.id}`
-      }
-    });
+    if (Array.isArray(product)) {
+      const classe = product.parent.parent.parent;
+      const categorie = product.parent.parent;
+      const subCategorie = product.parent;
+
+      this.setState({ 
+        ...product,
+        photos: JSON.parse(product.photos),
+        classe: {
+          id: classe.id,
+          name: classe.name,
+          url: `/c/${classe.id}`
+        },
+        categorie: {
+          id: categorie.id,
+          name: categorie.name,
+          url: `/c/${classe.id}/${categorie.id}`
+        },
+        subCategorie: {
+          id: subCategorie.id,
+          name: subCategorie.name,
+          url: `/c/${classe.id}/${categorie.id}/${subCategorie.id}`
+        }
+      });
+    }
   }
 
   render() {
