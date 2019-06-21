@@ -9,6 +9,7 @@ import style from './style';
 import ProductsService from '../../Service/ProductService';
 import CartService from '../../Service/CartService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
+import AddToCartBtn from './components/AddToCartBtn/AddToCartBtn';
 
 export default class Product extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ export default class Product extends React.Component {
     };
   }
 
-  componentWillMount = async () => {
+  componentDidMount = async () => {
     const product = await ProductsService.getById(this.props.match.params.id);
     const classe = product.parent.parent.parent;
     const categorie = product.parent.parent;
@@ -26,7 +27,6 @@ export default class Product extends React.Component {
     this.setState({ 
       ...product,
       photos: JSON.parse(product.photos),
-      specs: JSON.parse(product.specs),
       classe: {
         id: classe.id,
         name: classe.name,
@@ -42,16 +42,6 @@ export default class Product extends React.Component {
         name: subCategorie.name,
         url: `/c/${classe.id}/${categorie.id}/${subCategorie.id}`
       }
-    });
-  }
-
-  handleAddToCart = () => {
-    const { id, name, price, photos } = this.state;
-    CartService.addToCart({
-      id,
-      name,
-      price,
-      image: photos[0],
     });
   }
 
@@ -80,14 +70,7 @@ export default class Product extends React.Component {
                 <h6 className={css(style.price)}>{price}€</h6>
                 {
                   quantity > 0 ? (
-                    <Button 
-                      variant="contained" 
-                      color="primary" 
-                      className={css(style.button)}
-                      onClick={this.handleAddToCart}
-                    >
-                      <ShoppingCartIcon id="add-to-cart"/>
-                    </Button>
+                    <AddToCartBtn product={{id, name, price, image: photos[0]}}/>
                   ) : ( null )
                 }
                 

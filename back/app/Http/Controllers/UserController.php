@@ -45,10 +45,11 @@ class UserController extends Controller
             return response()->json(['error' => $validator->errors()], 401);
         }
         $input = $request->all();
+        unset($input['c_password']);
+        $input['roles'] = json_encode(['ROLE_USER']);
         $input['password'] = bcrypt($input['password']);
-        $user = User::create($input);
+        $user = User::firstOrCreate($input);
         $success['token'] =  $user->createToken('MyApp')->accessToken;
-        $success['name'] =  $user->name;
         return response()->json(['success' => $success], $this->successStatus);
     }
     /** 
@@ -60,5 +61,9 @@ class UserController extends Controller
     {
         $user = Auth::user();
         return response()->json(['success' => $user], $this->successStatus);
+    }
+    public function isAdmin(){
+        $role = Auth::user()->roles;
+        return json_decode($role);
     }
 }

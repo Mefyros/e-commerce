@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://6480faac.ngrok.io/",
+  "proxy": "https://05a2c8c4.ngrok.io",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.12",
@@ -13,6 +13,7 @@
     "mdbreact": "^4.16.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1"
   },
@@ -39,6 +40,7 @@
   },
   "devDependencies": {
     "@babel/preset-react": "^7.0.0",
-    "@emotion/babel-preset-css-prop": "^10.0.9"
+    "@emotion/babel-preset-css-prop": "^10.0.9",
+    "redux": "^4.0.1"
   }
 }

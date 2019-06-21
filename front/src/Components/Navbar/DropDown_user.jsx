@@ -7,6 +7,9 @@ import User_panel_dropdown from './User_panel_dropdown';
 
 import Icon from '@material-ui/core/Icon';
 
+import AuthService from '../../Service/AuthService.js';
+import LoginRegisterService from '../../Service/LoginRegisterService.js';
+
 export default function SimpleMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -17,6 +20,15 @@ export default function SimpleMenu() {
   function handleClose() {
     setAnchorEl(null);
   }
+
+  async function getUser(){
+    var user = await AuthService.getUser(localStorage.getItem('eToken')
+  ).then(function(res){
+    return res.user;
+  });
+  }
+
+
 
   return (
     <div style={{marginRight: 20}}>
@@ -39,7 +51,7 @@ export default function SimpleMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <User_panel_dropdown/>
+        <User_panel_dropdown user={getUser()}/>
       </Menu>
     </div>
   );

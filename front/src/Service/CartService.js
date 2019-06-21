@@ -94,7 +94,7 @@ export default class CartService {
     const newCart = [];
     
     for (let i = 0; i < cart.length; ++i) {
-      if (i !== itemId) {
+      if (cart[i].id !== parseInt(itemId)) {
         newCart.push({...cart[i]});
       }
     }
@@ -122,7 +122,7 @@ export default class CartService {
     localStorage.setItem('cart', JSON.stringify(cart));
   }
 
-  static newCartItem(id, name, image, price, quantity = 1) {
+  static newCartItem({id, name, image, price, quantity = 1}) {
     return {
       id,
       name,
@@ -130,5 +130,9 @@ export default class CartService {
       quantity,
       price,
     }
+  }
+
+  static saveCart(cartContent) {
+    localStorage.setItem('cart', JSON.stringify(cartContent));
   }
 }

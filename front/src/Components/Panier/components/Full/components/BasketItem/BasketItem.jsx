@@ -24,8 +24,7 @@ export default class BasketItem extends React.Component {
   }
 
   handleTrashClick = e => {
-    // CartService.deleteCartItem(e.target.id);
-    console.log(`del cart item id: ${e.target.id}`);
+    CartService.deleteCartItem(e.target.id);
   }
 
   handleChangeQuantity = e => {

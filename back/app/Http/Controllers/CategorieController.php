@@ -22,15 +22,22 @@ class CategorieController extends Controller
         foreach ($categories as $key => $categorie){
             $temp[] = $categorie;
             $categorie->subCategorie;
-            $temp[$key]['classe'] = $categorie->classe->name;
+            $temp[$key]['children'] = $categorie->subCategorie;
+            $temp[$key]['parent'] = $categorie->classe;
+            unset($temp[$key]['classe']);
+            unset($temp[$key]['subCategorie']);
         }
         return $temp;
     }
     public function getCategorie($id){
-        $cat = SubCategorie::where([
-            'categorie_id' => $id,
-        ])->get();
-        return $cat;
+        $temp = [];
+        $temp = Categorie::find($id);
+        $temp['children'] = $temp->subCategorie;
+        unset($temp['sub_categorie']);
+        unset($temp['subCategorie']);
+        $temp['parent'] = $temp->classe;
+        unset($temp['classe']);
+        return $temp;
     }
     public function delete($id){
         $categorie = Categorie::find($id);

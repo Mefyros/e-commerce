@@ -16,7 +16,8 @@ class ClasseController extends Controller
         $temp = [];
         foreach($classes as $key => $classe){
             $temp[] = $classe;
-            $temp[$key]['categories'] = $classe->categories;
+            $temp[$key]['children'] = $classe->categories;
+            unset($temp[$key]['categories']);
         }
         return $temp;
     }
@@ -35,10 +36,10 @@ class ClasseController extends Controller
         return ['deleted' => true];
     }
     public function getCategorie($id){
-        $cat = Categorie::where([
-            'classe_id' => $id,
-        ])->get();
-        return $cat;
+        $temp = Classe::find($id);
+        $temp['children'] = $temp->categories;
+        unset($temp['categories']);
+        return $temp;
     }
     public function DeleteRelation($classe){
         foreach($classe->categories as $categorie){

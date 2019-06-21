@@ -28,7 +28,9 @@ export default class FullCard extends React.Component {
             <BasketMenu products={this.props.products}/>
           </Grid>
           
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={1} />
+
+          <Grid item xs={12} md={3}>
             <BasketTotal />
           </Grid>
 
