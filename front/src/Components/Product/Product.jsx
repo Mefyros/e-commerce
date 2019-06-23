@@ -18,7 +18,7 @@ export default class Product extends React.Component {
   componentDidMount = async () => {
     const product = await ProductsService.getById(this.props.match.params.id);
 
-    if (Array.isArray(product)) {
+    if (typeof product === 'object') {
       const classe = product.parent.parent.parent;
       const categorie = product.parent.parent;
       const subCategorie = product.parent;

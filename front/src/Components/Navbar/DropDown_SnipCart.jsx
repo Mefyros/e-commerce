@@ -18,19 +18,17 @@ export default function SimpleMenu() {
 
   return (
     <div style={{marginRight: 20}}>
-    <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-    <Grid container direction='column' justify='center'>
-    <Grid container direction='row' justify='center'>
-    <Icon>
-    shopping_cart
-    </Icon>
-    </Grid>
-    <Grid container direction='row' justify='center'>
-    <p>Panier</p>
-    </Grid>
+      <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      <Grid container direction='column' justify='center'>
+        <Grid container direction='row' justify='center'>
+          <Icon> shopping_cart </Icon>
+        </Grid>
+        <Grid container direction='row' justify='center'>
+          <p>Panier</p>
+        </Grid>
+      </Grid>
 
-    </Grid>
-    </Button>
+      </Button>
       <Menu
         id="simple-menu"
         anchorEl={anchorEl}

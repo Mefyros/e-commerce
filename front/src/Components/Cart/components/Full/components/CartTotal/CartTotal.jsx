@@ -9,7 +9,7 @@ import {
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
-  ...state,
+  cart: state.cart,
 })
 
 class CartTotal extends React.Component {

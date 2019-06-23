@@ -11,9 +11,8 @@ import {
     QuantityInput,
     Action,
 } from "./style";
-import { addToCart } from '../../../../../../Redux/Action/CartAction';
+import { updateQuantity, deleteItem } from '../../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
-// import CartService from '../../../../../../Service/CartService';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -22,21 +21,26 @@ const mapStateToProps = (state, ownProps) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  addToCart: payload => dispatch(addToCart(payload)),
+  updateQuantity: payload => dispatch(updateQuantity(payload)),
+  deleteItem: payload => dispatch(deleteItem(payload)),
 });
 
 class CartItem extends React.Component {
+
   handleTrashClick = e => {
-    // CartService.deleteCartItem(e.target.id);
+    const { cartItem, deleteItem} = this.props;
+    deleteItem(cartItem);
   }
 
   handleChangeQuantity = e => {
-    // this.setState({ quantity: parseInt(e.target.value) });
-    // CartService.setNewQuantity(this.state.id, parseInt(e.target.value));
+    const { cartItem, updateQuantity } = this.props;
+    updateQuantity({
+      old: cartItem,
+      new: { ...cartItem, quantity: parseInt(e.target.value) }
+    });
   }
 
   render() {
-    // console.log(this.props);
     const { id, name, price, quantity } = this.props.cartItem;
 
     const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
@@ -52,7 +56,7 @@ class CartItem extends React.Component {
           <Quantity>
             <QuantityInput 
               type="number" 
-              min="1" 
+              min="1"
               onChange={this.handleChangeQuantity} 
               value={quantity}
             />
