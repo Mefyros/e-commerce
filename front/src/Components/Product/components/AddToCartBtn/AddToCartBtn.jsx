@@ -16,7 +16,7 @@ const mapDispatchToProps = dispatch => ({
 
 class AddToCartBtn extends React.Component {
   handleAddToCart = () => {
-    const { product, addToCart } = this.props;    
+    const { product, addToCart } = this.props;
     addToCart(product);
   }
 

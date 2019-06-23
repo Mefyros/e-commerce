@@ -1,20 +1,20 @@
 export const addToCart = payload => {
   return {
-    type: "ADD_ITEM",
+    type: "ADD_CART_ITEM",
     payload,
   };
 };
 
 export const updateQuantity = payload => {
   return {
-    type: "UPDATE_PRODUCT_QUANTITY",
+    type: "UPDATE_CART_ITEM_QUANTITY",
     payload,
   };
 };
 
 export const deleteItem = payload => {
   return {
-    type: "DELETE_ITEM",
+    type: "DELETE_CART_ITEM",
     payload,
   }
 }

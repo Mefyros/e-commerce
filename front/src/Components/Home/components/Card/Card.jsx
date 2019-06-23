@@ -9,8 +9,18 @@ import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from "react-router-dom";
 import { cardStyle, media, addToCard, descript} from './style';
 import { css } from 'emotion';
+import { connect } from 'react-redux';
+import { addToCart } from '../../../../Redux/Action/CartAction';
 
-export default class CustomCard extends React.Component {
+const mapStateToProps = state => {
+  return { products: state.cart };
+}
+
+const mapDispatchToProps = dispatch => ({
+  addToCart: payload => dispatch(addToCart(payload)),
+});
+
+class CustomCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -29,7 +39,9 @@ export default class CustomCard extends React.Component {
   }
 
   addToCart = e => {
-    console.log(`${this.productLinkId} add to cart`);
+    const { addToCart } = this.props;
+    const { id, name, photos, price } = this.state;
+    addToCart({ id, image: photos[0], name, price });
   }
   
   render() {
@@ -63,3 +75,5 @@ export default class CustomCard extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CustomCard);

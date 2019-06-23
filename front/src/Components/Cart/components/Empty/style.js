@@ -18,8 +18,9 @@ export const Content = styled.div`
 
 export const Text = styled.h2`
   text-align: center;
+  user-select: none;
 `;
 
 export const Image = styled.img`
-
+  user-select: none;
 `; 

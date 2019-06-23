@@ -8,13 +8,13 @@ const initialState = cart.length > 0 && Array.isArray(cart) ? cart : [];
 export default (state = initialState, action) => {
 
   switch (action.type) {
-    case "ADD_ITEM":
+    case "ADD_CART_ITEM":
       return addToCart(state, action.payload)
 
-    case "UPDATE_PRODUCT_QUANTITY":
+    case "UPDATE_CART_ITEM_QUANTITY":
       return updateQuantity(state, action.payload);
 
-    case "DELETE_ITEM":
+    case "DELETE_CART_ITEM":
       const newCart = state.filter(item => item !== action.payload);
       CartService.saveCart(newCart);
       return [...newCart];

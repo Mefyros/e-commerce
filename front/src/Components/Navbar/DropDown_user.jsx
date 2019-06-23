@@ -32,16 +32,16 @@ export default function SimpleMenu() {
   return (
     <div style={{marginRight: 20}}>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+
       <Grid container direction='column' justify='center'>
-      <Grid container direction='row' justify='center'>
-      <Icon>
-      account_circle
-      </Icon>
+        <Grid container direction='row' justify='center'>
+          <Icon>account_circle</Icon>
+        </Grid>
+        <Grid container direction='row' justify='center'>
+          <p>Compte</p>
+        </Grid>
       </Grid>
-      <Grid container direction='row' justify='center'>
-      <p>Compte</p>
-      </Grid>
-      </Grid>
+      
       </Button>
       <Menu
         id="simple-menu"
