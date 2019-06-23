@@ -34,14 +34,14 @@ class Snipcart extends React.Component {
       <div>
       <Container style={{marginTop: 20}} fixed>
         <Grid container direction='row' justify='center'>
-        <h4>SnipCart</h4>
+        <h4>My Cart</h4>
         </Grid>
       </Container>
       <Container fixed>
         {
           cartItems.length <= 0 
           ? ( <List>
-            <h5>Votre panier est vide</h5>
+            <h5>Your cart is empty</h5>
           </List> 
           ) 
           : (

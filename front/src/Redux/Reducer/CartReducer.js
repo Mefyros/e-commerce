@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
 
   switch (action.type) {
     case "ADD_ITEM":
-      return addToCart(JSON.parse(JSON.stringify(state)), action.payload)
+      return addToCart(state, action.payload)
 
     case "UPDATE_PRODUCT_QUANTITY":
       return updateQuantity(state, action.payload);
@@ -32,19 +32,27 @@ const addToCart = (state, payload) => {
   let newCart = [];
   let productInCart = null;
 
+  // console.log(payload)
+
   for (let i = 0; i < cart.length; ++i) {
     if (cart[i].id === payload.id) {
       productInCart = i;
     };
   }
 
+  // console.log(state);
+  // console.log(productInCart);
+
   if (productInCart !== null) {
+    // console.log('in cart')
     newCart = [ ...state ];
     newCart[productInCart].quantity++;
   } else {
+    // console.log('not in cart')
     newCart = [ ...state, CartService.newCartItem(payload)];
   }
 
+  // console.log(newCart);
   CartService.saveCart(newCart);
   return newCart;
 };
