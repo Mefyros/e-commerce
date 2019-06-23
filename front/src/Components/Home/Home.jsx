@@ -1,5 +1,4 @@
 import React from 'react';
-import Axios from 'axios';
 import Card from './components/Card/Card';
 import CarouselPage from './components/Carousel/Banner';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -17,7 +16,8 @@ export default class Home extends React.Component {
   }
 
   componentDidMount = async () => {
-    this.setState({ products: await ProductService.getByPopularity() });
+    const products = await ProductService.getByPopularity();
+    this.setState({ products: Array.isArray(products) ? products : [] });
   };
 
   render() {

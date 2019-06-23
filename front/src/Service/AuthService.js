@@ -11,7 +11,7 @@ export default class Auth {
                     'Authorization': localStorage.eToken,
                 }
             }).then(res => {
-                if(res.data[0] == 'ROLE_ADMIN'){
+                if(res.data[0] === 'ROLE_ADMIN'){
                     return true
                 } else {
                     return false

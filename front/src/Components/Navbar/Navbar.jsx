@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -11,7 +11,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import DropDownUser from './DropDown_user';
 import DropDownSnipCart from './DropDown_SnipCart';
 import CategoryService from '../../Service/CategoryService.js';
-import SearchService from '../../Service/SearchService'
+// import SearchService from '../../Service/SearchService'
 export default class Navbar extends React.Component {
   constructor(props){
     super(props);

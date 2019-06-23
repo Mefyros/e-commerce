@@ -1,5 +1,5 @@
 import React from 'react';
-import style, { 
+import { 
     Container,
     NameTitle,
     PriceTitle,
@@ -7,14 +7,23 @@ import style, {
     QuantityTitle,
     ActionTitle,
 } from "./style";
-import { css } from 'emotion';
-import CartService from '../../../../../../Service/CartService';
+import { clearCart } from '../../../../../../Redux/Action/CartAction';
+import { connect } from 'react-redux';
 
+const mapStateToProps = (state, ownProps) => {
+  return {
+    cartItem: state.cart.find(item => item.id === ownProps.id),
+  }
+}
 
-export default class BasketHeader extends React.Component {
+const mapDispatchToProps = dispatch => ({
+  clearCart: payload => dispatch(clearCart(payload)),
+});
+
+class CartHeader extends React.Component {
 
   handleTrashClick = () => {
-    CartService.clearCart();
+    this.props.clearCart([]);
   }
 
   render() {
@@ -31,3 +40,5 @@ export default class BasketHeader extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartHeader);

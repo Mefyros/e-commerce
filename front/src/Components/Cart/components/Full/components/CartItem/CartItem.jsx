@@ -1,5 +1,5 @@
 import React from 'react';
-import style, { 
+import { 
     ContainerFirst,
     ContainerSeconde,
     TitleContainer,
@@ -11,35 +11,42 @@ import style, {
     QuantityInput,
     Action,
 } from "./style";
-import { css } from 'emotion';
-import CartService from '../../../../../../Service/CartService';
+import { updateQuantity, deleteItem } from '../../../../../../Redux/Action/CartAction';
+import { connect } from 'react-redux';
 
-
-export default class BasketItem extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ...props.product,
-    }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    cartItem: state.cart.find(item => item.id === ownProps.id),
   }
+}
+
+const mapDispatchToProps = dispatch => ({
+  updateQuantity: payload => dispatch(updateQuantity(payload)),
+  deleteItem: payload => dispatch(deleteItem(payload)),
+});
+
+class CartItem extends React.Component {
 
   handleTrashClick = e => {
-    CartService.deleteCartItem(e.target.id);
+    const { cartItem, deleteItem} = this.props;
+    deleteItem(cartItem);
   }
 
   handleChangeQuantity = e => {
-    this.setState({ quantity: parseInt(e.target.value) });
-    CartService.setNewQuantity(this.state.id, parseInt(e.target.value));
+    const { cartItem, updateQuantity } = this.props;
+    updateQuantity({
+      old: cartItem,
+      new: { ...cartItem, quantity: parseInt(e.target.value) }
+    });
   }
 
   render() {
-    const { id, name, price, image, quantity } = this.state;
-    const { index } = this.props;
+    const { id, name, price, quantity } = this.props.cartItem;
 
     const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
-      index === 0 ? (
+      this.props.number === 0 ? (
         <ContainerFirst>
           <TitleContainer>
             <TitleImg src={fakePic} alt={name}/>
@@ -49,7 +56,7 @@ export default class BasketItem extends React.Component {
           <Quantity>
             <QuantityInput 
               type="number" 
-              min="1" 
+              min="1"
               onChange={this.handleChangeQuantity} 
               value={quantity}
             />
@@ -79,3 +86,5 @@ export default class BasketItem extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CartItem);

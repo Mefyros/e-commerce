@@ -1,7 +1,6 @@
 import React from 'react';
 
-import { css } from 'emotion';
-import style, { Space } from './style';
+import { Space } from './style';
 
 import './index.css';
 import Routes from './Routes/Routes';
