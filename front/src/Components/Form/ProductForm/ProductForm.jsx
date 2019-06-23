@@ -6,35 +6,19 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 
 
 //Services
 import CategoryService from '../../../Service/CategoryService.js'
-import SubCatService from '../../../Service/SubCatService.js'
+// import SubCatService from '../../../Service/SubCatService.js'
 import SpecService from '../../../Service/SpecService.js'
 import ProductService from '../../../Service/ProductService.js'
 
 import axios from 'axios';
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap',
-  },
-  formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120,
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(2),
-  },
-}));
 
 export default class ProductForm extends React.Component {
     constructor(props) {
@@ -74,7 +58,7 @@ export default class ProductForm extends React.Component {
         const target = event.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
-        if (target.type == 'file') {
+        if (target.type === 'file') {
             await this.setState({[name]: event.target.files});
         }else {
             await this.setState({[name]: value});
@@ -88,10 +72,10 @@ export default class ProductForm extends React.Component {
       const value = event.target.value;
       var specification_object = this.state.specification;
 
-      if (type == 'select') {
+      if (type === 'select') {
         specification_object[nbr_in].name = value;
       }
-      if (type == 'spec') {
+      if (type === 'spec') {
         specification_object[nbr_in].specification = value;
       }
       var error = this.state.error;
@@ -182,7 +166,7 @@ export default class ProductForm extends React.Component {
 
     async checkError(context){
       var checked = false;
-      if (this.state.sendedTry == true) {
+      if (this.state.sendedTry === true) {
           var error = this.state.error;
           if (this.state.id_sub_categorie == null) {
             error.sub_categorie = true;
@@ -234,14 +218,14 @@ export default class ProductForm extends React.Component {
             await this.setState({error: error});
           }
           for (let [key, value] of Object.entries(this.state.error)) {
-            if (value == true) {
+            if (value === true) {
               checked = false;
               break;
             }else {
               checked = true;
             }
           }
-          if (checked == true && context == true) {
+          if (checked === true && context === true) {
             this.sendData();
           }
         }
@@ -275,7 +259,7 @@ export default class ProductForm extends React.Component {
 
 
       const specification_object = this.state.specification;
-      for (var i = 0; i < product.specs.length; i++) {
+      for (let i = 0; i < product.specs.length; i++) {
         specification_object.push(product.specs[i]);
       }
       this.setState({ nbr_spec: this.state.nbr_spec + 1, specification: specification_object });
@@ -315,37 +299,40 @@ export default class ProductForm extends React.Component {
     }
 
     render() {
-        var spec_error = <p style={{color: 'red'}}></p>
-        if (this.state.error.specifications == true && this.state.sendedTry == true) {
-            var spec_error = <p style={{color: 'red'}}>Veuillez Ajouter au moin une specification</p>
-        }else {
-            var spec_error = <p style={{color: 'red'}}></p>
-        }
-        if (this.state.sub_categorie_list.length <= 0) {
-          var categories_container = <Grid container direction="row" justify="space-evenly" alignItems="baseline">
-          <InputLabel ref={'categorie'} htmlFor="categorie">Categorie</InputLabel>
-          <Select error={this.state.error.categorie} input={<OutlinedInput/>} value={this.state.categorie_choice} name='categorie_choice' onChange={this.HandleCategorieChange.bind(this)} value={this.state.id_categorie} fullWidth>
-          {
-            this.state.categorie_list.map((categorie, key) => <MenuItem key={key} value={categorie.id}>{categorie.name}</MenuItem>)
-          }
-          </Select>
+        let spec_error = <p style={{color: 'red'}}></p>
+        let CategoriesContainer = (
+          <Grid container direction="row" justify="space-evenly" alignItems="baseline">
+            <InputLabel ref={'categorie'} htmlFor="categorie">Categorie</InputLabel>
+            <Select error={this.state.error.categorie} input={<OutlinedInput/>} value={this.state.categorie_choice} name='categorie_choice' onChange={this.HandleCategorieChange.bind(this)} fullWidth>
+            {
+              this.state.categorie_list.map((categorie, key) => <MenuItem key={key} value={categorie.id}>{categorie.name}</MenuItem>)
+            }
+            </Select>
           </Grid>
-        }else {
-          var categories_container = <Grid container direction="row" justify="space-evenly" alignItems="baseline">
-          <InputLabel ref={'categorie'} htmlFor="categorie">Categorie</InputLabel>
-          <Select error={this.state.error.categorie}  input={<OutlinedInput/>} name='categorie_choice' onChange={this.HandleCategorieChange.bind(this)}  value={this.state.id_categorie} fullWidth>
-          {
-            this.state.categorie_list.map((categorie, key) => <MenuItem key={key} value={categorie.id}>{categorie.name}</MenuItem>)
-          }
-          </Select>
-          <InputLabel style={{marginTop: 20}} ref={'sub_categorie'}>Sous categories</InputLabel>
-          <Select error={this.state.error.sub_categorie}  input={<OutlinedInput/>} name='sub_categorie_choice' value={this.state.id_sub_categorie} onChange={this.handleSubCategorieChange.bind(this)} fullWidth>
-          {
-            this.state.sub_categorie_list.map((sub, key) => <MenuItem key={key} value={sub.id}>{sub.name}</MenuItem>)
-          }
-          </Select>
-          </Grid>
+        );
+
+        if (this.state.error.specifications === true && this.state.sendedTry === true) {
+            spec_error = <p style={{color: 'red'}}>Veuillez Ajouter au moin une specification</p>
         }
+
+        if (this.state.sub_categorie_list.length > 0) {
+          CategoriesContainer = (
+            <Grid container direction="row" justify="space-evenly" alignItems="baseline">
+              <InputLabel ref={'categorie'} htmlFor="categorie">Categorie</InputLabel>
+              <Select error={this.state.error.categorie}  input={<OutlinedInput/>} name='categorie_choice' onChange={this.HandleCategorieChange.bind(this)}  value={this.state.id_categorie} fullWidth>
+              {
+                this.state.categorie_list.map((categorie, key) => <MenuItem key={key} value={categorie.id}>{categorie.name}</MenuItem>)
+              }
+              </Select>
+              <InputLabel style={{marginTop: 20}} ref={'sub_categorie'}>Sous categories</InputLabel>
+              <Select error={this.state.error.sub_categorie}  input={<OutlinedInput/>} name='sub_categorie_choice' value={this.state.id_sub_categorie} onChange={this.handleSubCategorieChange.bind(this)} fullWidth>
+              {
+                this.state.sub_categorie_list.map((sub, key) => <MenuItem key={key} value={sub.id}>{sub.name}</MenuItem>)
+              }
+              </Select>
+            </Grid>
+          )}
+          
         return(
                 <form encType="multipart/form-data" noValidate autoComplete="off" style={{marginBottom: 30}}>
                     <Container maxWidth="sm">
@@ -356,7 +343,7 @@ export default class ProductForm extends React.Component {
                         />
                     </Container>
                     <Container maxWidth="sm">
-                      {categories_container}
+                      {CategoriesContainer}
                     </Container>
                     <Container maxWidth="sm">
                         <Grid container direction="row" justify="space-evenly" alignItems="baseline">
