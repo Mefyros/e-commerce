@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddRolesToUserTable extends Migration
+class AddDeliveryDelayToShipmentTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddRolesToUserTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::table('shipment', function (Blueprint $table) {
             //
-            $table->json('roles');
+            $table->string('delivery_delay');
         });
     }
 
@@ -26,7 +26,7 @@ class AddRolesToUserTable extends Migration
      */
     public function down()
     {
-        Schema::table('user', function (Blueprint $table) {
+        Schema::table('shipment', function (Blueprint $table) {
             //
         });
     }

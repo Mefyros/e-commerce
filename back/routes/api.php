@@ -74,6 +74,10 @@ Route::get('/search/{keyword}', 'SearchController@byKeyword');
 Route::get('/search/descript/{keyword}', 'SearchController@inDescript');
 Route::post('/search/specs', 'SearchController@filter');
 
+Route::post('/transporter', 'TransporterController@create');
+
+Route::post('/deliveryOption', 'CheckoutController@getDelivery');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
