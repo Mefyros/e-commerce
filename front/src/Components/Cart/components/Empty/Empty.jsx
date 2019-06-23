@@ -7,7 +7,7 @@ export default class EmptyCard extends React.Component {
       <Container>
         <Content>
           <Image src="./sad_fox.png" alt="Empty cart"/>
-          <Text>Oh No! Your basket is empty</Text>
+          <Text>Oh No! Your cart is empty</Text>
         </Content>
       </Container>
     );
