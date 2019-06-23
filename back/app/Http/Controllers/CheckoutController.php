@@ -14,6 +14,7 @@ class CheckoutController extends Controller
         $products = $this->parseCart($request->cart);
         $credentials = $request->credential;
         $cost = $this->getFinalCost($credentials, $products, $transporters);
+        // return $products;
         return $cost;
     }
     public function parseCart($cart){
@@ -45,6 +46,7 @@ class CheckoutController extends Controller
         $temp = [];
         foreach($transporters as $transporter){
             $temp[] = [
+                'id' => $transporter->id,
                 'name' => $transporter->name,
                 'base_cost' => json_decode($transporter->base_cost),
                 'extra' => json_decode($transporter->extra),
@@ -56,47 +58,65 @@ class CheckoutController extends Controller
         return $temp;
     }
     public function getFinalCost($credentials, $products, $transporters){
-        $base_cost = $this->getBaseCost($products, $transporters);
-        $extra = $this->getExtra($credentials, $transporters, $base_cost);
-        $per_product = $this->addPerProduct($products, $transporters, $extra);
-        return $per_product;
-    }
-    public function getBaseCost($products, $transporters){
         $temp = [];
-        $temp['total_weight'] = $products['total_weight'];
-        foreach($transporters as $transporter){
-            $temp[$transporter['name']] = [];
-            foreach($transporter['base_cost'] as $weight => $price ){
-                if($products['total_weight'] <= $weight){
-                    $temp[$transporter['name']]['delivery_delay'] = $transporter['delivery_delay'];
-                    $temp[$transporter['name']]['price'] = $price;
-                }
+        foreach($transporters as $key => $transporter){
+            $base_cost = $this->getBaseCost($products, $transporter);
+            $extra = $this->getExtra($credentials, $transporter, $base_cost);
+            $temp[] = $this->addPerProduct($products, $transporter, $extra);
+            if(empty($temp[$key])){
+                unset($temp[$key]);
             }
         }
         return $temp;
     }
-    public function getExtra($credentials, $transporters, $base_cost){
+    public function getBaseCost($products, $transporter){
+        $temp = [];
+        foreach($transporter['base_cost'] as $weight => $price ){
+            if($products['total_weight'] <= $weight){
+                if(!(($weight - $products['total_weight']) > 15000)){
+                    return $temp = [
+                        'id' => $transporter['id'],
+                        'name' => $transporter['name'],
+                        'delivery_delay' => $transporter['delivery_delay'],
+                        'price' => $price
+                    ];
+                };
+            }
+        }
+    }
+    public function getExtra($credentials, $transporter, $base_cost){
         $temp = $base_cost;
-        foreach($transporters as $transporter){
-            foreach($transporter['extra'] as $name => $value){
-                if($credentials['departement'] === $name){
-                    if(isset($temp[$transporter['name']]['price'])){
-                        $price = $temp[$transporter['name']]['price'];
-                        $temp[$transporter['name']]['price'] = $price * floatval($value);
-                    }
+        foreach($transporter['extra'] as $name => $value){
+            if($credentials['departement'] === $name){
+                if(isset($temp['price'])){
+                    $price = $temp['price'];
+                    $temp['price'] = $price * floatval($value);
                 }
             }
         }
         return $temp;
     }
-    public function addPerProduct($products, $transporters, $cost){
+    public function addPerProduct($products, $transporter, $cost){
         $temp = $cost;
-        foreach($transporters as $transporter){
             foreach($products as $product){
                 $price = $transporter['per_product'] * $product['quantity'];
-                if(isset($temp[$transporter['name']]['price'])){
-                    $temp[$transporter['name']]['price'] += $price;
+                if(isset($temp['price'])){
+                    $temp['price'] += $price;
                 }
+            }
+        return $temp;
+    }
+    public function parseForFront($arr){
+        $temp = [];
+        foreach($arr as $key => $value){
+            if($key !== 'total_weight'){
+                $transporter = $value;
+                $transporter['name'] = $key;
+                $transporter['disponibility'] = 'disponible';
+                if(empty($value)){
+                    $transporter['disponibility'] = 'indisponible';
+                }
+                $temp[] = $transporter;
             }
         }
         return $temp;
