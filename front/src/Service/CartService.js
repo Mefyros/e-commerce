@@ -60,66 +60,8 @@ export default class CartService {
   //   });
   // }
 
-  static addToCart({ id, name, image, price }) {
-    let cart = JSON.parse(localStorage.getItem('cart'));
-
-    if (cart === null) {
-      cart = [this.newCartItem(id, name, image, price)];
-    }
-    else {
-      let productInCart = null;
-      for (let i = 0; i < cart.length; ++i) {
-        if (cart[i].id === id) {
-          productInCart = i;
-        };
-      }
-
-      if (productInCart !== null) {
-        cart[productInCart].quantity++;
-      }
-      else {
-        cart = [...cart, this.newCartItem(id, name, image, price)]
-      }
-    }
-
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }
-
   static getCartContent() {
     return JSON.parse(localStorage.getItem('cart'));
-  }
-
-  static deleteCartItem(itemId) {
-    const cart = JSON.parse(localStorage.getItem('cart'));
-    const newCart = [];
-    
-    for (let i = 0; i < cart.length; ++i) {
-      if (cart[i].id !== parseInt(itemId)) {
-        newCart.push({...cart[i]});
-      }
-    }
-
-    localStorage.setItem('cart', JSON.stringify(newCart));
-    return this.getCartContent();
-  }
-
-  static clearCart() {
-    localStorage.setItem('cart', JSON.stringify([]))
-    return this.getCartContent();
-  }
-
-  static setNewQuantity(id, quantity) {
-    const cart = this.getCartContent();
-
-    let itemId = null;
-    for (let i = 0; i < cart.length; ++i) {
-      if (cart[i].id === id) {
-        itemId = i;
-      };
-    }
-
-    cart[itemId].quantity = quantity;
-    localStorage.setItem('cart', JSON.stringify(cart));
   }
 
   static newCartItem({id, name, image, price, quantity = 1}) {

@@ -8,13 +8,13 @@ const initialState = cart.length > 0 && Array.isArray(cart) ? cart : [];
 export default (state = initialState, action) => {
 
   switch (action.type) {
-    case "ADD_ITEM":
+    case "ADD_CART_ITEM":
       return addToCart(state, action.payload)
 
-    case "UPDATE_PRODUCT_QUANTITY":
+    case "UPDATE_CART_ITEM_QUANTITY":
       return updateQuantity(state, action.payload);
 
-    case "DELETE_ITEM":
+    case "DELETE_CART_ITEM":
       const newCart = state.filter(item => item !== action.payload);
       CartService.saveCart(newCart);
       return [...newCart];
@@ -30,29 +30,23 @@ export default (state = initialState, action) => {
 
 const addToCart = (state, payload) => {
   let newCart = [];
-  let productInCart = null;
+  let productInCart = false;
+  let productInCartId = null;
 
-  // console.log(payload)
-
-  for (let i = 0; i < cart.length; ++i) {
-    if (cart[i].id === payload.id) {
-      productInCart = i;
+  for (let i = 0; i < state.length; ++i) {
+    if (state[i].id === payload.id) {
+      productInCart = true;
+      productInCartId = i;
     };
   }
 
-  // console.log(state);
-  // console.log(productInCart);
-
-  if (productInCart !== null) {
-    // console.log('in cart')
+  if (productInCart) {
     newCart = [ ...state ];
-    newCart[productInCart].quantity++;
+    newCart[productInCartId].quantity++;
   } else {
-    // console.log('not in cart')
     newCart = [ ...state, CartService.newCartItem(payload)];
   }
 
-  // console.log(newCart);
   CartService.saveCart(newCart);
   return newCart;
 };
