@@ -36,6 +36,8 @@ class CheckoutController extends Controller
                 ];
                 $total += $temp->price * $quantity;
                 $total_weight += $temp->weight * $quantity;
+            } else {
+                return ['err' => 'veuillez selectioner un maximum de 25 unité par produit'];
             }
         }
         $products['total'] = $total;
@@ -61,10 +63,9 @@ class CheckoutController extends Controller
         $temp = [];
         foreach($transporters as $key => $transporter){
             $base_cost = $this->getBaseCost($products, $transporter);
-            $extra = $this->getExtra($credentials, $transporter, $base_cost);
-            $temp[] = $this->addPerProduct($products, $transporter, $extra);
-            if(empty($temp[$key])){
-                unset($temp[$key]);
+            if(!empty($base_cost)){
+                $extra = $this->getExtra($credentials, $transporter, $base_cost);
+                $temp[] = $this->addPerProduct($products, $transporter, $extra);
             }
         }
         return $temp;
@@ -90,7 +91,7 @@ class CheckoutController extends Controller
             if($credentials['departement'] === $name){
                 if(isset($temp['price'])){
                     $price = $temp['price'];
-                    $temp['price'] = $price * floatval($value);
+                    $temp['price'] = ($price * floatval($value));
                 }
             }
         }
@@ -99,9 +100,10 @@ class CheckoutController extends Controller
     public function addPerProduct($products, $transporter, $cost){
         $temp = $cost;
             foreach($products as $product){
-                $price = $transporter['per_product'] * $product['quantity'];
+                $price = ($transporter['per_product'] * $product['quantity']);
                 if(isset($temp['price'])){
                     $temp['price'] += $price;
+                    $temp['price'] = round($temp['price'], 2);
                 }
             }
         return $temp;
@@ -122,8 +124,3 @@ class CheckoutController extends Controller
         return $temp;
     }
 }
-// if($credential['pays'] !== 'France'){
-//     if($transporter['disponibility'][0] !== "international" && isset($temp[$transporter['name']])){
-//         unset($temp[$transporter['name']]);
-//     }
-// }
