@@ -1,5 +1,8 @@
 import React from 'react';
-import { 
+import Checkout from '../../../../../Checkout/Stepper_checkout'
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import {
   Container,
   Title,
   Price,
@@ -13,6 +16,13 @@ const mapStateToProps = state => ({
 })
 
 class CartTotal extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      checkout: false,
+    };
+  }
+
   render() {
     const { cart } = this.props;
     let totalPrice = 0;
@@ -24,8 +34,9 @@ class CartTotal extends React.Component {
       totalProduct += quantity;
     }
 
-    return (
-      <Container>
+    if (this.state.checkout == false) {
+      return (
+        <Container>
         <Title>Cart's Total</Title>
         {
           totalPrice > 1 ? (
@@ -35,9 +46,16 @@ class CartTotal extends React.Component {
           )
         }
         <Price>Total: { totalPrice } $</Price>
-        <CheckoutBtn href="#">Proceed To Checkout</CheckoutBtn>
-      </Container>
-    );
+        <CheckoutBtn onClick={() => this.setState({checkout: true})} href="#">Proceed To Checkout</CheckoutBtn>
+        </Container>
+      );
+    }else {
+      return (
+        <div>
+        <Checkout/>
+        </div>
+      );
+    }
   }
 }
 

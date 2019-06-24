@@ -12,12 +12,10 @@ export default class FullCard extends React.Component {
         <Grid container spacing={2}>
 
           <Title>My Cart</Title>
-          
+
           <Grid item xs={12} md={8}>
             <BasketMenu />
           </Grid>
-          
-          <Grid item xs={12} md={1} />
 
           <Grid item xs={12} md={3}>
             <BasketTotal />
