@@ -6,6 +6,8 @@ import {
     TotalTitle,
     QuantityTitle,
     ActionTitle,
+    ActionContainer,
+    ActionText,
 } from "./style";
 import { clearCart } from '../../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
@@ -34,7 +36,10 @@ class CartHeader extends React.Component {
         <QuantityTitle>Quantity</QuantityTitle>
         <TotalTitle>Sub-Total</TotalTitle>
         <ActionTitle>
-          <i className="far fa-trash-alt" onClick={this.handleTrashClick}></i>
+          <ActionContainer>
+            <i className="far fa-trash-alt" onClick={this.handleTrashClick}></i>
+            <ActionText>Clear</ActionText>
+          </ActionContainer>
         </ActionTitle>
       </Container>
     );

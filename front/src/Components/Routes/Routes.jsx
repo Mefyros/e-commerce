@@ -46,9 +46,6 @@ class Routes extends React.Component {
           <Route exact path="/search/:keyword" component={SearchResult} />
           <Route exact path="/search/categorie/:categorie/:keyword" component={SearchResult} />
     
-          <Route exact path="/checkout" component={Home} />
-          <Route exact path="/payment" component={Home} />
-    
           {/* Allowed routes for log user */}
           {
             isLogin ? (

@@ -10,6 +10,8 @@ import {
     Quantity,
     QuantityInput,
     Action,
+    ActionContainer,
+    ActionText,
 } from "./style";
 import { updateQuantity, deleteItem } from '../../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
@@ -86,7 +88,12 @@ class CartItem extends React.Component {
             />
           </Quantity>
           <Total>{quantity * price} $</Total>
-          <Action><i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i></Action>
+          <Action>
+            <ActionContainer onClick={this.handleTrashClick}>
+              <i className="fas fa-times" id={id}></i>
+              <ActionText>Remove</ActionText>
+            </ActionContainer>
+          </Action>
         </ContainerFirst>
       ) : (
         <ContainerSeconde>
@@ -105,7 +112,12 @@ class CartItem extends React.Component {
             />
           </Quantity>
           <Total>{quantity * price} $</Total>
-          <Action><i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i></Action>
+          <Action>
+            <ActionContainer>
+              <i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i>
+              <ActionText>Remove</ActionText>
+            </ActionContainer>
+          </Action>
         </ContainerSeconde>
       )
     );

@@ -93,12 +93,27 @@ export const QuantityInput = styled.input`
 export const Action = styled.p`
   ${baseText};
   flex: 1;
-  font-size: 1.4em;
+  font-size: 1.4em
+`;
 
-  i {
+export const ActionContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  i, p {
     &:hover {
       cursor: pointer;
       color: ${Color.ecoGreenHover};
     }
   }
+`;
+
+export const ActionText = styled.p`
+  font-weight: 300;
+  font-size: .6em;
+  margin: 0;
 `;

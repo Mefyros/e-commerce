@@ -42,7 +42,7 @@ export const Price = styled.h3`
 `;
 
 export const ColorNumber = styled.span`
-  color: ${Color.ecoGreen};
+  color: ${Color.ecoGreenHover};
 `;
 
 export const Quantity = styled.p`
