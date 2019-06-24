@@ -5,7 +5,7 @@ import Color from '../../../../../Color';
 const containerBase = css`
   width: 100%;
   width: 100%;
-  height: 76px;
+  height: 75px;
   display: flex;
   align-items: center;
 `;
@@ -45,7 +45,7 @@ export const TitleText = styled.a`
   transition-duration: 100ms;
 
   &:hover {
-    color: ${Color.red};
+    color: ${Color.ecoGreenHover};
     text-decoration: underline;
   }
 `;
@@ -98,7 +98,7 @@ export const Action = styled.p`
   i {
     &:hover {
       cursor: pointer;
-      color: ${Color.lightRed};
+      color: ${Color.ecoGreenHover};
     }
   }
 `;

@@ -63,16 +63,16 @@ class CartItem extends React.Component {
   }
 
   render() {
-    const { id, name, price, quantity, image } = this.props.cartItem;
+    const { id, name, price, quantity } = this.props.cartItem;
     const { maxQuantity } = this.state;
 
-    // const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
+    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
       this.props.number === 0 ? (
         <ContainerFirst>
           <TitleContainer>
-            <TitleImg src={image} alt={name}/>
+            <TitleImg src={fakePic} alt={name}/>
             <TitleText href={`/product/${id}`}>{name}</TitleText>
           </TitleContainer>
           <Price>{price} $</Price>
@@ -91,7 +91,7 @@ class CartItem extends React.Component {
       ) : (
         <ContainerSeconde>
           <TitleContainer>
-            <TitleImg src={image} alt={name}/>
+            <TitleImg src={fakePic} alt={name}/>
             <TitleText href={`/product/${id}`}>{name}</TitleText>
           </TitleContainer>
           <Price>{price} $</Price>

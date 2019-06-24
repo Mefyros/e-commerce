@@ -5,6 +5,7 @@ import {
   Price,
   CheckoutBtn,
   Quantity,
+  ColorNumber,
 } from "./style";
 import { connect } from 'react-redux';
 
@@ -29,12 +30,12 @@ class CartTotal extends React.Component {
         <Title>Cart's Total</Title>
         {
           totalPrice > 1 ? (
-            <Quantity>{ totalProduct } Products in cart</Quantity>
+            <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Products in cart</Quantity>
           ) : (
-            <Quantity>{ totalProduct } Product in cart</Quantity>
+            <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Product in cart</Quantity>
           )
         }
-        <Price>Total: { totalPrice } $</Price>
+        <Price>{ totalPrice } $</Price>
         <CheckoutBtn href="#">Proceed To Checkout</CheckoutBtn>
       </Container>
     );
