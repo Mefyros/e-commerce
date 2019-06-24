@@ -1,4 +1,5 @@
 import React from 'react';
+import Checkout from '../../../../../Checkout/StepperCheckout'
 import { 
   Container,
   Title,
@@ -14,6 +15,13 @@ const mapStateToProps = state => ({
 })
 
 class CartTotal extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      checkout: false,
+    };
+  }
+
   render() {
     const { cart } = this.props;
     let totalPrice = 0;
@@ -25,20 +33,29 @@ class CartTotal extends React.Component {
       totalProduct += quantity;
     }
 
-    return (
-      <Container>
-        <Title>Cart's Total</Title>
-        {
-          totalPrice > 1 ? (
-            <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Products in cart</Quantity>
-          ) : (
-            <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Product in cart</Quantity>
-          )
-        }
-        <Price>{ totalPrice } $</Price>
-        <CheckoutBtn href="#">Proceed To Checkout</CheckoutBtn>
-      </Container>
-    );
+    if (this.state.checkout === false) {
+      return (
+        <Container>
+          <Title>Cart's Total</Title>
+          {
+            totalPrice > 1 ? (
+              <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Products in cart</Quantity>
+            ) : (
+              <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Product in cart</Quantity>
+            )
+          }
+          <Price>{ totalPrice } $</Price>
+          <CheckoutBtn onClick={() => this.setState({checkout: true})}>Proceed To Checkout</CheckoutBtn>
+        </Container>
+      );
+    } else {
+      return (
+        <div>
+          <Checkout/>
+        </div>
+      );
+    }
+    
   }
 }
 
