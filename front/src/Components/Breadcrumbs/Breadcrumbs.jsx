@@ -10,7 +10,7 @@ import style from './style';
 export default (props) => {
   return (
     <Paper elevation={0} className={css(style.root)}>
-      <Breadcrumbs aria-label="Breadcrumb" separator={<NavigateNextIcon fontSize="small" />}>
+      <Breadcrumbs separator={<NavigateNextIcon className={css(style.separator)} fontSize="small" />}>
         <Link color="inherit" href="/" className={css(style.link)}>
           <HomeIcon className={css(style.icon)} /> Home
         </Link>

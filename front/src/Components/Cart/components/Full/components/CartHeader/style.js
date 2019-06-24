@@ -12,7 +12,7 @@ const baseTitle = css`
 
 export const Container = styled.div`
   width: 100%;
-  height: 51px;
+  height: 50px;
   border-bottom: 1px solid ${Color.grey};
   display: flex;
   align-items: center;
@@ -47,11 +47,27 @@ export const ActionTitle = styled.h6`
   ${baseTitle};
   flex: 1;
   font-size: 1.5em;
+  transition-duration: 150ms;
+`;
 
-  i {
+export const ActionContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  i, p {
     &:hover {
       cursor: pointer;
-      color: ${Color.lightRed};
+      color: ${Color.ecoGreenHover};
     }
   }
+`;
+
+export const ActionText = styled.p`
+  font-weight: 300;
+  font-size: .6em;
+  margin: 0;
 `;

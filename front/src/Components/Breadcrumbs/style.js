@@ -1,6 +1,5 @@
-// import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-// import Color from '../Color';
+import Color from '../Color';
 
 export default {
   root: css`
@@ -11,6 +10,14 @@ export default {
 
   link: css`
     display: flex !important;
+    background-color: ${Color.ecoGreen} !important;
+  `,
+
+  separator: css`
+    display: flex !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background-color: ${Color.ecoGreen} !important;
   `,
 
   icon: css`

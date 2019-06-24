@@ -10,6 +10,8 @@ import {
     Quantity,
     QuantityInput,
     Action,
+    ActionContainer,
+    ActionText,
 } from "./style";
 import { updateQuantity, deleteItem } from '../../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
@@ -63,16 +65,16 @@ class CartItem extends React.Component {
   }
 
   render() {
-    const { id, name, price, quantity, image } = this.props.cartItem;
+    const { id, name, price, quantity } = this.props.cartItem;
     const { maxQuantity } = this.state;
 
-    // const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
+    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
       this.props.number === 0 ? (
         <ContainerFirst>
           <TitleContainer>
-            <TitleImg src={image} alt={name}/>
+            <TitleImg src={fakePic} alt={name}/>
             <TitleText href={`/product/${id}`}>{name}</TitleText>
           </TitleContainer>
           <Price>{price} $</Price>
@@ -86,12 +88,17 @@ class CartItem extends React.Component {
             />
           </Quantity>
           <Total>{quantity * price} $</Total>
-          <Action><i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i></Action>
+          <Action>
+            <ActionContainer onClick={this.handleTrashClick}>
+              <i className="fas fa-times" id={id}></i>
+              <ActionText>Remove</ActionText>
+            </ActionContainer>
+          </Action>
         </ContainerFirst>
       ) : (
         <ContainerSeconde>
           <TitleContainer>
-            <TitleImg src={image} alt={name}/>
+            <TitleImg src={fakePic} alt={name}/>
             <TitleText href={`/product/${id}`}>{name}</TitleText>
           </TitleContainer>
           <Price>{price} $</Price>
@@ -105,7 +112,12 @@ class CartItem extends React.Component {
             />
           </Quantity>
           <Total>{quantity * price} $</Total>
-          <Action><i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i></Action>
+          <Action>
+            <ActionContainer>
+              <i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i>
+              <ActionText>Remove</ActionText>
+            </ActionContainer>
+          </Action>
         </ContainerSeconde>
       )
     );
