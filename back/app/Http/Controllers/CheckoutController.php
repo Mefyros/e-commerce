@@ -12,9 +12,11 @@ class CheckoutController extends Controller
     public function getDelivery(Request $request){
         $transporters = $this->parseTransporter(Transporter::all());
         $products = $this->parseCart($request->cart);
+        if(isset($products['err'])){
+            return $products;
+        }
         $credentials = $request->credential;
         $cost = $this->getFinalCost($credentials, $products, $transporters);
-        // return $products;
         return $cost;
     }
     public function parseCart($cart){
