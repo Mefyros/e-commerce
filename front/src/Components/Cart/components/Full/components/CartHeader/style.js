@@ -12,7 +12,7 @@ const baseTitle = css`
 
 export const Container = styled.div`
   width: 100%;
-  height: 50px;
+  height: 51px;
   border-bottom: 1px solid ${Color.grey};
   display: flex;
   align-items: center;

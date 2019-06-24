@@ -13,6 +13,7 @@ import {
 } from "./style";
 import { updateQuantity, deleteItem } from '../../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
+import ProductService from '../../../../../../Service/ProductService';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -26,6 +27,17 @@ const mapDispatchToProps = dispatch => ({
 });
 
 class CartItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      maxQuantity: 0,
+    }
+  }
+
+  componentDidMount = async () => {
+    const itemFromDb = await ProductService.getById(this.props.cartItem.id);
+    this.setState({ maxQuantity: itemFromDb.quantity });
+  }
 
   handleTrashClick = e => {
     const { cartItem, deleteItem} = this.props;
@@ -34,22 +46,33 @@ class CartItem extends React.Component {
 
   handleChangeQuantity = e => {
     const { cartItem, updateQuantity } = this.props;
+    const { maxQuantity } = this.state;
+    let quantity = 0;
+
+    if (parseInt(e.target.value) > maxQuantity)
+      quantity = maxQuantity;
+    else if (parseInt(e.target.value) < 1)
+      quantity = 1;
+    else
+      quantity = parseInt(e.target.value);
+
     updateQuantity({
       old: cartItem,
-      new: { ...cartItem, quantity: parseInt(e.target.value) }
+      new: { ...cartItem, quantity, }
     });
   }
 
   render() {
-    const { id, name, price, quantity } = this.props.cartItem;
+    const { id, name, price, quantity, image } = this.props.cartItem;
+    const { maxQuantity } = this.state;
 
-    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
+    // const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
       this.props.number === 0 ? (
         <ContainerFirst>
           <TitleContainer>
-            <TitleImg src={fakePic} alt={name}/>
+            <TitleImg src={image} alt={name}/>
             <TitleText href={`/product/${id}`}>{name}</TitleText>
           </TitleContainer>
           <Price>{price} $</Price>
@@ -57,6 +80,7 @@ class CartItem extends React.Component {
             <QuantityInput 
               type="number" 
               min="1"
+              max={maxQuantity}
               onChange={this.handleChangeQuantity} 
               value={quantity}
             />
@@ -67,14 +91,15 @@ class CartItem extends React.Component {
       ) : (
         <ContainerSeconde>
           <TitleContainer>
-            <TitleImg src={fakePic} alt={name}/>
+            <TitleImg src={image} alt={name}/>
             <TitleText href={`/product/${id}`}>{name}</TitleText>
           </TitleContainer>
           <Price>{price} $</Price>
           <Quantity>
             <QuantityInput 
               type="number" 
-              min="1" 
+              min="1"
+              max={maxQuantity}
               onChange={this.handleChangeQuantity} 
               value={quantity}
             />
