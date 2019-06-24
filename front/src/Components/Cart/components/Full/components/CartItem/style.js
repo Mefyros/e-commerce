@@ -5,7 +5,7 @@ import Color from '../../../../../Color';
 const containerBase = css`
   width: 100%;
   width: 100%;
-  height: 75px;
+  height: 76px;
   display: flex;
   align-items: center;
 `;
