@@ -90,8 +90,9 @@ Route::post('register', 'UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'UserController@details');
-    // Route::get('/user/cart', 'UserCartController@getCart');
-    // Route::post('/user/cart', 'UserCartController@addProduct');
+    Route::get('/user/cart', 'UserCartController@getCart');
+    Route::delete('/user/cart', 'UserCartController@remove');
+    Route::post('/user/cart', 'UserCartController@saveCart');
     Route::get('/user/isadmin', 'UserController@isAdmin');
     Route::put('/user/info', 'UserInfoController@update');
     Route::get('/user/info', 'UserInfoController@get');

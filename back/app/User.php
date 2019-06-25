@@ -38,7 +38,7 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
     public function cart(){
-        return $this->hasManyThrough('App\Product', 'App\Cart', 'user_id', 'id', 'id', 'product_id');
+        return $this->hasOne('App\Cart', 'user_id', 'id');
     }
     public function UserInfo(){
         return $this->hasMany('App\UserInfo', 'user_id', 'id');
