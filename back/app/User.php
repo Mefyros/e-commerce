@@ -40,4 +40,7 @@ class User extends Authenticatable
     public function cart(){
         return $this->hasManyThrough('App\Product', 'App\Cart', 'user_id', 'id', 'id', 'product_id');
     }
+    public function UserInfo(){
+        return $this->hasMany('App\UserInfo', 'user_id', 'id');
+    }
 }

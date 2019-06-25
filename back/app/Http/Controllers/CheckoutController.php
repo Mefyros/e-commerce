@@ -64,10 +64,12 @@ class CheckoutController extends Controller
     public function getFinalCost($credentials, $products, $transporters){
         $temp = [];
         foreach($transporters as $key => $transporter){
-            $base_cost = $this->getBaseCost($products, $transporter);
-            if(!empty($base_cost)){
-                $extra = $this->getExtra($credentials, $transporter, $base_cost);
-                $temp[] = $this->addPerProduct($products, $transporter, $extra);
+            if(false !== $this->isBlacklisted($credentials, $transporter['blacklist'])){
+                $base_cost = $this->getBaseCost($products, $transporter);
+                if(!empty($base_cost)){
+                    $extra = $this->getExtra($credentials, $transporter, $base_cost);
+                    $temp[] = $this->addPerProduct($products, $transporter, $extra);
+                }
             }
         }
         return $temp;
@@ -110,19 +112,11 @@ class CheckoutController extends Controller
             }
         return $temp;
     }
-    public function parseForFront($arr){
-        $temp = [];
-        foreach($arr as $key => $value){
-            if($key !== 'total_weight'){
-                $transporter = $value;
-                $transporter['name'] = $key;
-                $transporter['disponibility'] = 'disponible';
-                if(empty($value)){
-                    $transporter['disponibility'] = 'indisponible';
-                }
-                $temp[] = $transporter;
+    public function isBlacklisted($credentials, $blacklist ,$cost){
+        foreach($blacklist as $pays){
+            if ($pays == $credentials['pays']){
+                return false;
             }
         }
-        return $temp;
     }
 }
