@@ -11,6 +11,8 @@ export default {
   `,
 }
 
+const borderRadius = '.7em';
+
 const defaultLink = css`
   display: flex;
   color: ${Color.white};
@@ -18,7 +20,7 @@ const defaultLink = css`
   background-color: ${Color.ecoGreen};
   padding: .7em 1em;
   font-weight: 400;
-  box-shadow: ${Color.hoverShadow};
+  /* box-shadow: ${Color.hoverShadow}; */
   font-size: 1em;
 
   &:hover {
@@ -33,14 +35,13 @@ const defaultLink = css`
 `;
 
 export const Container = styled.div`
-  width: auto;
+  height: 50px;
   margin: 0;
   margin-bottom: 2em;
   display: flex;
   flex-direction: row;
   justify-content: start;
   align-items: center;
-  border-radius: 5px;
 
   @media (max-width: 768px) {
     visibility: hidden;
@@ -50,16 +51,33 @@ export const Container = styled.div`
 
 export const BreadLinkHome = styled.a`
   ${defaultLink}
-  border-top-left-radius: 5px;
-  border-bottom-left-radius: 5px;
+  border-top-left-radius: ${borderRadius};
+  border-bottom-left-radius: ${borderRadius};
 `;
 
 export const BreadLink = styled.a`
   ${defaultLink}
 
   &:last-child {
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
+    border-top-right-radius: ${borderRadius};
+    border-bottom-right-radius: ${borderRadius};
     padding-right: 5em;
+
+    i {
+      visibility: hidden;
+      position: absolute;
+    }
   }
+`;
+
+export const Arrow = styled.i`
+  /* height: 32px; */
+  width: 100%;
+  transform: rotate(45deg);
+  background-color: transparent;
+  /* box-shadow: 0 1px 5px 0px rgba(0,0,0,.2); */
+  border-top: 1px rgba(0,0,0,.2) solid;
+  border-right: 1px rgba(0,0,0,.2) solid;
+  box-shadow: 11px 0px 8px -10px rgba(0,0,0,.2),
+              0px -11px 8px -10px rgba(0,0,0,.2); 
 `;
