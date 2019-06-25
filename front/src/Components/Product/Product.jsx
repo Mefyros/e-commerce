@@ -51,8 +51,8 @@ export default class Product extends React.Component {
 
     return(
       <Container maxWidth="lg">
+        <Breadcrumbs links={links}/>
         <div className={css(style.root)}>
-          <Breadcrumbs links={links}/>
           <Grid container spacing={3}>
             <Grid item xs={12} md={4}>
 
