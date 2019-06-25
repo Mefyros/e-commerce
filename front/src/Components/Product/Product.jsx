@@ -7,6 +7,7 @@ import style from './style';
 import ProductsService from '../../Service/ProductService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import AddToCartBtn from './components/AddToCartBtn/AddToCartBtn';
+import Button from '../DefaultComponent/Button/Button';
 
 export default class Product extends React.Component {
   constructor(props) {
@@ -52,50 +53,12 @@ export default class Product extends React.Component {
     return(
       <Container maxWidth="lg">
         <Breadcrumbs links={links}/>
+        {/* <AddToCartBtn product={{id, name, price, image: photos[0]}}/> */}
         <div className={css(style.root)}>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
+          <Grid container>
 
-              <Paper className={css(style.paper)}>
-                {
-                  photos !== undefined ? (
-                    <img className={css(style.zozio)} src={photos[0]} alt={name}/>
-                  ) : (
-                    null
-                  )
-                }
-              </Paper>
-
-              <Paper className={css(style.paperpay)}>
-                <h6 className={css(style.price)}>{price}€</h6>
-                {
-                  quantity > 0 ? (
-                    <AddToCartBtn product={{id, name, price, image: photos[0]}}/>
-                  ) : ( null )
-                }
-                
-              </Paper>
-
-              <Paper className={css(style.paperprice)}>
-                {
-                  quantity < 1 ? (
-                    <h3 className={css(style.notInStock)}>Product not available</h3>
-                  ) : quantity > 1 ? (
-                    <h3 className={css(style.inStock)}>{quantity} products available</h3>
-                  ) : (
-                    <h3 className={css(style.inStock)}>{quantity} product available</h3>
-                  )
-                }
-              </Paper>
-
-            </Grid>
-
-            <Grid item xs={12} md={8}>
-              <Paper className={css(style.paper)}>{name}</Paper>
-  
-              <Paper className={css(style.paperdesc)}>{description}</Paper>
-            </Grid>
-
+            <Button text="Add to Cart"  icon={<i class="fas fa-cart-plus"></i>} left/>
+          
           </Grid>
         </div>
       </Container>
