@@ -15,6 +15,7 @@ class Transporter extends Model
         'extra',
         'disponibility',
         'delivery_delay',
-        'per_product'
+        'per_product',
+        'blacklist'
     ];
 }

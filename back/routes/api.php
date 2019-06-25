@@ -75,6 +75,10 @@ Route::get('/search/descript/{keyword}', 'SearchController@inDescript');
 Route::post('/search/specs', 'SearchController@filter');
 
 Route::post('/transporter', 'TransporterController@create');
+Route::get('/transporter', 'TransporterController@getAll');
+Route::delete('/transporter/{id}', 'TransporterController@delete');
+Route::put('/transporter/{id}', 'TransporterController@update');
+Route::get('/transporter/{id}', 'TransporterController@readOne');
 
 Route::post('/deliveryOption', 'CheckoutController@getDelivery');
 
@@ -89,4 +93,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Route::get('/user/cart', 'UserCartController@getCart');
     // Route::post('/user/cart', 'UserCartController@addProduct');
     Route::get('/user/isadmin', 'UserController@isAdmin');
+    Route::put('/user/info', 'UserInfoController@update');
+    Route::get('/user/info', 'UserInfoController@get');
+    Route::post('/user/info', 'UserInfoController@create');
 });
