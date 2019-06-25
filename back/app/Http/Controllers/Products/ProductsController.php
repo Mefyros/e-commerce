@@ -35,7 +35,7 @@ class ProductsController extends Controller
                 'description' => $request->description,
                 'price' => intval($request->price),
                 'photos' => json_encode($file),
-                'sub_categorie_id' => $request->sub_categorie_id
+                'sub_categorie_id' => $request->sub_categorie_id,
             ]);
             return response()->json(['response' => 'inserted', 'product' => $inserted]);
         } else {
@@ -63,8 +63,8 @@ class ProductsController extends Controller
             foreach($files as $file){
                 if($file->isValid()){
                     $path = $file->store('public/productImages');
-                    $path = str_replace('public', 'storage', asset($path));
-                    $paths[] = asset($path);
+                    $path = '/'.str_replace('public', 'storage', $path);
+                    $paths[] = $path;
                 }
             }
             return $paths;

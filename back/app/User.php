@@ -43,4 +43,7 @@ class User extends Authenticatable
     public function UserInfo(){
         return $this->hasMany('App\UserInfo', 'user_id', 'id');
     }
+    public function creditCards(){
+        return $this->hasMany('App\BankingCredentials', 'user_id', 'id');
+    }
 }

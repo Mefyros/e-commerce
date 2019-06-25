@@ -17,7 +17,8 @@ class Product extends Model
         'name',
         'photos',
         'visit',
-        'sub_categorie_id'
+        'sub_categorie_id',
+        'weight'
     ];
     public function subCategorie(){
         return $this->belongsTo('App\SubCategorie', 'sub_categorie_id');

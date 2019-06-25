@@ -17,6 +17,10 @@ class ClasseController extends Controller
         foreach($classes as $key => $classe){
             $temp[] = $classe;
             $temp[$key]['children'] = $classe->categories;
+            foreach($classe->categories as $k => $c){
+                $temp[$key]['children'][$k]['children'] = $c->subCategorie;
+                unset($temp[$key]['children'][$k]['subCategorie']);
+            }
             unset($temp[$key]['categories']);
         }
         return $temp;
