@@ -7,13 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     //
-    protected $table = 'user_cart';
+    protected $table = 'cart';
     protected $fillable = [
-        'product_id',
         'user_id',
-        'quantity'
+        'cart'
     ];
-    public function product(){
-        return $this->hasMany('App\Product', 'id', 'product_id');
-    }
+    public $timestamps = false;
 }
