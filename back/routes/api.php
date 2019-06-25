@@ -96,4 +96,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('/user/info', 'UserInfoController@update');
     Route::get('/user/info', 'UserInfoController@get');
     Route::post('/user/info', 'UserInfoController@create');
+    Route::post('/user/creditcard', 'BankingCredentialsController@create');
+    Route::get('/user/creditcard', 'BankingCredentialsController@get');
+    Route::post('/user/creditcard/check', 'BankingCredentialsController@check');
 });
