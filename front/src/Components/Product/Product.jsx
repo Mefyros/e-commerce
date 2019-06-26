@@ -25,9 +25,11 @@ import {
   AddToCart,
   TabsContainer,
   TabView,
+  Description,
 } from './style';
 import Tabs from './components/Tabs/Tabs';
 import TabsItem from './components/Tabs/TabItem';
+import Specs from './components/Specs';
 
 const mapStateToProps = state => {
   return { products: state.cart };
@@ -42,7 +44,7 @@ class Product extends React.Component {
     super(props);
     this.state = {
       inputQuantity: 1,
-      tabsToShow: 1,
+      tabsToShow: 2,
     };
   }
 
@@ -110,7 +112,7 @@ class Product extends React.Component {
 
   render() {
     const { id, name, photos, price, quantity, description, categorie, classe, 
-      subCategorie, inputQuantity, tabsToShow } = this.state;
+      subCategorie, inputQuantity, tabsToShow, specs } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
     const options = this.createOptions(quantity > 25 ? 25 : quantity);
 
@@ -232,8 +234,8 @@ class Product extends React.Component {
                     }
                   </Tabs>
                   <TabView>
-                    { tabsToShow === 1 && <ProductDesc>{description}</ProductDesc> }
-                    { tabsToShow === 2 && <p>Tab Two</p> }
+                    { tabsToShow === 1 && <Description>{description}</Description> }
+                    { tabsToShow === 2 && <Specs specs={specs}/> }
                     { tabsToShow === 3 && <p>Tab Three</p> }
                   </TabView>
                 </TabsContainer>

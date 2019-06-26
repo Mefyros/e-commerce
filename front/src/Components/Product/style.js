@@ -87,6 +87,13 @@ export const ProductDesc = styled.p`
   margin-bottom: 2em;
 `;
 
+export const Description = styled.p`
+  ${baseText}
+  ${centerMedia}
+  font-weight: 300;
+`;
+
+
 export const QuantityContainer = styled.div`
   display: flex;
   flex-direction: row;
