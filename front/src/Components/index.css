@@ -17,6 +17,10 @@ code {
   color: #242424;
 }
 
+*:focus {
+  outline: none !important;
+}
+
 #root {
   min-height: 100vh;
   background-color: #FDFBF9;

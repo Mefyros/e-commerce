@@ -8,10 +8,11 @@ import Grid from '@material-ui/core/Grid';
 import { css }  from 'emotion';
 import { header, button, searchbar, buttonend, searchInput, searchChildren, searchSubmit, searchSelect } from './style';
 import SearchIcon from '@material-ui/icons/Search';
-import DropDownUser from './DropDown_user';
-import DropDownSnipCart from './DropDown_SnipCart';
+import DropDownUser from './components/DropDownUser';
+import DropDownSnipCart from './components/DropDownSnipCart';
 import CategoryService from '../../Service/CategoryService.js';
-// import SearchService from '../../Service/SearchService'
+import AppendBar from './components/AppendBar';
+
 export default class Navbar extends React.Component {
   constructor(props){
     super(props);
@@ -25,7 +26,7 @@ export default class Navbar extends React.Component {
     this.handleSearch = this.handleSearch.bind(this)
     this.handleCloseModal = this.handleCloseModal.bind(this)
   }
-  
+
   async componentDidMount(){
     var categories = await CategoryService.getAll();
     this.setState({ categorie_list: Array.isArray(categories) ? categories : [] });
@@ -102,6 +103,9 @@ export default class Navbar extends React.Component {
         </div>
 
         </Toolbar>
+        <Grid container direction="row" justify='center'>
+          <AppendBar />
+        </Grid>
       </AppBar>
     );
   }

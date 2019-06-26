@@ -1,9 +1,13 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import Snipcart from '../SnipCart/Snipcart';
 import Grid from '@material-ui/core/Grid';
+import UserPanelDropdown from './UserPanelDropdown';
+
 import Icon from '@material-ui/core/Icon';
+
+import AuthService from '../../../Service/AuthService.js';
+// import LoginRegisterService from '../../Service/LoginRegisterService.js';
 
 export default function SimpleMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -16,18 +20,28 @@ export default function SimpleMenu() {
     setAnchorEl(null);
   }
 
+  async function getUser(){
+    await AuthService.getUser(localStorage.getItem('eToken'))
+    .then(function(res){
+      return res.user;
+    });
+  }
+
+
+
   return (
     <div style={{marginRight: 20}}>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+
       <Grid container direction='column' justify='center'>
         <Grid container direction='row' justify='center'>
-          <Icon> shopping_cart </Icon>
+          <Icon>account_circle</Icon>
         </Grid>
         <Grid container direction='row' justify='center'>
-          <p>Panier</p>
+          <p>Compte</p>
         </Grid>
       </Grid>
-
+      
       </Button>
       <Menu
         id="simple-menu"
@@ -36,7 +50,7 @@ export default function SimpleMenu() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        <Snipcart/>
+        <UserPanelDropdown user={getUser()}/>
       </Menu>
     </div>
   );

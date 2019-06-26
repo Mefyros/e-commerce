@@ -183,8 +183,8 @@ class Product extends React.Component {
                         quantity > 1 
                           ? (<InStock>In stock: {quantity} products</InStock>)
                           : quantity === 0 
-                            ? (<InStock>In stock: {quantity} products</InStock>)
-                            : (<InStock>Not available</InStock>)
+                            ? (<InStock>Not available</InStock>)
+                            : (<InStock>In stock: {quantity} product</InStock>)
                       }
                       <QuantityInputContainer>
                         <QuantityInputText>Qty:</QuantityInputText>
