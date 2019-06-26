@@ -1,72 +1,158 @@
+import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Color from '../Color';
 
-export default {
-  root: css`
-    flex-grow: 1;
-  `,
+export const CarouselContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 3em;
+  border: 4px solid ${Color.ecoLightOrange};
+  border-radius: 3px;
+`;
 
-  paper: css`
-    padding: .5em;
+const centerMedia = css`
+  @media (max-width: 768px) {
     text-align: center;
-    color: ${Color.lightGrey};
-  `,
-
-  zozio: css`
-    width: 100%;
-    height: 100%;
-  `,
-
-  paperpay: css`
-    margin-top: 50px;
-    font-size: 39px;
-    padding: .5em;
-    text-align: center;
-    color: ${Color.lightGrey};
-    display: flex;
-    align-content: center;
     justify-content: center;
-  `,
+  }
+`;
 
-  paperdesc: css`
-    margin-top: 15px;
-    padding: .5em;
-    text-align: center;
-    color: ${Color.lightGrey};
-  `,
+const baseText = css`
+  margin: 0;
+  font-size: 1em;
+  font-weight: 400;
+  color: ${Color.darkGrey};
+`;
 
-  paperprice: css`
-    margin-top: 34px;
-    color: red;
-    padding: .5em;
-    text-align: center;
-  `,
+export const ContainerProduct = styled.div`
+  width: 100%;
+  border: 1px solid ${Color.ecoBrown};
+  padding: .25em .5em;
+  background-color: ${Color.white};
+  box-shadow: ${Color.shadow};
+`;
 
-  button: css`
-    background-color: ${Color.madForMango} !important;
-    border: solid 1px ${Color.lightGrey} !important;
-    border-radius: 0px !important;
-    box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.01) !important;
-    padding: .7em 1.1em !important;
-    margin-left: 2em !important;
+export const ProductInfoContainer = styled.div`
+  width: 100%;
+  margin: 5em 0 3em 0;
+`;
 
-    &:hover {
-      cursor: pointer;
-      background-color: ${Color.madForMangoHover} !important;
-      box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.1) !important;
-    }
-  `,
+export const ProductName = styled.h2`
+  ${baseText}
+  ${centerMedia}
+  font-weight: 400;
+  font-size: 1.6em;
+`;
 
-  inStock: css`
-    color: ${Color.green};
-  `,
+export const ReviewContainer = styled.div`
+  ${centerMedia}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: .6em;
+`;
 
-  notInStock: css`
-    color: ${Color.red};
-  `,
+export const ReviewStars = styled.div`
+  ${baseText}
+  
+  i.fas {
+    color: ${Color.yellow};
+  }
 
-  price: css`
-    font-size: 1em;
-    margin: 0;
-  `,
-}
+  i.far {
+    color: ${Color.grey};
+  }
+`;
+
+export const ReviewText = styled.p`
+  ${baseText}
+  margin-left: .6em;
+  font-weight: 300;
+`;
+
+export const ProductPrice = styled.h6`
+  ${baseText}
+  ${centerMedia}
+  color: ${Color.ecoOrange};
+  font-size: 1.4em;
+  margin: 1em 0;
+`;
+
+export const ProductDesc = styled.p`
+  ${baseText}
+  ${centerMedia}
+  font-weight: 300;
+  padding-bottom: 3em;
+  border-bottom: 1px solid ${Color.lightGrey};
+  margin-bottom: 2em;
+`;
+
+export const Description = styled.p`
+  ${baseText}
+  ${centerMedia}
+  font-weight: 300;
+`;
+
+
+export const QuantityContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 2em;
+`;
+
+const baseQuantityItem = css`
+  width: 50%;
+`;
+
+export const InStock = styled.p`
+  ${baseText}
+  ${baseQuantityItem}
+  text-align: center;
+  border: 1px solid ${Color.ecoBrown};
+  padding: .3em 0;
+  font-weight: 300;
+  border-radius: 3px;
+`;
+
+export const QuantityInputContainer = styled.div`
+  ${baseQuantityItem}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const QuantityInputText = styled.p`
+  ${baseText}
+  margin-right: 1.5em;
+  font-weight: 300;
+`;
+
+export const QuantityInput = styled.select`
+  background-color: transparent;
+  border: 1px solid ${Color.ecoBrown};
+  padding: .3em .6em;
+  font-weight: 300;
+  border-radius: 3px;
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+export const AddToCart = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const TabsContainer = styled.div`
+  width: 100%;
+`;
+
+export const TabView = styled.div`
+  width: 100%;
+  border-top: 1px solid ${Color.lightGrey};
+  padding: 2em .5em;
+`;

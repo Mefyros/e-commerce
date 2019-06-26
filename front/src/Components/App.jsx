@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { css }  from 'emotion';
-import { Space, footer } from './style';
+import { SpaceTop, SpaceBottom, footer, mainContainer } from './style';
 
 import './index.css';
 import Routes from './Routes/Routes';
@@ -13,13 +13,14 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className={css(mainContainer)}>
         <Navbar />
-        <Space />
+        <SpaceTop />
         <Routes />
-          <div className={css(footer)}>
-              <Footer/>
-          </div>
+        <SpaceBottom />
+        <div className={css(footer)}>
+          <Footer/>
+        </div>
       </div>
     );
   }
