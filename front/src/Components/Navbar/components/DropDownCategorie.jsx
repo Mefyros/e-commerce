@@ -2,7 +2,6 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import CategoriesComponent from './CategoriesComponent';
 import Popover from '@material-ui/core/Popover';
-import Color from '../../Color';
 
 export default function SimpleMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);

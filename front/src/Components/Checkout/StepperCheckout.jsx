@@ -11,9 +11,9 @@ import Container from '@material-ui/core/Container';
 
 
 //Step
-import Info_user from './InfoUser';
-import Info_adress from './InfoAdress';
-import Info_delivery from './InfoDelivery';
+import InfoUser from './InfoUser';
+import InfoAdress from './InfoAdress';
+import InfoDelivery from './InfoDelivery';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,11 +38,11 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return (<Info_user local={localStorage.getItem('eUser_info')}/>);
+      return (<InfoUser local={localStorage.getItem('eUser_info')}/>);
     case 1:
-      return (<Info_adress local={localStorage.getItem('eUser_adress')}/>);
+      return (<InfoAdress local={localStorage.getItem('eUser_adress')}/>);
     case 2:
-      return (<Info_delivery local={localStorage.getItem('eUser_delivery')}/>);
+      return (<InfoDelivery local={localStorage.getItem('eUser_delivery')}/>);
     case 3:
       return `Try out different ad text to see what brings in the most customers,
               and learn how to enhance your ads using features like ad extensions.
