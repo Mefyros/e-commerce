@@ -36,6 +36,8 @@ class CheckoutController extends Controller
             $order = Order::create([
                 'user_id' => $user_id,
                 'cart' => json_encode($cart),
+                'address' => json_encode($request->address),
+                'transporter_id' => $request->transporter,
             ]);
             $order = Order::find($order->id);
             $temp = [
