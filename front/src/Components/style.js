@@ -5,13 +5,24 @@ export default {
 
 };
 
-export const Space = styled.div`
-    width: 100%;
-    height: 4em;
+export const SpaceTop = styled.div`
+  width: 100%;
+  height: 4em;
+`;
+
+export const SpaceBottom = styled.div`
+  width: 100%;
+  height: 16em;
 `;
 
 export const footer = css`
-bottom: 0;
-position: absolute;
-width: 100%;
+  margin-top: 5em;
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+`;
+
+export const mainContainer = css`
+  position: relative;
+  min-height: 100vh;
 `;

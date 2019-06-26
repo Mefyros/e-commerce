@@ -44,7 +44,7 @@ class Product extends React.Component {
     super(props);
     this.state = {
       inputQuantity: 1,
-      tabsToShow: 2,
+      tabsToShow: 1,
     };
   }
 
@@ -224,19 +224,19 @@ class Product extends React.Component {
                     }
                     {
                       tabsToShow === 2
-                      ? (<TabsItem active label="Details" onClick={() => this.tabsSwicth(2)}/>)
-                      : (<TabsItem label="Details" onClick={() => this.tabsSwicth(2)}/>)
+                        ? (<TabsItem active label="Details" onClick={() => this.tabsSwicth(2)}/>)
+                        : (<TabsItem label="Details" onClick={() => this.tabsSwicth(2)}/>)
                     }
                     {
                       tabsToShow === 3
-                      ? (<TabsItem active label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
-                      : (<TabsItem label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
+                        ? (<TabsItem active label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
+                        : (<TabsItem label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
                     }
                   </Tabs>
                   <TabView>
                     { tabsToShow === 1 && <Description>{description}</Description> }
                     { tabsToShow === 2 && <Specs specs={specs}/> }
-                    { tabsToShow === 3 && <p>Tab Three</p> }
+                    { tabsToShow === 3 && <p>Reviews Tab</p> }
                   </TabView>
                 </TabsContainer>
               </Grid>

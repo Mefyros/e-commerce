@@ -90,7 +90,7 @@ export const QuantityInput = styled.input`
   }
 `;
 
-export const Action = styled.p`
+export const Action = styled.div`
   ${baseText};
   flex: 1;
   font-size: 1.4em
