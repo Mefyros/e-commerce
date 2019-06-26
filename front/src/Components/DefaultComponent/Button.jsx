@@ -20,6 +20,7 @@ const defaultButton = css`
   transition-duration: 200ms;
   font-size: 1em;
   display: block;
+  text-align: center;
 
   &:hover {
     background-color: ${Color.ecoGreenHover};
@@ -73,12 +74,12 @@ const TextRight = styled.span`
 export default class Btn extends React.Component {
   render() {
     // console.log(this.props);
-    const { text, link, to, left, right, icon } = this.props;
+    const { text, link, to, left, right, icon, buttonStyle } = this.props;
 
     if (link) {
       return (
         <ThemeProvider theme={theme}>
-          <Link href={to}>
+          <Link href={to} className={buttonStyle}>
             {
               left 
                 ? (<TextLeft>{icon}{text}</TextLeft>) 
@@ -92,7 +93,7 @@ export default class Btn extends React.Component {
     } else {
       return (
         <ThemeProvider theme={theme}>
-          <Button onClick={this.props.onClick}>
+          <Button onClick={this.props.onClick} className={buttonStyle}>
             {
               left 
                 ? (<TextLeft>{icon}{text}</TextLeft>) 

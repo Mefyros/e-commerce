@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import { CardContainer, CardContent, Image, CardText, viewBtn } from './style';
 import { css } from "emotion";
+import Button from '../../DefaultComponent/Button';
 
 
 
@@ -15,11 +16,6 @@ export default class CustomCard extends React.Component {
     this.redirectLink = `${this.props.route}/${this.state.id}`;
   }
 
-  handleClick = e => {
-    const redirect = document.getElementById(this.linkId);
-    redirect.click();
-  }
-
   render() {
     const { name } = this.state;
     const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
@@ -29,10 +25,14 @@ export default class CustomCard extends React.Component {
           <Image src={fakePic} alt=""/>
           <CardText>
             <div>{name}</div>
-            <div className={css(viewBtn)}> View </div>
+            {/* <div className={css(viewBtn)}> View </div> */}
+            <Button 
+              buttonStyle={css(viewBtn)}
+              link
+              text="View"
+              to={this.redirectLink}
+            />
           </CardText>
-
-          <Link id={this.linkId} to={this.redirectLink}/>
         </CardContent>
       </CardContainer>
     );
