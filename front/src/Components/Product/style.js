@@ -6,6 +6,7 @@ export const CarouselContainer = styled.div`
   width: 80%;
   margin: 0 auto;
   margin-top: 3em;
+  margin-bottom: 3em;
   border: 4px solid ${Color.ecoLightOrange};
   border-radius: 3px;
 `;

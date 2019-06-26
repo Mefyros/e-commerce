@@ -115,12 +115,7 @@ class Product extends React.Component {
       subCategorie, inputQuantity, tabsToShow, specs } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
     const options = this.createOptions(quantity > 25 ? 25 : quantity);
-
-    const fakePics = [
-      "https://www.murrayayson.com/images/251/large/In-the-Eglinton-Valley.JPG",
-      "https://www.tom-archer.com/wp-content/uploads/2018/06/milford-sound-night-fine-art-photography-new-zealand.jpg",
-      "https://d36tnp772eyphs.cloudfront.net/blogs/1/2015/04/waiotapu2-940x624.jpg",
-    ];
+    const images = photos || [];
 
     return(
       <Container maxWidth="lg">
@@ -131,15 +126,15 @@ class Product extends React.Component {
               <Grid container spacing={2}>
                 <Grid  item xs={12} md={6}>
                   <CarouselContainer>
-                  <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+                    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                       <ol className="carousel-indicators">
                         {
-                          fakePics.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
+                          images.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
                         }
                       </ol>
                       <div className="carousel-inner">
                         {
-                          fakePics.map((img, key) => {
+                          images.map((img, key) => {
                             if (key === 0) {
                               return (
                                 <div key={key} className="carousel-item active" data-interval="999999999">
