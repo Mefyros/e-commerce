@@ -72,7 +72,7 @@ const TextRight = styled.span`
 
 export default class Btn extends React.Component {
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     const { text, link, to, left, right, icon } = this.props;
 
     if (link) {

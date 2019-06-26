@@ -1,7 +1,6 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import { css } from 'emotion';
 import ProductsService from '../../Service/ProductService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
 import Button from '../DefaultComponent/Button';
@@ -24,7 +23,10 @@ import {
   QuantityInput,
   InStock,
   AddToCart,
+  TabsContainer,
 } from './style';
+import Tabs from './components/Tabs/Tabs';
+import TabsItem from './components/Tabs/TabItem';
 
 const mapStateToProps = state => {
   return { products: state.cart };
@@ -39,6 +41,7 @@ class Product extends React.Component {
     super(props);
     this.state = {
       inputQuantity: 1,
+      tabsToShow: 1,
     };
   }
 
@@ -92,10 +95,23 @@ class Product extends React.Component {
     this.setState({ inputQuantity });
   }
 
+  createOptions = (quantity = 0) => {
+    const options = [];
+    for (let i = 0; i < quantity; i++) {
+      options.push(<option key={i} value={i + 1}>{i + 1}</option>);
+    }
+    return options;
+  }
+
+  tabsSwicth = e => {
+    this.setState({ tabsToShow: e.target.value });
+  }
+
   render() {
-    const { id, name, photos, price, quantity, description, categorie, classe, subCategorie, inputQuantity } = this.state;
+    const { id, name, photos, price, quantity, description, categorie, classe, 
+      subCategorie, inputQuantity, tabsToShow } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
-    const maxQuantity = quantity > 25 ? 25 : quantity;
+    const options = this.createOptions(quantity > 25 ? 25 : quantity);
 
     const fakePics = [
       "https://www.murrayayson.com/images/251/large/In-the-Eglinton-Valley.JPG",
@@ -112,38 +128,38 @@ class Product extends React.Component {
               <Grid container spacing={2}>
                 <Grid  item xs={12} md={6}>
                   <CarouselContainer>
-                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                      <ol class="carousel-indicators">
+                  <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+                      <ol className="carousel-indicators">
                         {
                           fakePics.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
                         }
                       </ol>
-                      <div class="carousel-inner">
+                      <div className="carousel-inner">
                         {
                           fakePics.map((img, key) => {
                             if (key === 0) {
                               return (
-                                <div class="carousel-item active" data-interval="999999999">
-                                  <img key={key} src={img} class="d-block w-100" alt={name} />
+                                <div key={key} className="carousel-item active" data-interval="999999999">
+                                  <img src={img} className="d-block w-100" alt={name} />
                                 </div>
                               )
                             } else {
                               return (
-                                <div class="carousel-item" data-interval="999999999">
-                                  <img key={key} src={img} class="d-block w-100" alt={name} />
+                                <div key={key} className="carousel-item" data-interval="999999999">
+                                  <img src={img} className="d-block w-100" alt={name} />
                                 </div>
                               )
                             }
                         })
                         }
                       </div>
-                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+                      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Previous</span>
                       </a>
-                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
+                      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Next</span>
                       </a>
                     </div>
                   </CarouselContainer>
@@ -154,11 +170,11 @@ class Product extends React.Component {
                     <ProductName>{name}</ProductName>
                     <ReviewContainer>
                       <ReviewStars>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star"></i>
-                        <i class="fas fa-star-half-alt"></i>
-                        <i class="far fa-star"></i>
+                        <i className="fas fa-star"></i>
+                        <i className="fas fa-star"></i>
+                        <i className="fas fa-star"></i>
+                        <i className="fas fa-star-half-alt"></i>
+                        <i className="far fa-star"></i>
                       </ReviewStars>
                       <ReviewText>3.5/5 (3 reviews)</ReviewText>
                     </ReviewContainer>
@@ -174,19 +190,17 @@ class Product extends React.Component {
                       }
                       <QuantityInputContainer>
                         <QuantityInputText>Qty:</QuantityInputText>
-                        <QuantityInput 
-                          type="number"
-                          min="1"
-                          max={maxQuantity}
-                          value={inputQuantity}
-                          onChange={this.quantityChange}
-                        />
+                        <QuantityInput value={inputQuantity} onChange={this.quantityChange}>
+                          {
+                            options.map((Option, key) => Option)
+                          }
+                        </QuantityInput>
                       </QuantityInputContainer>
                     </QuantityContainer>
                     <AddToCart>
                       <Button 
                         text="Add to Cart"
-                        icon={<i class="fas fa-cart-plus"></i>}
+                        icon={<i className="fas fa-cart-plus"></i>}
                         onClick={this.handleAddToCart}
                         left
                         color={Color.lightBlue}
@@ -195,6 +209,17 @@ class Product extends React.Component {
                   </ProductInfoContainer>
 
                 </Grid>
+              </Grid>
+
+              <Grid container>
+                <TabsContainer>
+                  <Tabs onChange={this.tabsSwicth} defaultTab={1}>
+                    <TabsItem value={1} text="Details"/>
+                    <TabsItem value={2} text="Reviews"/>
+                  </Tabs>
+                  { tabsToShow === 1 && <p>Tab One</p> }
+                  { tabsToShow === 2 && <p>Tab One</p> }
+                </TabsContainer>
               </Grid>
 
             </ContainerProduct>

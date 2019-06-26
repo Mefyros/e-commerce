@@ -50,6 +50,8 @@ export default {
   ecoOrange: '#f1a141',
   ecoLightOrange: '#fad1a5',
 
+  ecoBackgroundColor: '#FDFBF9',
+
   shadow: "-1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.05)",
   hoverShadow: "-1px -1px 5px 1px rgba(0,0,0,.1), 1px 1px 5px 1px rgba(0,0,0,.1)",
 }

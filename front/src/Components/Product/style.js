@@ -10,6 +10,13 @@ export const CarouselContainer = styled.div`
   border-radius: 3px;
 `;
 
+const centerMedia = css`
+  @media (max-width: 768px) {
+    text-align: center;
+    justify-content: center;
+  }
+`;
+
 const baseText = css`
   margin: 0;
   font-size: 1em;
@@ -21,6 +28,8 @@ export const ContainerProduct = styled.div`
   width: 100%;
   border: 1px solid ${Color.ecoBrown};
   padding: .25em .5em;
+  background-color: ${Color.white};
+  box-shadow: ${Color.shadow};
 `;
 
 export const ProductInfoContainer = styled.div`
@@ -30,11 +39,13 @@ export const ProductInfoContainer = styled.div`
 
 export const ProductName = styled.h2`
   ${baseText}
+  ${centerMedia}
   font-weight: 400;
   font-size: 1.6em;
 `;
 
 export const ReviewContainer = styled.div`
+  ${centerMedia}
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -61,6 +72,7 @@ export const ReviewText = styled.p`
 
 export const ProductPrice = styled.h6`
   ${baseText}
+  ${centerMedia}
   color: ${Color.ecoOrange};
   font-size: 1.4em;
   margin: 1em 0;
@@ -68,6 +80,7 @@ export const ProductPrice = styled.h6`
 
 export const ProductDesc = styled.p`
   ${baseText}
+  ${centerMedia}
   font-weight: 300;
   padding-bottom: 3em;
   border-bottom: 1px solid ${Color.grey};
@@ -109,7 +122,8 @@ export const QuantityInputText = styled.p`
   font-weight: 300;
 `;
 
-export const QuantityInput = styled.input`
+export const QuantityInput = styled.select`
+  background-color: transparent;
   border: 1px solid ${Color.ecoBrown};
   padding: .3em .6em;
   font-weight: 300;
@@ -124,4 +138,8 @@ export const AddToCart = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const TabsContainer = styled.div`
+  width: 100%;
 `;
