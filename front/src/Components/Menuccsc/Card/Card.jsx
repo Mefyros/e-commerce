@@ -1,6 +1,9 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { CardContainer, CardContent, Image, CardText } from './style';
+import { CardContainer, CardContent, Image, CardText, viewBtn } from './style';
+import { css } from "emotion";
+
+
 
 export default class CustomCard extends React.Component {
   constructor(props) {
@@ -24,7 +27,11 @@ export default class CustomCard extends React.Component {
       <CardContainer>
         <CardContent onClick={this.handleClick}>
           <Image src={fakePic} alt=""/>
-          <CardText>{name}</CardText>
+          <CardText>
+            <div>{name}</div>
+            <div className={css(viewBtn)}> View </div>
+          </CardText>
+
           <Link id={this.linkId} to={this.redirectLink}/>
         </CardContent>
       </CardContainer>
