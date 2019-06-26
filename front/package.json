@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://127.0.0.1:8000/",
+  "proxy": "https://a105224a.ngrok.io",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.12",
@@ -10,6 +10,7 @@
     "@material-ui/icons": "^4.1.0",
     "axios": "^0.19.0",
     "emotion": "^10.0.9",
+    "material-table": "^1.40.0",
     "mdbreact": "^4.16.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
