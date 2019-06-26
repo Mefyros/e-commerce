@@ -79,8 +79,11 @@ Route::get('/transporter', 'TransporterController@getAll');
 Route::delete('/transporter/{id}', 'TransporterController@delete');
 Route::put('/transporter/{id}', 'TransporterController@update');
 Route::get('/transporter/{id}', 'TransporterController@readOne');
-
 Route::post('/deliveryOption', 'CheckoutController@getDelivery');
+
+
+Route::get('/order', 'OrderController@getAll');
+Route::delete('/order/{id}', 'OrderController@delete');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -100,4 +103,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/user/creditcard', 'BankingCredentialsController@create');
     Route::get('/user/creditcard', 'BankingCredentialsController@get');
     Route::post('/user/creditcard/check', 'BankingCredentialsController@check');
+    Route::post('/order', 'CheckoutController@orderCommand');
+    Route::get('/user/order', 'OrderController@getAllByUser');
+
 });

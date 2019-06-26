@@ -25,8 +25,10 @@ class BankingCredentialsController extends Controller
     }
     public function check(Request $request){
         $creditCard = BankingCredentials::where('creditCardNumber', $request->creditCardNumber)->where('expiration', $request->expiration)->first();
-        if(Hash::check($request->ccv, $creditCard->ccv)){
-            return 'success';
+        if(null !== $creditCard){
+            if(Hash::check($request->ccv, $creditCard->ccv)){
+                return 'success';
+            }
         }
         return response('error credentials not match', 401);
     }
