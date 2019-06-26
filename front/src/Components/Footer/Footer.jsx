@@ -16,16 +16,16 @@ export default function Footer() {
                         <div className={css(style.aboutdiv)}>
                             <h3 className={css(style.title3)}> About Website</h3>
                             <div>
-                                <a href='#' className={css(style.typoFooter2)}>About Us</a>
-                                <a href='#' className={css(style.typoFooter2)}>Contact</a>
-                                <a href='#' className={css(style.typoFooter2)}>Security</a>
+                                <a href='/' className={css(style.typoFooter2)}>About Us</a>
+                                <a href='/' className={css(style.typoFooter2)}>Contact</a>
+                                <a href='/' className={css(style.typoFooter2)}>Security</a>
                             </div>
                         </div>
                         <div>
                             <h3 className={css(style.title3)}> About Website</h3>
                             <div >
-                                <a href='#' className={css(style.typoFooter2)}>Our Engagement</a>
-                                <a href='#' className={css(style.typoFooter2)}>Cookie Policy</a>
+                                <a href='/' className={css(style.typoFooter2)}>Our Engagement</a>
+                                <a href='/' className={css(style.typoFooter2)}>Cookie Policy</a>
                             </div>
                         </div>
                     </div>
