@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Transporter;
 use App\Product;
+use App\BankingCredentials;
+use Illuminate\Support\Facades\Hash;
+use App\Order;
+use App\OrderStep;
+use Illuminate\Support\Facades\Auth;
 
 class CheckoutController extends Controller
 {
@@ -18,6 +23,31 @@ class CheckoutController extends Controller
         $credentials = $request->credential;
         $cost = $this->getFinalCost($credentials, $products, $transporters);
         return $cost;
+    }
+    public function orderCommand(Request $request){
+        $userCart = new UserCartController();
+        $cart = $userCart->parseCart($request->cart);
+        $credentials = BankingCredentials::where('creditCardNumber', $request->credentials['creditCardNumber'])
+        ->where('expiration', $request->credentials['expiration'])
+        ->first();
+        $user_id = (null !== Auth::user()) ? Auth::user()->id : null;
+        if(Hash::check($request->credentials['ccv'], $credentials->ccv)){
+            $order = Order::create([
+                'user_id' => $user_id,
+                'cart' => json_encode($cart),
+                'address' => json_encode($request->address),
+                'transporter_id' => $request->transporter,
+            ]);
+            $order = Order::find($order->id);
+            $temp = [
+                'id' => $order->id,
+                'cart' => $order->cart,
+                'step' => $order->orderStep->step,
+                'ordered' => $order->created_at
+            ];
+            return $temp;
+        }
+        
     }
     public function parseCart($cart){
         $products = [];
@@ -56,7 +86,8 @@ class CheckoutController extends Controller
                 'extra' => json_decode($transporter->extra),
                 'disponibility' => json_decode($transporter->disponibility),
                 'per_product' => $transporter->per_product,
-                'delivery_delay' => $transporter->delivery_delay
+                'delivery_delay' => $transporter->delivery_delay,
+                'blacklist' => json_decode($transporter->blacklist)
             ];
         }
         return $temp;
@@ -112,11 +143,44 @@ class CheckoutController extends Controller
             }
         return $temp;
     }
-    public function isBlacklisted($credentials, $blacklist ,$cost){
-        foreach($blacklist as $pays){
-            if ($pays == $credentials['pays']){
-                return false;
+    public function isBlacklisted($credentials, $blacklist){
+        if(null !== $blacklist){
+            foreach($blacklist as $pays){
+                if (preg_match('/'.$this->skipAccent($pays).'/i', $this->skipAccent($credentials['pays']))){
+                    return false;
+                }
             }
         }
+    }
+    public function skipAccent($str){
+        $arr = [
+            'á' => 'a',
+            'à' => 'a',
+            'â' => 'a',
+            'ç' => 'c',
+            'é' => 'e',
+            'è' => 'e',
+            'ê' => 'e',
+            'í' => 'i',
+            'ì' => 'i',
+            'î' => 'i',
+            'ï' => 'i',
+            'ó' => 'o',
+            'ò' => 'o',
+            'ô' => 'o',
+            'ö' => 'o',
+            'ú' => 'u',
+            'ù' => 'u',
+            'û' => 'u',
+        ];
+        for($i = 0; $i < strlen($str); $i++){
+            foreach($arr as $key => $value){
+                if(preg_match('/'.$key.'/', $str[$i])){
+                    return $key;
+                    $str[$i] = $value;
+                }
+            }
+        }
+        return $str;
     }
 }

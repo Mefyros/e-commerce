@@ -144,5 +144,21 @@ class ProductsController extends Controller
             return $product;
         }
     }
+    public function linkToPromo($product){
+        $product = Product::find($product);
+        if(null !== $product){
+            $product->promo = $promo;
+            $product->save();
+            return 'promotion applied';
+        }
+    }
+    public function unlinkToPromo($product){
+        $product = Product::find($product);
+        if(null !== $product){
+            $product->promo = null;
+            $product->save();
+            return 'promotion unliked';
+        }
+    }
     
 }
