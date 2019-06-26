@@ -81,6 +81,11 @@ Route::put('/transporter/{id}', 'TransporterController@update');
 Route::get('/transporter/{id}', 'TransporterController@readOne');
 Route::post('/deliveryOption', 'CheckoutController@getDelivery');
 
+Route::get('/promo', 'PromoController@getAll');
+Route::get('/promo/{id}', 'PromoController@get');
+Route::post('/promo', 'PromoController@create');
+Route::delete('/promo/{id}', 'PromoController@create');
+Route::put('/promo/{id}', 'PromoController@update');
 
 Route::get('/order', 'OrderController@getAll');
 Route::delete('/order/{id}', 'OrderController@delete');
