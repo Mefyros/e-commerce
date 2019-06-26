@@ -6,10 +6,20 @@ import { css } from 'emotion';
 import style from './style';
 import ProductsService from '../../Service/ProductService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import AddToCartBtn from './components/AddToCartBtn/AddToCartBtn';
-import Button from '../DefaultComponent/Button/Button';
+import Button from '../DefaultComponent/Button';
+import { connect } from 'react-redux';
+import { addToCart } from '../../Redux/Action/CartAction';
+import Color from '../Color';
 
-export default class Product extends React.Component {
+const mapStateToProps = state => {
+  return { products: state.cart };
+}
+
+const mapDispatchToProps = dispatch => ({
+  addToCart: payload => dispatch(addToCart(payload)),
+});
+
+class Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -46,6 +56,13 @@ export default class Product extends React.Component {
     }
   }
 
+  handleAddToCart = () => {
+    console.log('add to cart');
+    const { addToCart } = this.props;
+    const { id, name, price, photos } = this.state;
+    addToCart({ id, name,price, image: photos[0] });
+  }
+
   render() {
     const { id, name, photos, price, quantity, description, categorie, classe, subCategorie } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
@@ -53,11 +70,16 @@ export default class Product extends React.Component {
     return(
       <Container maxWidth="lg">
         <Breadcrumbs links={links}/>
-        {/* <AddToCartBtn product={{id, name, price, image: photos[0]}}/> */}
         <div className={css(style.root)}>
           <Grid container>
 
-            <Button text="Add to Cart"  icon={<i class="fas fa-cart-plus"></i>} left/>
+            {/* <Button 
+              text="Add to Cart"
+              icon={<i class="fas fa-cart-plus"></i>}
+              onClick={this.handleAddToCart}
+              left
+              color={Color.lightBlue}
+            /> */}
           
           </Grid>
         </div>
@@ -65,3 +87,5 @@ export default class Product extends React.Component {
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
