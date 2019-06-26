@@ -21,7 +21,6 @@ class CheckoutController extends Controller
             return $products;
         }
         $credentials = $request->credential;
-        return $this->skipAccent($credentials['pays']);
         $cost = $this->getFinalCost($credentials, $products, $transporters);
         return $cost;
     }
