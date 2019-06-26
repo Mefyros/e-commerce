@@ -2,6 +2,14 @@ import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Color from '../Color';
 
+export const CarouselContainer = styled.div`
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 3em;
+  border: 4px solid ${Color.ecoLightOrange};
+  border-radius: 3px;
+`;
+
 const baseText = css`
   margin: 0;
   font-size: 1em;

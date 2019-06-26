@@ -10,6 +10,7 @@ import { addToCart } from '../../Redux/Action/CartAction';
 import Color from '../Color';
 import {
   ContainerProduct,
+  CarouselContainer,
   ProductInfoContainer,
   ProductName,
   ReviewContainer,
@@ -84,7 +85,7 @@ class Product extends React.Component {
 
     if (inputQuantity > quantity)
       inputQuantity = quantity;
-      
+
     if (inputQuantity > 25)
       inputQuantity = 25;
       
@@ -96,6 +97,12 @@ class Product extends React.Component {
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
     const maxQuantity = quantity > 25 ? 25 : quantity;
 
+    const fakePics = [
+      "https://www.murrayayson.com/images/251/large/In-the-Eglinton-Valley.JPG",
+      "https://www.tom-archer.com/wp-content/uploads/2018/06/milford-sound-night-fine-art-photography-new-zealand.jpg",
+      "https://d36tnp772eyphs.cloudfront.net/blogs/1/2015/04/waiotapu2-940x624.jpg",
+    ];
+
     return(
       <Container maxWidth="lg">
         <Breadcrumbs links={links}/>
@@ -104,7 +111,42 @@ class Product extends React.Component {
 
               <Grid container spacing={2}>
                 <Grid  item xs={12} md={6}>
-
+                  <CarouselContainer>
+                  <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                      <ol class="carousel-indicators">
+                        {
+                          fakePics.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
+                        }
+                      </ol>
+                      <div class="carousel-inner">
+                        {
+                          fakePics.map((img, key) => {
+                            if (key === 0) {
+                              return (
+                                <div class="carousel-item active" data-interval="999999999">
+                                  <img key={key} src={img} class="d-block w-100" alt={name} />
+                                </div>
+                              )
+                            } else {
+                              return (
+                                <div class="carousel-item" data-interval="999999999">
+                                  <img key={key} src={img} class="d-block w-100" alt={name} />
+                                </div>
+                              )
+                            }
+                        })
+                        }
+                      </div>
+                      <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                      </a>
+                      <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                      </a>
+                    </div>
+                  </CarouselContainer>
                 </Grid>
 
                 <Grid  item xs={12} md={6}>
