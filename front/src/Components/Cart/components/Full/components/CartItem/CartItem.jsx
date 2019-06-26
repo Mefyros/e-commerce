@@ -38,7 +38,8 @@ class CartItem extends React.Component {
 
   componentDidMount = async () => {
     const itemFromDb = await ProductService.getById(this.props.cartItem.id);
-    this.setState({ maxQuantity: itemFromDb.quantity });
+    let maxQuantity = itemFromDb.quantity > 25 ? 25 : itemFromDb.quantity;
+    this.setState({ maxQuantity });
   }
 
   handleTrashClick = e => {
