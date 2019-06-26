@@ -83,7 +83,7 @@ export const ProductDesc = styled.p`
   ${centerMedia}
   font-weight: 300;
   padding-bottom: 3em;
-  border-bottom: 1px solid ${Color.grey};
+  border-bottom: 1px solid ${Color.lightGrey};
   margin-bottom: 2em;
 `;
 
@@ -142,4 +142,10 @@ export const AddToCart = styled.div`
 
 export const TabsContainer = styled.div`
   width: 100%;
+`;
+
+export const TabView = styled.div`
+  width: 100%;
+  border-top: 1px solid ${Color.lightGrey};
+  padding: 2em .5em;
 `;

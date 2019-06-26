@@ -24,6 +24,7 @@ import {
   InStock,
   AddToCart,
   TabsContainer,
+  TabView,
 } from './style';
 import Tabs from './components/Tabs/Tabs';
 import TabsItem from './components/Tabs/TabItem';
@@ -103,8 +104,8 @@ class Product extends React.Component {
     return options;
   }
 
-  tabsSwicth = e => {
-    this.setState({ tabsToShow: e.target.value });
+  tabsSwicth = (tabsToShow) => {
+    this.setState({ tabsToShow });
   }
 
   render() {
@@ -213,12 +214,28 @@ class Product extends React.Component {
 
               <Grid container>
                 <TabsContainer>
-                  <Tabs onChange={this.tabsSwicth} defaultTab={1}>
-                    <TabsItem value={1} text="Details"/>
-                    <TabsItem value={2} text="Reviews"/>
+                  <Tabs onChange={this.tabsSwicth} defaultTab={tabsToShow}>
+                    {
+                      tabsToShow === 1
+                        ? (<TabsItem active label="Description" onClick={() => this.tabsSwicth(1)}/>)
+                        : (<TabsItem label="Description" onClick={() => this.tabsSwicth(1)}/>)
+                    }
+                    {
+                      tabsToShow === 2
+                      ? (<TabsItem active label="Details" onClick={() => this.tabsSwicth(2)}/>)
+                      : (<TabsItem label="Details" onClick={() => this.tabsSwicth(2)}/>)
+                    }
+                    {
+                      tabsToShow === 3
+                      ? (<TabsItem active label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
+                      : (<TabsItem label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
+                    }
                   </Tabs>
-                  { tabsToShow === 1 && <p>Tab One</p> }
-                  { tabsToShow === 2 && <p>Tab One</p> }
+                  <TabView>
+                    { tabsToShow === 1 && <ProductDesc>{description}</ProductDesc> }
+                    { tabsToShow === 2 && <p>Tab Two</p> }
+                    { tabsToShow === 3 && <p>Tab Three</p> }
+                  </TabView>
                 </TabsContainer>
               </Grid>
 
