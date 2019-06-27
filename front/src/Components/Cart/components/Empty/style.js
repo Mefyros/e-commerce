@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 
 export const Container = styled.div`
-  margin-top: 20%;
+  margin-top: 12.5%;
   display: flex;
   justify-content: center;
   width: 100%;

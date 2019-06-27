@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://a105224a.ngrok.io",
+  "proxy": "https://d7fd47c3.ngrok.io",
   "dependencies": {
     "@emotion/core": "^10.0.10",
     "@emotion/styled": "^10.0.12",
