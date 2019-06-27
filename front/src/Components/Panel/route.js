@@ -1,6 +1,8 @@
-import { Home, ContentPaste, Notifications, AccountCircle } from '@material-ui/icons';
+import React from "react";
+import { Home,AccountCircle } from '@material-ui/icons';
 import HomePage from './components/Product';
 import StockPage from './components/Stock';
+import TransporterPage from './components/Transporter';
 
 const Routes = [
   {
@@ -16,6 +18,13 @@ const Routes = [
     navbarName: 'Stock',
     icon: AccountCircle,
     component: StockPage
+  },
+  {
+    path: '/panel/transporter',
+    sidebarName: 'Transporter',
+    navbarName: 'Transporter',
+    icon:  AccountCircle,
+    component: TransporterPage
   }
 ];
 
