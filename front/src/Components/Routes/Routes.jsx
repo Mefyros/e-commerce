@@ -9,6 +9,7 @@ import ProductForm from '../Form/ProductForm/ProductForm';
 import Menuccsc from '../Menuccsc/Menu';
 import Cart from '../Cart/Cart';
 import SearchResult from '../SearchResult/SearchResult'
+import Account from '../User/Account'
 
 
 const mapStateToProps = state => {
@@ -45,6 +46,8 @@ class Routes extends React.Component {
           <Route exact path="/search" component={Home} />
           <Route exact path="/search/:keyword" component={SearchResult} />
           <Route exact path="/search/categorie/:categorie/:keyword" component={SearchResult} />
+
+          <Route exact path="/my_account" component={Account} />
     
           {/* Allowed routes for log user */}
           {

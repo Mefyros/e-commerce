@@ -11,9 +11,10 @@ import Container from '@material-ui/core/Container';
 
 
 //Step
-import InfoUser from './InfoUser';
-import InfoAdress from './InfoAdress';
-import InfoDelivery from './InfoDelivery';
+import Info_user from './InfoUser';
+import Info_adress from './InfoAdress';
+import Info_delivery from './InfoDelivery';
+import InfoPaiement from './InfoPaiement';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,16 +39,13 @@ function getSteps() {
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return (<InfoUser local={localStorage.getItem('eUser_info')}/>);
+      return (<Info_user local={localStorage.getItem('eUser_info')}/>);
     case 1:
-      return (<InfoAdress local={localStorage.getItem('eUser_adress')}/>);
+      return (<Info_adress local={localStorage.getItem('eUser_adress')}/>);
     case 2:
-      return (<InfoDelivery local={localStorage.getItem('eUser_delivery')}/>);
+      return (<Info_delivery local={localStorage.getItem('eUser_delivery')}/>);
     case 3:
-      return `Try out different ad text to see what brings in the most customers,
-              and learn how to enhance your ads using features like ad extensions.
-              If you run into any problems with your ads, find out how to tell if
-              they're running and how to resolve approval issues.`;
+      return (<InfoPaiement/>);
     default:
       return 'Unknown step';
   }
