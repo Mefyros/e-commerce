@@ -99,6 +99,11 @@ export default class ProductForm extends React.Component {
       this.display_spec = [];
       await this.setState({specification: [], nbr_spec: 0});
 
+      var specs = await SpecService.getByIdCategori(this.state.id_categorie);
+      await this.setState({specification_list: specs});
+      this.display_spec = [];
+      console.log(specs);
+
       this.forceUpdate();
     }
 
@@ -108,9 +113,6 @@ export default class ProductForm extends React.Component {
       var error = this.state.error;
       error.sub_categorie = false;
       await this.setState({error: error});
-      var specs = await SpecService.getByIdCategori(this.state.id_sub_categorie);
-      await this.setState({specification_list: specs});
-      this.display_spec = [];
       this.forceUpdate();
     }
 
