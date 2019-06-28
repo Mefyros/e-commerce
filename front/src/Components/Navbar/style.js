@@ -8,19 +8,24 @@ export default {
     position: fixed;
     box-shadow: -1px 1px 5px 1px rgba(0,0,0,.2);
     background-color: ${Color.white} !important;
+
+    @media (max-width: 768px) {
+      height: 150px;
+    }
   `,
 
   toolbar: css`
     display: flex;
     flex-direction: row;
     align-items: center;
+    flex-wrap: wrap;
     /* justify-content: space-between; */
   `,
 }
 
 export const LogoContainer = styled.a`
   flex-grow: 1;
-  width: 200px;
+  /* width: 200px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -42,6 +47,7 @@ export const SearchBarContainer = styled.div`
 
   @media (max-width: 768px) {
     width: 200px;
+    order: 3;
   }
 `;
 
@@ -116,8 +122,4 @@ export const DropdownContainer = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-  }
 `;
