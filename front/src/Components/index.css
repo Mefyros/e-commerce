@@ -15,6 +15,11 @@ code {
 
 * {
   color: #242424;
+  transition-duration: 200ms !important;
+}
+
+* {
+  transition-duration: 200ms !important;
 }
 
 *:focus {

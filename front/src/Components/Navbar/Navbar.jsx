@@ -70,9 +70,7 @@ export default class Navbar extends React.Component {
     return (
       <AppBar className={css(style.header)} position="static" color="default">
         <Toolbar>
-
-        
-
+{/* 
         <div className={css(style.searchbar)}>
           <div className={css(style.searchChildren)}>
             <select onChange={this.handleChangeSelect.bind(this)} value={this.state.id_categorie} className={css(style.searchSelect)}>
@@ -84,10 +82,10 @@ export default class Navbar extends React.Component {
             <input onKeyUp={this.handleSearch} placeholder={'Search...'} className={css(style.searchInput)}type="text"/>
             <button className={css(style.searchSubmit)}><SearchIcon/></button>
           </div>
-        </div>
+        </div> */}
 
         <div>
-          <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
+          <Grid container direction="row" justify='space-around'>
             <DropDownUser/>
             <DropDownSnipCart/>
           </Grid>

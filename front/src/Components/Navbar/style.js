@@ -5,7 +5,8 @@ export default {
   header: css`
     flex-grow: 1;
     position: fixed;
-    box-shadow: -1px 1px 5px 1px rgba(0,0,0,.25);
+    box-shadow: -1px 1px 5px 1px rgba(0,0,0,.2);
+    background-color: ${Color.white} !important;
   `,
   
   button: css`

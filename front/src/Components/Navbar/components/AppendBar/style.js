@@ -8,8 +8,9 @@ export default {
     width: 350px;
     position: absolute;
     border-radius: 50px;
-    top: 73px;
-    background-color: white;
+    top: 60px;
+    background-color: ${Color.white};
+    box-shadow: -1px 1px 5px 1px rgba(0,0,0,.2);
   
     span {
       color: ${Color.white};
