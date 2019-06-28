@@ -58,12 +58,12 @@ Route::get('/categories', 'CategorieController@index');
 Route::delete('/categorie/{id}', 'CategorieController@delete');
 Route::get('/categorie/{id}', 'CategorieController@getCategorie');
 Route::put('/categorie/{id}', 'CategorieController@updateCategorie');
+Route::get('/categorie/{id}/specs', 'CategorieController@getSpecs');
 
 Route::post('/subcategorie', 'SubCategorieController@create');
 Route::get('/subcategories', 'SubCategorieController@index');
 Route::delete('/subcategorie/{id}', 'SubCategorieController@delete');
 Route::get('/subcategorie/{id}', 'SubCategorieController@getProducts');
-Route::get('/subcategorie/{id}/specs', 'SubCategorieController@getSpecs');
 
 Route::post('/specs', 'SpecController@create');
 Route::get('/specs', 'SpecController@getAll');
@@ -84,7 +84,7 @@ Route::post('/deliveryOption', 'CheckoutController@getDelivery');
 Route::get('/promo', 'PromoController@getAll');
 Route::get('/promo/{id}', 'PromoController@get');
 Route::post('/promo', 'PromoController@create');
-Route::delete('/promo/{id}', 'PromoController@create');
+Route::delete('/promo/{id}', 'PromoController@delete');
 Route::put('/promo/{id}', 'PromoController@update');
 
 Route::get('/order', 'OrderController@getAll');
@@ -110,5 +110,9 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/user/creditcard/check', 'BankingCredentialsController@check');
     Route::post('/order', 'CheckoutController@orderCommand');
     Route::get('/user/order', 'OrderController@getAllByUser');
+    Route::post('/product/{id}/review', 'ReviewController@create');
+    Route::get('/product/{id}/review', 'ReviewController@get');
+    Route::post('/review/{id}/poce', 'ReviewController@poce');
+    Route::post('/user/password', 'UserController@passwordModifer');
 
 });
