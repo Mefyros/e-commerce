@@ -49,6 +49,7 @@ class CustomCard extends React.Component {
   
   render() {
     const { id, name, photos, price } = this.state;
+    let productName = name.length > 20 ? `${name.slice(0,20)}...` : name;
 
     return (
       <Container>
@@ -56,7 +57,7 @@ class CustomCard extends React.Component {
           <CardImageContainer>
             <CardImage src={photos} />
           </CardImageContainer>
-          <Name>{name}</Name>
+          <Name>{productName}</Name>
           <Price>{price} $</Price>
         </Card>
         <Button 

@@ -18,13 +18,13 @@ const baseText = css`
   user-select: none;
 `;
 
-export const ContainerFirst = styled.div`
-  ${containerBase};
-`;
-
-export const ContainerSeconde = styled.div`
+export const Container = styled.div`
   ${containerBase};
   border-top: 1px solid ${Color.grey};
+
+  &:first-child {
+    border-top: none;
+  }
 `;
 
 export const TitleContainer = styled.div`

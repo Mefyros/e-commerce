@@ -19,15 +19,12 @@ class CartTotal extends React.Component {
     super(props);
     this.state = {
       checkout: false,
-      inputDisable: false,
     };
   }
 
   handleClickProceedToCheckout = () => {
-    this.setState({
-      checkout: true,
-      inputDisable: true,
-    });
+    this.setState({ checkout: true });
+    this.props.changeInputStatus();
   }
 
   render() {
