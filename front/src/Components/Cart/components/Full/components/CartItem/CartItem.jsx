@@ -114,8 +114,8 @@ class CartItem extends React.Component {
           </Quantity>
           <Total>{quantity * price} $</Total>
           <Action>
-            <ActionContainer>
-              <i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i>
+            <ActionContainer onClick={this.handleTrashClick}>
+              <i className="fas fa-times" id={id}></i>
               <ActionText>Remove</ActionText>
             </ActionContainer>
           </Action>

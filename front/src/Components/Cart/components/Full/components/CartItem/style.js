@@ -82,11 +82,12 @@ export const QuantityInput = styled.input`
   transition-duration: 250ms;
 
   &:hover {
-    border-bottom: 2px solid ${Color.grey};
+    border-bottom: 2px solid ${Color.ecoGreen};
   }
 
   &:focus {
     outline: none;
+    border-bottom: 2px solid ${Color.ecoGreen};
   }
 `;
 
@@ -103,10 +104,11 @@ export const ActionContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation-duration: 200ms;
 
-  i, p {
-    &:hover {
-      cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    i, p {
       color: ${Color.ecoGreenHover};
     }
   }
