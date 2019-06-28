@@ -33,7 +33,8 @@ export const TitleContainer = styled.div`
 `;
 
 export const TitleImg = styled.img`
-  height: 80%;
+  width: 80px;
+  height: 60px;
   margin: 0 8px;
 `;
 

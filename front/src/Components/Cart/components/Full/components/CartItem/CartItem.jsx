@@ -38,7 +38,7 @@ class CartItem extends React.Component {
   componentDidMount = async () => {
     const itemFromDb = await ProductService.getById(this.props.cartItem.id);
     let maxQuantity = itemFromDb.quantity > 25 ? 25 : itemFromDb.quantity;
-    this.setState({ maxQuantity });
+    this.setState({ ...itemFromDb, maxQuantity });
   }
 
   handleTrashClick = e => {
@@ -68,13 +68,15 @@ class CartItem extends React.Component {
 
   render() {
     const { cartItem, inputDisable } = this.props;
-    const { id, name, price, quantity, image } = cartItem;
-    const { maxQuantity } = this.state;
+    const { image, quantity } = cartItem;
+    const { maxQuantity, id, name, price } = this.state;
+
+    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
       <Container>
         <TitleContainer>
-          <TitleImg src={image} alt={name}/>
+          <TitleImg src={fakePic} alt={name}/>
           <TitleText href={`/product/${id}`}>{name}</TitleText>
         </TitleContainer>
         <Price>{price} $</Price>
