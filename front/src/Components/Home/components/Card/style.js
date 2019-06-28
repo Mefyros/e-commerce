@@ -45,6 +45,13 @@ export const Container = styled.div`
   }
 `;
 
+export const Card = styled.a`
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+`;
+
 export const CardImageContainer = styled.div`
   width: 100%;
   height: 70%;
@@ -62,13 +69,8 @@ const baseText = css`
   font-weight: 400;
 `;
 
-export const Name = styled.a`
+export const Name = styled.p`
   ${baseText}
-  color: ${Color.darkGrey};
-
-  &:hover {
-    color: ${Color.ecoGreenHover};
-  }
 `;
 
 export const Price = styled.p`
@@ -77,7 +79,7 @@ export const Price = styled.p`
 `;
 
 export const ButtonStyle = css`
-  width: 50%;
+  width: 55%;
   position: absolute;
   top: 30%;
   border-radius: 30px !important;

@@ -6,6 +6,7 @@ import { addToCart } from '../../../../Redux/Action/CartAction';
 import Button from '../../../DefaultComponent/Button';
 import { 
   Container,
+  Card,
   CardImageContainer,
   CardImage,
   Name,
@@ -51,15 +52,19 @@ class CustomCard extends React.Component {
 
     return (
       <Container>
-        <CardImageContainer>
-          <CardImage src={photos} />
-        </CardImageContainer>
-        <Name href={`/product/${id}`}>{name}</Name>
-        <Price>{price} $</Price>
+        <Card href={`/product/${id}`}>
+          <CardImageContainer>
+            <CardImage src={photos} />
+          </CardImageContainer>
+          <Name>{name}</Name>
+          <Price>{price} $</Price>
+        </Card>
         <Button 
           buttonStyle={css(ButtonStyle)}
           text="Add to cart"
           onClick={this.addToCart}
+          icon={<i class="fas fa-cart-plus"></i>}
+          left
         />
       </Container>
     );
