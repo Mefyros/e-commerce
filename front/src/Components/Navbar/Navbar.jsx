@@ -2,13 +2,21 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import { css }  from 'emotion';
-import style from './style';
-import SearchIcon from '@material-ui/icons/Search';
 import DropDownUser from './components/DropDownUser/DropDownUser';
 import DropDownSnipCart from './components/DropDownSnipeCart/DropDownSnipCart';
 import CategoryService from '../../Service/CategoryService.js';
 import AppendBar from './components/AppendBar/AppendBar';
+import { css }  from 'emotion';
+import style, {
+  SearchBarContainer,
+  LogoContainer,
+  Logo,
+  InputSelect,
+  InputText,
+  InputOption,
+  InputSearch,
+  DropdownContainer,
+} from './style';
 
 export default class Navbar extends React.Component {
   constructor(props){
@@ -20,26 +28,18 @@ export default class Navbar extends React.Component {
       input_searc: '',
       result: undefined
     }
-    this.handleSearch = this.handleSearch.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
   }
 
-  async componentDidMount(){
+  componentDidMount = async () => {
     var categories = await CategoryService.getAll();
     this.setState({ categorie_list: Array.isArray(categories) ? categories : [] });
   }
 
-  async handleChangeSelect(event){
+  handleChangeSelect = async (event) => {
     this.setState({categorie_id: event.target.value});
   }
 
-  handleCloseModal(){
-    this.setState({
-      modal: false
-    })
-  }
-
-  async handleSearch(event){
+  handleSearch = async (event) => {
     if(event.key === 'Enter'){
       if(event.target.value !== ""){
         console.log(event.target.value)
@@ -69,32 +69,38 @@ export default class Navbar extends React.Component {
   render() {
     return (
       <AppBar className={css(style.header)} position="static" color="default">
-        <Toolbar>
-{/* 
-        <div className={css(style.searchbar)}>
-          <div className={css(style.searchChildren)}>
-            <select onChange={this.handleChangeSelect.bind(this)} value={this.state.id_categorie} className={css(style.searchSelect)}>
-              <option>Select a category</option>
-            {
-              this.state.categorie_list.map((categorie, key) => <option key={key} value={categorie.id}>{categorie.name}</option>)
-            }
-            </select>
-            <input onKeyUp={this.handleSearch} placeholder={'Search...'} className={css(style.searchInput)}type="text"/>
-            <button className={css(style.searchSubmit)}><SearchIcon/></button>
-          </div>
-        </div> */}
 
-        <div>
-          <Grid container direction="row" justify='space-around'>
-            <DropDownUser/>
-            <DropDownSnipCart/>
-          </Grid>
-        </div>
+        <Toolbar className={css(style.toolbar)}>
+        
+          <LogoContainer href="/">
+            <Logo src="./eco_logo.png" alt="logo"/>
+          </LogoContainer>
+
+          <SearchBarContainer>
+            <InputSelect>
+              <InputOption value="title">Title</InputOption>
+              <InputOption value="description">Description</InputOption>
+              <InputOption value="categorie">Categorie</InputOption>
+            </InputSelect>
+            <InputText 
+              placeholder="Search..."
+              type="text"
+              
+            />
+            <InputSearch className="fas fa-search"/>
+          </SearchBarContainer>
+
+          <DropdownContainer>
+              <DropDownUser/>
+              <DropDownSnipCart/>
+          </DropdownContainer>
 
         </Toolbar>
+
         <Grid container direction="row" justify='center'>
           <AppendBar />
         </Grid>
+
       </AppBar>
     );
   }

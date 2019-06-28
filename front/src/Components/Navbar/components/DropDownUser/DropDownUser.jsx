@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
-import UserPanelDropdown from '../UserPanelDropDown/UserPanelDropdown';
+import UserPanelDropdown from './UserPanelDropDown/UserPanelDropdown';
 import { css }  from 'emotion';
 import style, {
   Container,

@@ -15,5 +15,9 @@ export default {
     span {
       color: ${Color.white};
     }
+
+    @media (max-width: 768px) {
+      top: 133px;
+    }
   `,
 }

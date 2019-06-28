@@ -19,8 +19,8 @@ export const Container = styled.div`
       background-color: transparent;
     }
 
-    span, p {
-    color: ${Color.ecoGreenHover};
+    p {
+    color: ${Color.ecoBrownHover};
     }
   }
 
