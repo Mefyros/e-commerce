@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
-    ContainerFirst,
-    ContainerSeconde,
+    Container,
     TitleContainer,
     TitleImg,
     TitleText,
@@ -39,12 +38,14 @@ class CartItem extends React.Component {
   componentDidMount = async () => {
     const itemFromDb = await ProductService.getById(this.props.cartItem.id);
     let maxQuantity = itemFromDb.quantity > 25 ? 25 : itemFromDb.quantity;
-    this.setState({ maxQuantity });
+    this.setState({ ...itemFromDb, maxQuantity });
   }
 
   handleTrashClick = e => {
     const { cartItem, deleteItem} = this.props;
-    deleteItem(cartItem);
+    if (!this.props.inputDisable) {
+      deleteItem(cartItem);
+    }
   }
 
   handleChangeQuantity = e => {
@@ -66,61 +67,47 @@ class CartItem extends React.Component {
   }
 
   render() {
-    const { id, name, price, quantity } = this.props.cartItem;
-    const { maxQuantity } = this.state;
+    const { cartItem, inputDisable } = this.props;
+    const { image, quantity } = cartItem;
+    const { maxQuantity, id, name, price } = this.state;
 
     const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
-      this.props.number === 0 ? (
-        <ContainerFirst>
-          <TitleContainer>
-            <TitleImg src={fakePic} alt={name}/>
-            <TitleText href={`/product/${id}`}>{name}</TitleText>
-          </TitleContainer>
-          <Price>{price} $</Price>
-          <Quantity>
-            <QuantityInput 
-              type="number" 
-              min="1"
-              max={maxQuantity}
-              onChange={this.handleChangeQuantity} 
-              value={quantity}
-            />
-          </Quantity>
-          <Total>{quantity * price} $</Total>
-          <Action>
-            <ActionContainer onClick={this.handleTrashClick}>
-              <i className="fas fa-times" id={id}></i>
-              <ActionText>Remove</ActionText>
-            </ActionContainer>
-          </Action>
-        </ContainerFirst>
-      ) : (
-        <ContainerSeconde>
-          <TitleContainer>
-            <TitleImg src={fakePic} alt={name}/>
-            <TitleText href={`/product/${id}`}>{name}</TitleText>
-          </TitleContainer>
-          <Price>{price} $</Price>
-          <Quantity>
-            <QuantityInput 
-              type="number" 
-              min="1"
-              max={maxQuantity}
-              onChange={this.handleChangeQuantity} 
-              value={quantity}
-            />
-          </Quantity>
-          <Total>{quantity * price} $</Total>
-          <Action>
-            <ActionContainer>
-              <i className="fas fa-times" id={id} onClick={this.handleTrashClick}></i>
-              <ActionText>Remove</ActionText>
-            </ActionContainer>
-          </Action>
-        </ContainerSeconde>
-      )
+      <Container>
+        <TitleContainer>
+          <TitleImg src={fakePic} alt={name}/>
+          <TitleText href={`/product/${id}`}>{name}</TitleText>
+        </TitleContainer>
+        <Price>{price} $</Price>
+        <Quantity>
+          {
+            inputDisable 
+              ? (<QuantityInput 
+                  type="number" 
+                  min="1"
+                  max={maxQuantity}
+                  onChange={this.handleChangeQuantity} 
+                  value={quantity}
+                  disabled
+                />)
+              : (<QuantityInput 
+                type="number" 
+                min="1"
+                max={maxQuantity}
+                onChange={this.handleChangeQuantity} 
+                value={quantity}
+              />)
+            }
+        </Quantity>
+        <Total>{quantity * price} $</Total>
+        <Action>
+          <ActionContainer onClick={this.handleTrashClick}>
+            <i className="fas fa-times" id={id}></i>
+            <ActionText>Remove</ActionText>
+          </ActionContainer>
+        </Action>
+      </Container>
     );
   }
 }

@@ -1,10 +1,10 @@
 import React from 'react';
-import Checkout from '../../../../../Checkout/StepperCheckout'
+import Checkout from '../../../../../Checkout/StepperCheckout';
+import Button from '../../../../../DefaultComponent/Button';
 import { 
   Container,
   Title,
   Price,
-  CheckoutBtn,
   Quantity,
   ColorNumber,
 } from "./style";
@@ -20,6 +20,11 @@ class CartTotal extends React.Component {
     this.state = {
       checkout: false,
     };
+  }
+
+  handleClickProceedToCheckout = () => {
+    this.setState({ checkout: true });
+    this.props.changeInputStatus();
   }
 
   render() {
@@ -45,7 +50,10 @@ class CartTotal extends React.Component {
             )
           }
           <Price>{ totalPrice } $</Price>
-          <CheckoutBtn onClick={() => this.setState({checkout: true})}>Proceed To Checkout</CheckoutBtn>
+          <Button 
+            text="Proceed To Checkout"
+            onClick={this.handleClickProceedToCheckout}
+          />
         </Container>
       );
     } else {

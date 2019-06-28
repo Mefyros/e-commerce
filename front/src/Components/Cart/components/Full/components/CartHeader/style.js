@@ -57,10 +57,11 @@ export const ActionContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  animation-duration: 200ms;
 
-  i, p {
-    &:hover {
-      cursor: pointer;
+  &:hover {
+    cursor: pointer;
+    i, p {
       color: ${Color.ecoGreenHover};
     }
   }

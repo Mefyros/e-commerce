@@ -36,8 +36,8 @@ class CartHeader extends React.Component {
         <QuantityTitle>Quantity</QuantityTitle>
         <TotalTitle>Sub-Total</TotalTitle>
         <ActionTitle>
-          <ActionContainer>
-            <i className="far fa-trash-alt" onClick={this.handleTrashClick}></i>
+          <ActionContainer onClick={this.handleTrashClick}>
+            <i className="far fa-trash-alt"></i>
             <ActionText>Clear</ActionText>
           </ActionContainer>
         </ActionTitle>

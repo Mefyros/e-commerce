@@ -20,7 +20,7 @@ class CartMenu extends React.Component {
         <BasketHeader />
         <BasketContent>
           {
-            cart.map((item, key) => <BasketItem key={key} id={item.id} number={key}/>)
+            cart.map((item, key) => <BasketItem key={key} id={item.id} inputDisable={this.props.inputDisable}/>)
           }
         </BasketContent>
       </Container>
