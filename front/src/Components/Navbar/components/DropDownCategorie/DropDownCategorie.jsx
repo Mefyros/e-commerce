@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import CategoriesComponent from './CategoriesComponent';
+import CategoriesComponent from '../CatgoriesComponent/CategoriesComponent';
 import Popover from '@material-ui/core/Popover';
 
 export default function SimpleMenu(props) {

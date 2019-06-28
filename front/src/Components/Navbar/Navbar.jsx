@@ -1,17 +1,14 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import { css }  from 'emotion';
-import { header, button, searchbar, buttonend, searchInput, searchChildren, searchSubmit, searchSelect } from './style';
+import style from './style';
 import SearchIcon from '@material-ui/icons/Search';
-import DropDownUser from './components/DropDownUser';
-import DropDownSnipCart from './components/DropDownSnipCart';
+import DropDownUser from './components/DropDownUser/DropDownUser';
+import DropDownSnipCart from './components/DropDownSnipeCart/DropDownSnipCart';
 import CategoryService from '../../Service/CategoryService.js';
-import AppendBar from './components/AppendBar';
+import AppendBar from './components/AppendBar/AppendBar';
 
 export default class Navbar extends React.Component {
   constructor(props){
@@ -71,31 +68,25 @@ export default class Navbar extends React.Component {
   }
   render() {
     return (
-      <AppBar className={css(header)} position="static" color="default">
+      <AppBar className={css(style.header)} position="static" color="default">
         <Toolbar>
 
-        <Typography variant="h6" color="inherit">
-          <Button className={css(button)} component={Link} color="inherit" to="/">Home</Button>
-        </Typography>
+        
 
-        <Typography variant="h6" color="inherit">
-          <Button className={css(button)} component={Link} color="inherit" to="/panel">Panel</Button>
-        </Typography>
-
-        <div className={css(searchbar)}>
-          <div className={css(searchChildren)}>
-            <select onChange={this.handleChangeSelect.bind(this)} value={this.state.id_categorie} className={css(searchSelect)}>
+        <div className={css(style.searchbar)}>
+          <div className={css(style.searchChildren)}>
+            <select onChange={this.handleChangeSelect.bind(this)} value={this.state.id_categorie} className={css(style.searchSelect)}>
               <option>Select a category</option>
             {
               this.state.categorie_list.map((categorie, key) => <option key={key} value={categorie.id}>{categorie.name}</option>)
             }
             </select>
-            <input onKeyUp={this.handleSearch} placeholder={'Search...'} className={css(searchInput)}type="text"/>
-            <button className={css(searchSubmit)}><SearchIcon/></button>
+            <input onKeyUp={this.handleSearch} placeholder={'Search...'} className={css(style.searchInput)}type="text"/>
+            <button className={css(style.searchSubmit)}><SearchIcon/></button>
           </div>
         </div>
 
-        <div className={css(buttonend)}>
+        <div>
           <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
             <DropDownUser/>
             <DropDownSnipCart/>

@@ -2,11 +2,10 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
-import UserPanelDropdown from './UserPanelDropdown';
-
 import Icon from '@material-ui/core/Icon';
+import UserPanelDropdown from '../UserPanelDropDown/UserPanelDropdown';
 
-import AuthService from '../../../Service/AuthService.js';
+import AuthService from '../../../../Service/AuthService.js';
 // import LoginRegisterService from '../../Service/LoginRegisterService.js';
 
 export default function SimpleMenu() {

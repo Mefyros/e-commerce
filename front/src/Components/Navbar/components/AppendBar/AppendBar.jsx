@@ -1,9 +1,8 @@
 import React from 'react';
+import DropDownCategorie from '../DropDownCategorie/DropDownCategorie';
+import ClassService from '../../../../Service/ClassService.js';
 import { css }  from 'emotion';
-import DropDownCategorie from './DropDownCategorie';
-import ClassService from '../../../Service/ClassService.js';
-
-import { appendBar } from '../style';
+import style from './style';
 
 
 export default class AppendBar extends React.Component {
@@ -19,7 +18,7 @@ export default class AppendBar extends React.Component {
 
   render(){
     return(
-      <div className={css(appendBar)}>
+      <div className={css(style.appendBar)}>
         <DropDownCategorie allData={this.state.allData} />
       </div>
     );

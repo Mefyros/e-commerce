@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import Snipcart from '../../SnipCart/Snipcart';
+import Snipcart from '../../../SnipCart/Snipcart';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
 
