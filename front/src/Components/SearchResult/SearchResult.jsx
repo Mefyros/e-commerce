@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import CustomCard from '../Home/components/Card/Card'
+import CustomCard from './components/card/Card'
 import Container from '@material-ui/core/Container';
 import SearchService from '../../Service/SearchService'
 import Grid from '@material-ui/core/Grid';
+import { css } from 'emotion';
+import { filter } from './style';
 
 export default class SearchResult extends Component{
     constructor(props){
@@ -32,13 +34,27 @@ export default class SearchResult extends Component{
         return(
             <Container>
                 <Grid  container item xs={12} spacing={3} justify='center'>
+                    <Grid item xs={4} className={css(filter)}>
+                        <div>
+                            <h3>FILTER BY PRICE </h3>
+                        </div>
+                        <div>
+                            <h3>FILTER BY CATEGORY</h3>
+                        </div>
+                        <div>
+                            <h3>FILTER BY BRAND</h3>
+                        </div>
+                        <div>
+                            <h3>SPECIAL SPEC</h3>
+                        </div>
+                    </Grid>
+                    <Grid  item xs={8}>
                     {this.state.result.map(res => {
                         return (
-                            <Grid  item xs={3}>
                                 <CustomCard product={res}/>
-                            </Grid>
                         )
                     })}
+                    </Grid>
                 </Grid>
             </Container>
         )
