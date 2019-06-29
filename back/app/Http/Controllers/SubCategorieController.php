@@ -51,10 +51,4 @@ class SubCategorieController extends Controller
             $product->delete();
         }
     }
-    public function getSpecs($id){
-        $categorie = SubCategorie::find($id);
-        if($categorie){
-            return $categorie->specs;
-        }
-    }
 }

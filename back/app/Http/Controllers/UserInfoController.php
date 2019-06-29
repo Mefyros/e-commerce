@@ -11,8 +11,7 @@ class UserInfoController extends Controller
     //
     public function update(Request $request){
         $user = Auth::user();
-        $userInfo = $user->UserInfo;
-        $userInfo->name = $request->name;
+        $user->email = $request->email;
         $userInfo = UserInfo::firstOrCreate(['user_id' => $user->id]);
         $userInfo->name = $request->name;
         $userInfo->lastname = $request->lastname;
@@ -27,6 +26,7 @@ class UserInfoController extends Controller
     }
     public function get(){
         $user = Auth::user()->UserInfo;
+        $user['email'] = Auth::user()->email;
         return $user;
     }
     public function create(Request $request){
