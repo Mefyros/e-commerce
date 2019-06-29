@@ -21,6 +21,7 @@ export const Container = styled.div`
   height: 300px;
   margin: 1vh;
   border: 0;
+  background-color: ${Color.white};
   box-shadow: ${Color.shadow};
   transition-duration: 200ms;
   display: flex;

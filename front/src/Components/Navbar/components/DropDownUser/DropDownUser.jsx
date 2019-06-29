@@ -2,11 +2,15 @@ import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
-import UserPanelDropdown from './UserPanelDropdown';
-
 import Icon from '@material-ui/core/Icon';
+import UserPanelDropdown from './UserPanelDropDown/UserPanelDropdown';
+import { css }  from 'emotion';
+import style, {
+  Container,
+} from './style';
 
-import AuthService from '../../../Service/AuthService.js';
+
+import AuthService from '../../../../Service/AuthService.js';
 // import LoginRegisterService from '../../Service/LoginRegisterService.js';
 
 export default function SimpleMenu() {
@@ -30,7 +34,7 @@ export default function SimpleMenu() {
 
 
   return (
-    <div style={{marginRight: 20}}>
+    <Container>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
 
       <Grid container direction='column' justify='center'>
@@ -52,6 +56,6 @@ export default function SimpleMenu() {
       >
         <UserPanelDropdown user={getUser()}/>
       </Menu>
-    </div>
+    </Container>
   );
 }

@@ -11,8 +11,8 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { Link } from "react-router-dom";
 
-import AuthService from '../../../Service/AuthService.js';
-import LoginRegisterService from '../../../Service/LoginRegisterService.js';
+import AuthService from '../../../../../Service/AuthService.js';
+import LoginRegisterService from '../../../../../Service/LoginRegisterService.js';
 
 export default class User_panel_dropdown extends React.Component {
   constructor(props){
@@ -149,10 +149,13 @@ async logout(){
       <Container>
         <List>
           <ListItem button>
-            <Link to={'/my_account'}><ListItemText><h6>Mon compte</h6></ListItemText></Link>
+            <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
           </ListItem>
           <ListItem button component={Link} to="/cart">
-            <ListItemText><h6>Voir mon panier</h6></ListItemText>
+            <ListItemText><h6>My cart</h6></ListItemText>
+          </ListItem>
+          <ListItem button>
+            <Link to={'/panel'}><ListItemText><h6>Admin Panel</h6></ListItemText></Link>
           </ListItem>
           <ListItem button>
             <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>
