@@ -16,7 +16,10 @@ import {
   ReviewStars,
   ReviewText,
   ProductPrice,
-  ProductDesc,
+  EcoContainer,
+  EcoStars,
+  EcoText,
+  EcoLabelContainer,
   QuantityContainer,
   QuantityInputContainer,
   QuantityInputText,
@@ -27,6 +30,7 @@ import {
   TabView,
   Description,
 } from './style';
+import EcoLabel from './components/EcoLabel/EcoLabel';
 import Tabs from './components/Tabs/Tabs';
 import TabsItem from './components/Tabs/TabItem';
 import Specs from './components/Specs';
@@ -116,6 +120,7 @@ class Product extends React.Component {
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
     const options = this.createOptions(quantity > 25 ? 25 : quantity);
     const images = photos || [];
+    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return(
       <Container maxWidth="lg">
@@ -177,7 +182,23 @@ class Product extends React.Component {
                       <ReviewText>3.5/5 (3 reviews)</ReviewText>
                     </ReviewContainer>
                     <ProductPrice>$ {price}</ProductPrice>
-                    <ProductDesc>{description}</ProductDesc>
+                    <EcoContainer>
+                      <EcoStars>
+                        <i className="fas fa-leaf"></i>
+                        <i className="fas fa-leaf"></i>
+                        <i className="fas fa-leaf"></i>
+                        <i className="fas fa-leaf"></i>
+                        <i className="fas fa-leaf not"></i>
+                      </EcoStars>
+                      <EcoText>Eco: 4/5</EcoText>
+                    </EcoContainer>
+                    <EcoLabel data={[
+                      { image: fakePic, tooltip: "Test tooltip" },
+                      { image: fakePic, tooltip: "Test tooltip" },
+                      { image: fakePic, tooltip: "Test tooltip" },
+                      { image: fakePic, tooltip: "Test tooltip" },
+                      { image: fakePic, tooltip: "Test tooltip" },
+                    ]}/>
                     <QuantityContainer>
                       {
                         quantity > 1 
