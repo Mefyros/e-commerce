@@ -25,7 +25,7 @@ export default {
 
 export const LogoContainer = styled.a`
   flex-grow: 1;
-  /* width: 200px; */
+  width: 200px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -46,7 +46,6 @@ export const SearchBarContainer = styled.div`
   justify-content: center;
 
   @media (max-width: 768px) {
-    width: 200px;
     order: 3;
   }
 `;

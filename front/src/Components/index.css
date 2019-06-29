@@ -28,6 +28,22 @@ code {
 }
 
 #root {
+  position: relative;
+  z-index: 1;
   min-height: 100vh;
-  background-color: #FDFBF9;
+  /* background-color: #FDFBF9; */
+}
+
+#root::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('../assets/leaves_background.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  opacity: .25;
 }
