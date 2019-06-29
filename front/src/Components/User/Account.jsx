@@ -54,7 +54,7 @@ export default class Account extends React.Component {
       <div>
         <div className={css(principal_grid)}>
           <this.OngletList />
-          <OngletChoice state={this.state} choice={this.state.onglet_choice} />
+          <OngletChoice user={this.state.user} state={this.state} choice={this.state.onglet_choice} />
         </div>
       </div>
     );
@@ -72,7 +72,7 @@ function OngletChoice(props){
     case 'Commands':
         return (<div className={css(panelView)}><Commands order={props.state.order}/></div>);
       break;
-    default: return (<div className={css(panelView)}><General/></div>);
+    default: return (<div className={css(panelView)}><General user={props.user}/></div>);
 
   }
 }
