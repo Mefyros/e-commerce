@@ -19,7 +19,4 @@ class SubCategorie extends Model
     public function products(){
         return $this->hasMany('App\Product', 'sub_categorie_id', 'id');
     }
-    public function specs(){
-        return $this->hasManyThrough('App\Spec', 'App\CategorieSpec', 'categorie_id', 'id', 'id', 'spec_id');
-    }
 }

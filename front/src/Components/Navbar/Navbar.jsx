@@ -1,17 +1,23 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import { css }  from 'emotion';
-import { header, button, searchbar, buttonend, searchInput, searchChildren, searchSubmit, searchSelect } from './style';
-import SearchIcon from '@material-ui/icons/Search';
-import DropDownUser from './DropDown_user';
-import DropDownSnipCart from './DropDown_SnipCart';
+import DropDownUser from './components/DropDownUser/DropDownUser';
+import DropDownSnipCart from './components/DropDownSnipeCart/DropDownSnipCart';
 import CategoryService from '../../Service/CategoryService.js';
-// import SearchService from '../../Service/SearchService'
+import AppendBar from './components/AppendBar/AppendBar';
+import { css }  from 'emotion';
+import style, {
+  SearchBarContainer,
+  LogoContainer,
+  Logo,
+  InputSelect,
+  InputText,
+  InputOption,
+  InputSearch,
+  DropdownContainer,
+} from './style';
+
 export default class Navbar extends React.Component {
   constructor(props){
     super(props);
@@ -22,26 +28,18 @@ export default class Navbar extends React.Component {
       input_searc: '',
       result: undefined
     }
-    this.handleSearch = this.handleSearch.bind(this)
-    this.handleCloseModal = this.handleCloseModal.bind(this)
   }
-  
-  async componentDidMount(){
+
+  componentDidMount = async () => {
     var categories = await CategoryService.getAll();
     this.setState({ categorie_list: Array.isArray(categories) ? categories : [] });
   }
 
-  async handleChangeSelect(event){
+  handleChangeSelect = async (event) => {
     this.setState({categorie_id: event.target.value});
   }
 
-  handleCloseModal(){
-    this.setState({
-      modal: false
-    })
-  }
-
-  async handleSearch(event){
+  handleSearch = async (event) => {
     if(event.key === 'Enter'){
       if(event.target.value !== ""){
         console.log(event.target.value)
@@ -70,38 +68,39 @@ export default class Navbar extends React.Component {
   }
   render() {
     return (
-      <AppBar className={css(header)} position="static" color="default">
-        <Toolbar>
+      <AppBar className={css(style.header)} position="static" color="default">
 
-        <Typography variant="h6" color="inherit">
-          <Button className={css(button)} component={Link} color="inherit" to="/">Home</Button>
-        </Typography>
+        <Toolbar className={css(style.toolbar)}>
+        
+          <LogoContainer href="/">
+            <Logo src="./eco_logo.png" alt="logo"/>
+          </LogoContainer>
 
-        <Typography variant="h6" color="inherit">
-          <Button className={css(button)} component={Link} color="inherit" to="/panel">Panel</Button>
-        </Typography>
+          <SearchBarContainer>
+            <InputSelect>
+              <InputOption value="title">Title</InputOption>
+              <InputOption value="description">Description</InputOption>
+              <InputOption value="categorie">Categorie</InputOption>
+            </InputSelect>
+            <InputText 
+              placeholder="Search..."
+              type="text"
+              
+            />
+            <InputSearch className="fas fa-search"/>
+          </SearchBarContainer>
 
-        <div className={css(searchbar)}>
-          <div className={css(searchChildren)}>
-            <select onChange={this.handleChangeSelect.bind(this)} value={this.state.id_categorie} className={css(searchSelect)}>
-              <option>Select a category</option>
-            {
-              this.state.categorie_list.map((categorie, key) => <option key={key} value={categorie.id}>{categorie.name}</option>)
-            }
-            </select>
-            <input onKeyUp={this.handleSearch} placeholder={'Search...'} className={css(searchInput)}type="text"/>
-            <button className={css(searchSubmit)}><SearchIcon/></button>
-          </div>
-        </div>
-
-        <div className={css(buttonend)}>
-          <Grid style={{marginTop: 10}} container direction="row" justify='space-around'>
-            <DropDownUser/>
-            <DropDownSnipCart/>
-          </Grid>
-        </div>
+          <DropdownContainer>
+              <DropDownUser/>
+              <DropDownSnipCart/>
+          </DropdownContainer>
 
         </Toolbar>
+
+        <Grid container direction="row" justify='center'>
+          <AppendBar />
+        </Grid>
+
       </AppBar>
     );
   }

@@ -18,13 +18,13 @@ const baseText = css`
   user-select: none;
 `;
 
-export const ContainerFirst = styled.div`
-  ${containerBase};
-`;
-
-export const ContainerSeconde = styled.div`
+export const Container = styled.div`
   ${containerBase};
   border-top: 1px solid ${Color.grey};
+
+  &:first-child {
+    border-top: none;
+  }
 `;
 
 export const TitleContainer = styled.div`
@@ -33,7 +33,8 @@ export const TitleContainer = styled.div`
 `;
 
 export const TitleImg = styled.img`
-  height: 80%;
+  width: 80px;
+  height: 60px;
   margin: 0 8px;
 `;
 
@@ -45,7 +46,7 @@ export const TitleText = styled.a`
   transition-duration: 100ms;
 
   &:hover {
-    color: ${Color.red};
+    color: ${Color.ecoGreenHover};
     text-decoration: underline;
   }
 `;
@@ -82,23 +83,40 @@ export const QuantityInput = styled.input`
   transition-duration: 250ms;
 
   &:hover {
-    border-bottom: 2px solid ${Color.grey};
+    border-bottom: 2px solid ${Color.ecoGreen};
   }
 
   &:focus {
     outline: none;
+    border-bottom: 2px solid ${Color.ecoGreen};
   }
 `;
 
-export const Action = styled.p`
+export const Action = styled.div`
   ${baseText};
   flex: 1;
-  font-size: 1.4em;
+  font-size: 1.4em
+`;
 
-  i {
-    &:hover {
-      cursor: pointer;
-      color: ${Color.lightRed};
+export const ActionContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation-duration: 200ms;
+
+  &:hover {
+    cursor: pointer;
+    i, p {
+      color: ${Color.ecoGreenHover};
     }
   }
+`;
+
+export const ActionText = styled.p`
+  font-weight: 300;
+  font-size: .6em;
+  margin: 0;
 `;

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUserCartTable extends Migration
+class CreateBankingCredentialsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,12 @@ class CreateUserCartTable extends Migration
      */
     public function up()
     {
-        Schema::create('user_cart', function (Blueprint $table) {
+        Schema::create('banking_credentials', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id');
-            $table->integer('product_id');
-            $table->timestamps();
+            $table->string('user_id');
+            $table->bigInteger('creditCardNumber');
+            $table->dateTime('expiration');
+            $table->string('ccv');
         });
     }
 
@@ -28,6 +29,6 @@ class CreateUserCartTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_cart');
+        Schema::dropIfExists('banking_credentials');
     }
 }

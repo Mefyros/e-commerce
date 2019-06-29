@@ -17,12 +17,17 @@ class Product extends Model
         'name',
         'photos',
         'visit',
-        'sub_categorie_id'
+        'sub_categorie_id',
+        'weight',
+        'promo'
     ];
     public function subCategorie(){
         return $this->belongsTo('App\SubCategorie', 'sub_categorie_id');
     }
     public function Categorie(){
         return $this->hasOneThrough('App\Categorie', 'App\SubCategorie', 'id', 'id', 'categorie_id', 'sub_categorie_id');
+    }
+    public function Promo(){
+        return $this->belongsTo('App\Promo', 'promo');
     }
 }

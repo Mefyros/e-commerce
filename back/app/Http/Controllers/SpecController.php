@@ -13,10 +13,10 @@ class SpecController extends Controller
             $spec = Spec::firstOrCreate([
                 'name' => $request->name,
             ]);
-            if(isset($request->sub_categorie_id)){
+            if(isset($request->categorie_id)){
                 CategorieSpec::create([
                     'spec_id' => $spec->id,
-                    'categorie_id' => $request->sub_categorie_id,
+                    'categorie_id' => $request->categorie_id,
                 ]);
             }
             return $spec;

@@ -1,17 +1,50 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import { css } from 'emotion';
-import style from './style';
 import ProductsService from '../../Service/ProductService';
 import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import AddToCartBtn from './components/AddToCartBtn/AddToCartBtn';
+import Button from '../DefaultComponent/Button';
+import { connect } from 'react-redux';
+import { addToCart } from '../../Redux/Action/CartAction';
+import Color from '../Color';
+import {
+  ContainerProduct,
+  CarouselContainer,
+  ProductInfoContainer,
+  ProductName,
+  ReviewContainer,
+  ReviewStars,
+  ReviewText,
+  ProductPrice,
+  ProductDesc,
+  QuantityContainer,
+  QuantityInputContainer,
+  QuantityInputText,
+  QuantityInput,
+  InStock,
+  AddToCart,
+  TabsContainer,
+  TabView,
+  Description,
+} from './style';
+import Tabs from './components/Tabs/Tabs';
+import TabsItem from './components/Tabs/TabItem';
+import Specs from './components/Specs';
 
-export default class Product extends React.Component {
+const mapStateToProps = state => {
+  return { products: state.cart };
+}
+
+const mapDispatchToProps = dispatch => ({
+  addToCart: payload => dispatch(addToCart(payload)),
+});
+
+class Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      inputQuantity: 1,
+      tabsToShow: 1,
     };
   }
 
@@ -45,60 +78,170 @@ export default class Product extends React.Component {
     }
   }
 
+  handleAddToCart = () => {
+    console.log('add to cart');
+    const { addToCart } = this.props;
+    const { id, name, price, photos } = this.state;
+    addToCart({ id, name,price, image: photos[0] });
+  }
+
+  quantityChange = e => {
+    const { quantity } = this.state;
+    let inputQuantity = parseInt(e.target.value);
+
+    if (inputQuantity > quantity)
+      inputQuantity = quantity;
+
+    if (inputQuantity > 25)
+      inputQuantity = 25;
+      
+    this.setState({ inputQuantity });
+  }
+
+  createOptions = (quantity = 0) => {
+    const options = [];
+    for (let i = 0; i < quantity; i++) {
+      options.push(<option key={i} value={i + 1}>{i + 1}</option>);
+    }
+    return options;
+  }
+
+  tabsSwicth = (tabsToShow) => {
+    this.setState({ tabsToShow });
+  }
+
   render() {
-    const { id, name, photos, price, quantity, description, categorie, classe, subCategorie } = this.state;
+    const { id, name, photos, price, quantity, description, categorie, classe, 
+      subCategorie, inputQuantity, tabsToShow, specs } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
+    const options = this.createOptions(quantity > 25 ? 25 : quantity);
+    const images = photos || [];
 
     return(
       <Container maxWidth="lg">
-        <div className={css(style.root)}>
-          <Breadcrumbs links={links}/>
-          <Grid container spacing={3}>
-            <Grid item xs={12} md={4}>
+        <Breadcrumbs links={links}/>
+          <Grid container>
+            <ContainerProduct>
 
-              <Paper className={css(style.paper)}>
-                {
-                  photos !== undefined ? (
-                    <img className={css(style.zozio)} src={photos[0]} alt={name}/>
-                  ) : (
-                    null
-                  )
-                }
-              </Paper>
+              <Grid container spacing={2}>
+                <Grid  item xs={12} md={6}>
+                  <CarouselContainer>
+                    <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
+                      <ol className="carousel-indicators">
+                        {
+                          images.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
+                        }
+                      </ol>
+                      <div className="carousel-inner">
+                        {
+                          images.map((img, key) => {
+                            if (key === 0) {
+                              return (
+                                <div key={key} className="carousel-item active" data-interval="999999999">
+                                  <img src={img} className="d-block w-100" alt={name} />
+                                </div>
+                              )
+                            } else {
+                              return (
+                                <div key={key} className="carousel-item" data-interval="999999999">
+                                  <img src={img} className="d-block w-100" alt={name} />
+                                </div>
+                              )
+                            }
+                        })
+                        }
+                      </div>
+                      <a className="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Previous</span>
+                      </a>
+                      <a className="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span className="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span className="sr-only">Next</span>
+                      </a>
+                    </div>
+                  </CarouselContainer>
+                </Grid>
 
-              <Paper className={css(style.paperpay)}>
-                <h6 className={css(style.price)}>{price}€</h6>
-                {
-                  quantity > 0 ? (
-                    <AddToCartBtn product={{id, name, price, image: photos[0]}}/>
-                  ) : ( null )
-                }
-                
-              </Paper>
+                <Grid  item xs={12} md={6}>
+                  <ProductInfoContainer>
+                    <ProductName>{name}</ProductName>
+                    <ReviewContainer>
+                      <ReviewStars>
+                        <i className="fas fa-star"></i>
+                        <i className="fas fa-star"></i>
+                        <i className="fas fa-star"></i>
+                        <i className="fas fa-star-half-alt"></i>
+                        <i className="far fa-star"></i>
+                      </ReviewStars>
+                      <ReviewText>3.5/5 (3 reviews)</ReviewText>
+                    </ReviewContainer>
+                    <ProductPrice>$ {price}</ProductPrice>
+                    <ProductDesc>{description}</ProductDesc>
+                    <QuantityContainer>
+                      {
+                        quantity > 1 
+                          ? (<InStock>In stock: {quantity} products</InStock>)
+                          : quantity === 0 
+                            ? (<InStock>Not available</InStock>)
+                            : (<InStock>In stock: {quantity} product</InStock>)
+                      }
+                      <QuantityInputContainer>
+                        <QuantityInputText>Qty:</QuantityInputText>
+                        <QuantityInput value={inputQuantity} onChange={this.quantityChange}>
+                          {
+                            options.map((Option, key) => Option)
+                          }
+                        </QuantityInput>
+                      </QuantityInputContainer>
+                    </QuantityContainer>
+                    <AddToCart>
+                      <Button 
+                        text="Add to Cart"
+                        icon={<i className="fas fa-cart-plus"></i>}
+                        onClick={this.handleAddToCart}
+                        left
+                        color={Color.lightBlue}
+                      />
+                    </AddToCart>
+                  </ProductInfoContainer>
 
-              <Paper className={css(style.paperprice)}>
-                {
-                  quantity < 1 ? (
-                    <h3 className={css(style.notInStock)}>Product not available</h3>
-                  ) : quantity > 1 ? (
-                    <h3 className={css(style.inStock)}>{quantity} products available</h3>
-                  ) : (
-                    <h3 className={css(style.inStock)}>{quantity} product available</h3>
-                  )
-                }
-              </Paper>
+                </Grid>
+              </Grid>
 
-            </Grid>
+              <Grid container>
+                <TabsContainer>
+                  <Tabs onChange={this.tabsSwicth} defaultTab={tabsToShow}>
+                    {
+                      tabsToShow === 1
+                        ? (<TabsItem active label="Description" onClick={() => this.tabsSwicth(1)}/>)
+                        : (<TabsItem label="Description" onClick={() => this.tabsSwicth(1)}/>)
+                    }
+                    {
+                      tabsToShow === 2
+                        ? (<TabsItem active label="Details" onClick={() => this.tabsSwicth(2)}/>)
+                        : (<TabsItem label="Details" onClick={() => this.tabsSwicth(2)}/>)
+                    }
+                    {
+                      tabsToShow === 3
+                        ? (<TabsItem active label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
+                        : (<TabsItem label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
+                    }
+                  </Tabs>
+                  <TabView>
+                    { tabsToShow === 1 && <Description>{description}</Description> }
+                    { tabsToShow === 2 && <Specs specs={specs}/> }
+                    { tabsToShow === 3 && <p>Reviews Tab</p> }
+                  </TabView>
+                </TabsContainer>
+              </Grid>
 
-            <Grid item xs={12} md={8}>
-              <Paper className={css(style.paper)}>{name}</Paper>
-  
-              <Paper className={css(style.paperdesc)}>{description}</Paper>
-            </Grid>
-
+            </ContainerProduct>
+            
           </Grid>
-        </div>
       </Container>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

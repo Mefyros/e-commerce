@@ -32,6 +32,7 @@ export default class ProductForm extends React.Component {
             price : false,
             name : false,
             description : false,
+            weight: false,
             file: false,
             specifications: false,
             categorie: false,
@@ -98,6 +99,11 @@ export default class ProductForm extends React.Component {
       this.display_spec = [];
       await this.setState({specification: [], nbr_spec: 0});
 
+      var specs = await SpecService.getByIdCategori(this.state.id_categorie);
+      await this.setState({specification_list: specs});
+      this.display_spec = [];
+      console.log(specs);
+
       this.forceUpdate();
     }
 
@@ -107,9 +113,6 @@ export default class ProductForm extends React.Component {
       var error = this.state.error;
       error.sub_categorie = false;
       await this.setState({error: error});
-      var specs = await SpecService.getByIdCategori(this.state.id_sub_categorie);
-      await this.setState({specification_list: specs});
-      this.display_spec = [];
       this.forceUpdate();
     }
 
@@ -151,6 +154,7 @@ export default class ProductForm extends React.Component {
         for (let [key, value] of Object.entries(this.state.specification)) {
           formData.append('specifications['+value.name+']', value.specification);
         }
+        formData.append('weight', this.state.weight);
         formData.append('sub_categorie_id', this.state.id_sub_categorie);
         formData.append('name',this.state.name);
         formData.append('description', this.state.description);
@@ -215,6 +219,13 @@ export default class ProductForm extends React.Component {
             await this.setState({error: error});
           }else {
             error.price = false;
+            await this.setState({error: error});
+          }
+          if (typeof this.state.weight === "undefined" || this.state.weight === "" || !Number.isInteger(parseInt(this.state.weight))) {
+            error.weight = true;
+            await this.setState({error: error});
+          }else {
+            error.weight = false;
             await this.setState({error: error});
           }
           for (let [key, value] of Object.entries(this.state.error)) {
@@ -332,7 +343,7 @@ export default class ProductForm extends React.Component {
               </Select>
             </Grid>
           )}
-          
+
         return(
                 <form encType="multipart/form-data" noValidate autoComplete="off" style={{marginBottom: 30}}>
                     <Container maxWidth="sm">
@@ -348,6 +359,7 @@ export default class ProductForm extends React.Component {
                     <Container maxWidth="sm">
                         <Grid container direction="row" justify="space-evenly" alignItems="baseline">
                             <TextField error={this.state.error.price} helperText='Required' label="Prix" value={this.state.price} name='price' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
+                            <TextField error={this.state.error.weight} helperText='Required' label="Poid" value={this.state.weight} name='weight' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
                             <Button variant="outlined" color="primary" onClick={this.addSpec}>
                                 Specifications +
                             </Button>

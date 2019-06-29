@@ -9,9 +9,10 @@ import Divider from '@material-ui/core/Divider';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
+import { Link } from "react-router-dom";
 
-import AuthService from '../../Service/AuthService.js';
-import LoginRegisterService from '../../Service/LoginRegisterService.js';
+import AuthService from '../../../../../Service/AuthService.js';
+import LoginRegisterService from '../../../../../Service/LoginRegisterService.js';
 
 export default class User_panel_dropdown extends React.Component {
   constructor(props){
@@ -40,11 +41,11 @@ export default class User_panel_dropdown extends React.Component {
         email: this.state.email,
         password: this.state.password,
       });
-        await localStorage.setItem('eToken', res.data.success.token);
-        const user = await AuthService.getUser(res.data.success.token);
-        console.log(user);
-        console.log(res.data.success.toke);
-        await this.setState({token: res.data.success.token, user: user.user});
+      localStorage.setItem('eToken', res.data.success.token);
+      const user = await AuthService.getUser(res.data.success.token);
+      // console.log(user);
+      // console.log(res.data.success.toke);
+      await this.setState({token: res.data.success.token, user: user.user});
     }
     if (context === 'register') {
       const res = await LoginRegisterService.register({
@@ -53,7 +54,7 @@ export default class User_panel_dropdown extends React.Component {
         password: this.state.password,
         c_password: this.state.password_verif
       });
-      await localStorage.setItem('eToken', res.data.success.token);
+      localStorage.setItem('eToken', res.data.success.token);
       const user = await AuthService.getUser(res.data.success.token);
       await this.setState({user: user.user, token: res.data.success.token });
     }
@@ -128,7 +129,7 @@ async logout(){
   }
 
   panelUser(){
-    console.log(this.state);
+    // console.log(this.state);
     return(
       <div>
       <Container>
@@ -148,10 +149,13 @@ async logout(){
       <Container>
         <List>
           <ListItem button>
-            <ListItemText><h6>Mon compte</h6></ListItemText>
+            <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
+          </ListItem>
+          <ListItem button component={Link} to="/cart">
+            <ListItemText><h6>My cart</h6></ListItemText>
           </ListItem>
           <ListItem button>
-            <ListItemText><h6>Voir mon panier</h6></ListItemText>
+            <Link to={'/panel'}><ListItemText><h6>Admin Panel</h6></ListItemText></Link>
           </ListItem>
           <ListItem button>
             <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>

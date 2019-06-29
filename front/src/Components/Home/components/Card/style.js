@@ -1,32 +1,87 @@
 import { css } from '@emotion/core';
+import styled from '@emotion/styled';
+import Color from '../../../Color';
 
-export const cardStyle = css`
+// export const media = css`
+//   height: 0;
+//   padding-top: 56.25%; /* 16:9 */
+// `;
+
+// export const addToCard = css`
+//   position: absolute;
+//   bottom: 0;
+// `;
+// export const descript = css`
+//   max-height: 55px;
+//   overflow: hidden;
+// `;
+
+export const Container = styled.div`
+  width: 210px;
+  height: 300px;
+  margin: 1vh;
+  border: 0;
+  background-color: ${Color.white};
+  box-shadow: ${Color.shadow};
+  transition-duration: 200ms;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid ${Color.ecoBrown}55;
   position: relative;
-  width: 250px;
-  height: 350px;
-  border-radius: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  margin: 1.5vh;
-  box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.05);
 
   &:hover {
     cursor: pointer;
+    box-shadow: ${Color.hoverShadow};
     transform: scale(1.005);
-    box-shadow: -1px -1px 5px 1px rgba(0,0,0,.1), 1px 1px 5px 1px rgba(0,0,0,.1);
+    border: 1px solid ${Color.ecoBrown}99;
+
+    button {
+      display: block;
+    }
+  }
+
+  button {
+    display: none;
   }
 `;
 
-export const media = css`
-  height: 0;
-  padding-top: 56.25%; /* 16:9 */
+export const Card = styled.a`
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 `;
 
-export const addToCard = css`
-  position: absolute;
-  bottom: 0;
+export const CardImageContainer = styled.div`
+  width: 100%;
+  height: 70%;
 `;
-export const descript = css`
-  max-height: 55px;
-  overflow: hidden;
+
+export const CardImage = styled.img`
+  width: 100%;
+  height: 210px;
+`;
+
+const baseText = css`
+  text-align: center;
+  margin: 0;
+  margin-top: 1em;
+  font-weight: 400;
+`;
+
+export const Name = styled.p`
+  ${baseText}
+`;
+
+export const Price = styled.p`
+  ${baseText}
+  color: ${Color.ecoBrown};
+`;
+
+export const ButtonStyle = css`
+  width: 55%;
+  position: absolute;
+  top: 30%;
+  border-radius: 30px !important;
 `;

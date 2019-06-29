@@ -47,11 +47,28 @@ export const ActionTitle = styled.h6`
   ${baseTitle};
   flex: 1;
   font-size: 1.5em;
+  transition-duration: 150ms;
+`;
 
-  i {
-    &:hover {
-      cursor: pointer;
-      color: ${Color.lightRed};
+export const ActionContainer = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  animation-duration: 200ms;
+
+  &:hover {
+    cursor: pointer;
+    i, p {
+      color: ${Color.ecoGreenHover};
     }
   }
+`;
+
+export const ActionText = styled.p`
+  font-weight: 300;
+  font-size: .6em;
+  margin: 0;
 `;

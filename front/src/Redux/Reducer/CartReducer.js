@@ -8,13 +8,13 @@ const initialState = cart.length > 0 && Array.isArray(cart) ? cart : [];
 export default (state = initialState, action) => {
 
   switch (action.type) {
-    case "ADD_ITEM":
-      return addToCart(JSON.parse(JSON.stringify(state)), action.payload)
+    case "ADD_CART_ITEM":
+      return addToCart(state, action.payload)
 
-    case "UPDATE_PRODUCT_QUANTITY":
+    case "UPDATE_CART_ITEM_QUANTITY":
       return updateQuantity(state, action.payload);
 
-    case "DELETE_ITEM":
+    case "DELETE_CART_ITEM":
       const newCart = state.filter(item => item !== action.payload);
       CartService.saveCart(newCart);
       return [...newCart];
@@ -30,17 +30,19 @@ export default (state = initialState, action) => {
 
 const addToCart = (state, payload) => {
   let newCart = [];
-  let productInCart = null;
+  let productInCart = false;
+  let productInCartId = null;
 
-  for (let i = 0; i < cart.length; ++i) {
-    if (cart[i].id === payload.id) {
-      productInCart = i;
+  for (let i = 0; i < state.length; ++i) {
+    if (state[i].id === payload.id) {
+      productInCart = true;
+      productInCartId = i;
     };
   }
 
-  if (productInCart !== null) {
+  if (productInCart) {
     newCart = [ ...state ];
-    newCart[productInCart].quantity++;
+    newCart[productInCartId].quantity++;
   } else {
     newCart = [ ...state, CartService.newCartItem(payload)];
   }

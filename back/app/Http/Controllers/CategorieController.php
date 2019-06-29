@@ -65,4 +65,10 @@ class CategorieController extends Controller
         $cat->save();
         return ['success' => 'categorie updated'];
     }
+    public function getSpecs($id){
+        $categorie = Categorie::find($id);
+        if($categorie){
+            return $categorie->specs;
+        }
+    }
 }

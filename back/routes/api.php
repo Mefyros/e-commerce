@@ -58,12 +58,12 @@ Route::get('/categories', 'CategorieController@index');
 Route::delete('/categorie/{id}', 'CategorieController@delete');
 Route::get('/categorie/{id}', 'CategorieController@getCategorie');
 Route::put('/categorie/{id}', 'CategorieController@updateCategorie');
+Route::get('/categorie/{id}/specs', 'CategorieController@getSpecs');
 
 Route::post('/subcategorie', 'SubCategorieController@create');
 Route::get('/subcategories', 'SubCategorieController@index');
 Route::delete('/subcategorie/{id}', 'SubCategorieController@delete');
 Route::get('/subcategorie/{id}', 'SubCategorieController@getProducts');
-Route::get('/subcategorie/{id}/specs', 'SubCategorieController@getSpecs');
 
 Route::post('/specs', 'SpecController@create');
 Route::get('/specs', 'SpecController@getAll');
@@ -75,8 +75,20 @@ Route::get('/search/descript/{keyword}', 'SearchController@inDescript');
 Route::post('/search/specs', 'SearchController@filter');
 
 Route::post('/transporter', 'TransporterController@create');
-
+Route::get('/transporter', 'TransporterController@getAll');
+Route::delete('/transporter/{id}', 'TransporterController@delete');
+Route::put('/transporter/{id}', 'TransporterController@update');
+Route::get('/transporter/{id}', 'TransporterController@readOne');
 Route::post('/deliveryOption', 'CheckoutController@getDelivery');
+
+Route::get('/promo', 'PromoController@getAll');
+Route::get('/promo/{id}', 'PromoController@get');
+Route::post('/promo', 'PromoController@create');
+Route::delete('/promo/{id}', 'PromoController@delete');
+Route::put('/promo/{id}', 'PromoController@update');
+
+Route::get('/order', 'OrderController@getAll');
+Route::delete('/order/{id}', 'OrderController@delete');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -86,7 +98,21 @@ Route::post('register', 'UserController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'UserController@details');
-    // Route::get('/user/cart', 'UserCartController@getCart');
-    // Route::post('/user/cart', 'UserCartController@addProduct');
+    Route::get('/user/cart', 'UserCartController@getCart');
+    Route::delete('/user/cart', 'UserCartController@remove');
+    Route::post('/user/cart', 'UserCartController@saveCart');
     Route::get('/user/isadmin', 'UserController@isAdmin');
+    Route::put('/user/info', 'UserInfoController@update');
+    Route::get('/user/info', 'UserInfoController@get');
+    Route::post('/user/info', 'UserInfoController@create');
+    Route::post('/user/creditcard', 'BankingCredentialsController@create');
+    Route::get('/user/creditcard', 'BankingCredentialsController@get');
+    Route::post('/user/creditcard/check', 'BankingCredentialsController@check');
+    Route::post('/order', 'CheckoutController@orderCommand');
+    Route::get('/user/order', 'OrderController@getAllByUser');
+    Route::post('/product/{id}/review', 'ReviewController@create');
+    Route::get('/product/{id}/review', 'ReviewController@get');
+    Route::post('/review/{id}/poce', 'ReviewController@poce');
+    Route::post('/user/password', 'UserController@passwordModifer');
+
 });

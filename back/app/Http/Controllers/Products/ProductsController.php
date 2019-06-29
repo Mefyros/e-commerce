@@ -19,7 +19,8 @@ class ProductsController extends Controller
             'specifications',
             'price',
             'specifications',
-            'photos'
+            'photos',
+            'weight'
         ]);
         if($validator === true){
             $file = $this->getPhotos($request->photos);
@@ -35,7 +36,8 @@ class ProductsController extends Controller
                 'description' => $request->description,
                 'price' => intval($request->price),
                 'photos' => json_encode($file),
-                'sub_categorie_id' => $request->sub_categorie_id
+                'sub_categorie_id' => $request->sub_categorie_id,
+                'weight' => $request->weight,
             ]);
             return response()->json(['response' => 'inserted', 'product' => $inserted]);
         } else {
@@ -63,8 +65,9 @@ class ProductsController extends Controller
             foreach($files as $file){
                 if($file->isValid()){
                     $path = $file->store('public/productImages');
-                    $path = str_replace('public', 'storage', asset($path));
-                    $paths[] = asset($path);
+                    $path = '/'.str_replace('public', 'storage', $path);
+                    asset($path);
+                    $paths[] = $path;
                 }
             }
             return $paths;
@@ -142,6 +145,22 @@ class ProductsController extends Controller
             $product->quantity = intval($request->quantity);
             $product->save();
             return $product;
+        }
+    }
+    public function linkToPromo($product){
+        $product = Product::find($product);
+        if(null !== $product){
+            $product->promo = $promo;
+            $product->save();
+            return 'promotion applied';
+        }
+    }
+    public function unlinkToPromo($product){
+        $product = Product::find($product);
+        if(null !== $product){
+            $product->promo = null;
+            $product->save();
+            return 'promotion unliked';
         }
     }
     

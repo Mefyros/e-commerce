@@ -3,14 +3,17 @@
 
 const initialState = {
   isLogin: false,
-  user: [],
+  userData: [],
 };
 
 export default (state = initialState, action) => {
 
   switch (action.type) {
-    case "ADD":
-      return state;
+    case "LOG_USER":
+      return {
+        isLogin: true,
+        userData: action.payload,
+      };
 
     default:
       return state;

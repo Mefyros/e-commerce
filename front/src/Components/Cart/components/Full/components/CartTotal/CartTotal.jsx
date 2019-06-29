@@ -1,10 +1,12 @@
 import React from 'react';
+import Checkout from '../../../../../Checkout/StepperCheckout';
+import Button from '../../../../../DefaultComponent/Button';
 import { 
   Container,
   Title,
   Price,
-  CheckoutBtn,
   Quantity,
+  ColorNumber,
 } from "./style";
 import { connect } from 'react-redux';
 
@@ -13,6 +15,18 @@ const mapStateToProps = state => ({
 })
 
 class CartTotal extends React.Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      checkout: false,
+    };
+  }
+
+  handleClickProceedToCheckout = () => {
+    this.setState({ checkout: true });
+    this.props.changeInputStatus();
+  }
+
   render() {
     const { cart } = this.props;
     let totalPrice = 0;
@@ -24,20 +38,32 @@ class CartTotal extends React.Component {
       totalProduct += quantity;
     }
 
-    return (
-      <Container>
-        <Title>Cart's Total</Title>
-        {
-          totalPrice > 1 ? (
-            <Quantity>{ totalProduct } Products in cart</Quantity>
-          ) : (
-            <Quantity>{ totalProduct } Product in cart</Quantity>
-          )
-        }
-        <Price>Total: { totalPrice } $</Price>
-        <CheckoutBtn href="#">Proceed To Checkout</CheckoutBtn>
-      </Container>
-    );
+    if (this.state.checkout === false) {
+      return (
+        <Container>
+          <Title>Cart's Total</Title>
+          {
+            totalPrice > 1 ? (
+              <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Products in cart</Quantity>
+            ) : (
+              <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Product in cart</Quantity>
+            )
+          }
+          <Price>{ totalPrice } $</Price>
+          <Button 
+            text="Proceed To Checkout"
+            onClick={this.handleClickProceedToCheckout}
+          />
+        </Container>
+      );
+    } else {
+      return (
+        <div>
+          <Checkout/>
+        </div>
+      );
+    }
+    
   }
 }
 

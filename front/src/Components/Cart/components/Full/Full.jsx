@@ -6,6 +6,17 @@ import BasketTotal from './components/CartTotal/CartTotal';
 import { Title } from "./style";
 
 export default class FullCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inputDisable: false,
+    };
+  }
+
+  changeInputStatus = () => {
+    this.setState({ inputDisable: true });
+  }
+
   render() {
     return (
       <Container maxWidth="lg">
@@ -14,13 +25,13 @@ export default class FullCard extends React.Component {
           <Title>My Cart</Title>
           
           <Grid item xs={12} md={8}>
-            <BasketMenu />
+            <BasketMenu inputDisable={this.state.inputDisable}/>
           </Grid>
-          
+
           <Grid item xs={12} md={1} />
 
           <Grid item xs={12} md={3}>
-            <BasketTotal />
+            <BasketTotal changeInputStatus={this.changeInputStatus}/>
           </Grid>
 
         </Grid>

@@ -1,21 +1,19 @@
 import styled from '@emotion/styled';
 import Color from '../../Color';
+import {css} from "@emotion/core";
 
 export const CardContainer = styled.div`
-  width: 250px;
-  height: 75px;
+  width: 275px;
+  height: 212px;
   border-radius: 0;
   margin: 1.5vh;
-  border: 1px solid ${Color.lightGrey};
-  transition-duration: 250ms;
-  /* box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.05); */
+  border: 1px solid ${Color.ecoBrown};
+  transition-duration: 200ms;
 
   &:hover {
-    cursor: pointer;
     transform: scale(1.005);
-    border-color: ${Color.grey};
-    box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.05);
-    /* box-shadow: -1px -1px 5px 1px rgba(0,0,0,.1), 1px 1px 5px 1px rgba(0,0,0,.1); */
+    border-color: ${Color.ecoGreenHover};
+    box-shadow: ${Color.shadow};
   }
 `;
 
@@ -27,17 +25,28 @@ export const CardContent = styled.div`
 `;
 
 export const Image = styled.img`
-  width: 33%;
+  width: 40%;
   height: 100%;
 `;
 
-export const CardText = styled.p`
+export const CardText = styled.div`
   margin: 0;
   padding: 0 2em;
   font-size: 1.1em;
-  transition-duration: 250ms;
+  font-family: Myriad Pro;
+  transition-duration: 200ms;
+  text-align: center;
 
   &:hover {
     color: ${Color.green};
   }
+`;
+
+export const viewBtn = css`
+  width: 7em !important;
+  margin: 0 !important;
+  margin-top: 1em !important;
+  border: 1px solid ${Color.green} !important;
+  border-radius: 30px !important;
+  padding: .5em 1em !important;
 `;
