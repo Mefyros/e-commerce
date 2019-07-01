@@ -75,7 +75,7 @@ class ProductsController extends Controller
             if($files->isValid()){
                 $path = $files->store('public/productImages');
                 $path = str_replace('public', 'storage', asset($path));
-                return [asset($path)];
+                return [$path];
             }
         }
     }
