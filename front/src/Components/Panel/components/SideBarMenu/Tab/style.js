@@ -1,4 +1,3 @@
-// import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Color from '../../../../Color';
 
@@ -11,7 +10,7 @@ export const Container = styled.div`
 
   &:hover {
     cursor: pointer;
-    background-color: ${Color.lightGrey};
+    background-color: ${Color.ecoBrownHover}33;
   }
 `;
 
