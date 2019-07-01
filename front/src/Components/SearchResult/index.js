@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import CustomCard from './components/card/Card'
+import CustomCard from './components/card'
 import Container from '@material-ui/core/Container';
 import SearchService from '../../Service/SearchService'
 import Grid from '@material-ui/core/Grid';
 import Checkbox from '@material-ui/core/Checkbox';
-import SliderRange from './components/SliderRange/Slider';
+import SliderRange from './components/SliderRange';
 import { css } from 'emotion';
 import { filter, filterContent, filterTitle, filterPrice } from './style';
 

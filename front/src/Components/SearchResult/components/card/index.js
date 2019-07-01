@@ -3,16 +3,13 @@ import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import CardActions from '@material-ui/core/CardActions';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from "react-router-dom";
-import { cardStyle, media, addToCard, descript, content, priceColor, card} from './style';
+import * as S from './style';
 import { css } from 'emotion';
 import { connect } from 'react-redux';
 import { addToCart } from '../../../../Redux/Action/CartAction';
 import Button from '../../../DefaultComponent/Button';
-import Color from "../../../Color";
 
 const mapStateToProps = state => {
     return { products: state.cart };
@@ -50,28 +47,28 @@ class CustomCard extends React.Component {
         const { name, photos, price, description } = this.state;
 
         return (
-            <Card className={css(cardStyle)} onClick={this.showProduct}>
+            <Card className={css(S.cardStyle)} onClick={this.showProduct}>
                 <CardMedia
-                    className={css(media)}
+                    className={css(S.media)}
                     image={photos[0]}
                     title="Bird"
                 />
-                <CardContent className={css(content)}>
+                <CardContent className={css(S.content)}>
                     <Typography variant="h5" component="h2">
                         {name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="h2">
                         (0 reviews)
                     </Typography>
-                    <Typography variant="body2" className={css(priceColor)} component="h2">
+                    <Typography variant="body2" className={css(S.priceColor)} component="h2">
                          {price}$
                     </Typography>
-                    <Typography className={css(descript)} variant="body2" color="textSecondary" component="h2">
+                    <Typography className={css(S.descript)} variant="body2" color="textSecondary" component="h2">
                         {description.substring(0, 75)}...
                     </Typography>
-                    <CardActions className={css(addToCard)} disableSpacing>
+                    <CardActions className={css(S.addToCard)} disableSpacing>
                         <Button
-                            buttonStyle={css(card)}
+                            buttonStyle={css(S.card)}
                             text="Add to cart"
                             onClick={this.addToCart}
                             icon={<i class="fas fa-cart-plus"></i>}

@@ -8,7 +8,7 @@ import Panel from '../Panel';
 import ProductForm from '../Form/ProductForm';
 import Menuccsc from '../Menuccsc';
 import Cart from '../Cart';
-import SearchResult from '../SearchResult/SearchResult'
+import SearchResult from '../SearchResult'
 import Account from '../User/Account'
 
 
