@@ -1,12 +1,12 @@
 import React from "react";
 import { MDBCarousel, MDBCarouselInner, MDBCarouselItem, MDBView, MDBContainer } from
         "mdbreact";
-import style from './style';
+import * as S from './style';
 import {css} from "emotion";
 
 const CarouselPage = () => {
     return (
-        <MDBContainer className={css(style.containerInner)}>
+        <MDBContainer className={css(S.containerInner)}>
             <MDBCarousel
                 activeItem={1}
                 length={3}
@@ -14,11 +14,11 @@ const CarouselPage = () => {
                 showIndicators={true}
                 className="z-depth-1"
             >
-                <MDBCarouselInner className={css(style.carouselInner)}>
+                <MDBCarouselInner className={css(S.carouselInner)}>
                     <MDBCarouselItem itemId="1">
                         <MDBView>
                             <img
-                                className={css(style.imageResize)}
+                                className={css(S.imageResize)}
                                 src="./banner/banner_msi.jpg"
                                 alt="First slide"
                             />
@@ -27,7 +27,7 @@ const CarouselPage = () => {
                     <MDBCarouselItem itemId="2">
                         <MDBView>
                             <img
-                                className={css(style.imageResize)}
+                                className={css(S.imageResize)}
                                 src="./banner/banner_asus.jpg"
                                 alt="Second slide"
                             />
@@ -36,7 +36,7 @@ const CarouselPage = () => {
                     <MDBCarouselItem itemId="3">
                         <MDBView>
                             <img
-                                className={css(style.imageResize)}
+                                className={css(S.imageResize)}
                                 src="./banner/CrazyGamer.jpg"
                                 alt="Third slide"
                             />

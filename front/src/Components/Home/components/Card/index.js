@@ -1,18 +1,9 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import { css } from 'emotion';
 import { connect } from 'react-redux';
 import { addToCart } from '../../../../Redux/Action/CartAction';
 import Button from '../../../DefaultComponent/Button';
-import { 
-  Container,
-  Card,
-  CardImageContainer,
-  CardImage,
-  Name,
-  Price,
-  ButtonStyle,
-} from './style';
+import * as S from './style';
 
 const mapStateToProps = state => {
   return { products: state.cart };
@@ -53,22 +44,22 @@ class CustomCard extends React.Component {
     const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
-      <Container>
-        <Card href={`/product/${id}`}>
-          <CardImageContainer>
-            <CardImage src={fakePic} />
-          </CardImageContainer>
-          <Name>{productName}</Name>
-          <Price>{price} $</Price>
-        </Card>
+      <S.Container>
+        <S.Card href={`/product/${id}`}>
+          <S.CardImageContainer>
+            <S.CardImage src={fakePic} />
+          </S.CardImageContainer>
+          <S.Name>{productName}</S.Name>
+          <S.Price>{price} $</S.Price>
+        </S.Card>
         <Button 
-          buttonStyle={css(ButtonStyle)}
+          buttonStyle={css(S.ButtonStyle)}
           text="Add to cart"
           onClick={this.addToCart}
           icon={<i class="fas fa-cart-plus"></i>}
           left
         />
-      </Container>
+      </S.Container>
     );
   }
 }

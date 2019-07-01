@@ -2,20 +2,6 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Color from '../../../Color';
 
-// export const media = css`
-//   height: 0;
-//   padding-top: 56.25%; /* 16:9 */
-// `;
-
-// export const addToCard = css`
-//   position: absolute;
-//   bottom: 0;
-// `;
-// export const descript = css`
-//   max-height: 55px;
-//   overflow: hidden;
-// `;
-
 export const Container = styled.div`
   width: 210px;
   height: 300px;

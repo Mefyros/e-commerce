@@ -2,12 +2,12 @@ import React from 'react';
 import { Switch ,Route } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import Home from '../Home/Home';
+import Home from '../Home';
 import Product from '../Product';
 import Panel from '../Panel/Panel';
-import ProductForm from '../Form/ProductForm/ProductForm';
-import Menuccsc from '../Menuccsc/Menu';
-import Cart from '../Cart/Cart';
+import ProductForm from '../Form/ProductForm';
+import Menuccsc from '../Menuccsc';
+import Cart from '../Cart';
 import SearchResult from '../SearchResult/SearchResult'
 import Account from '../User/Account'
 

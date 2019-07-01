@@ -1,10 +1,10 @@
 import React from 'react';
-import Card from './components/Card/Card';
-import CarouselPage from './components/Carousel/Banner';
+import Card from './components/Card';
+import CarouselPage from './components/Carousel';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import { css } from 'emotion';
-import { container, containerPopu, popTitle } from './style';
+import * as S from './style';
 import ProductService from '../../Service/ProductService';
 
 export default class Home extends React.Component {
@@ -28,12 +28,12 @@ export default class Home extends React.Component {
         <React.Fragment>
           <CssBaseline />
           <CarouselPage/>
-          <Container maxWidth='lg'  className={css(containerPopu)}>
-            <h1 className={css(popTitle)}>
+          <Container maxWidth='lg'  className={css(S.containerPopu)}>
+            <h1 className={css(S.popTitle)}>
               Popular Items
             </h1>
           </Container>
-          <Container maxWidth="lg" className={css(container)}>
+          <Container maxWidth="lg" className={css(S.container)}>
             {
               products.map((product, key) => <Card key={key} product={product}/>)
             }

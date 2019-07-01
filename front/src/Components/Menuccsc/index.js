@@ -5,9 +5,9 @@ import SubCategoryService from '../../Service/SubCatService';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import Card from './Card/Card';
+import Card from './Card';
 import Breadcrumb from '../DefaultComponent/Breadcrumbs';
-import style, { Title } from './style';
+import * as S from './style';
 import { css } from 'emotion';
 
 export default class Menuccsc extends React.Component {
@@ -101,11 +101,11 @@ export default class Menuccsc extends React.Component {
         <Grid container spacing={2}>
           <Grid item xs={12} md={12}>
 
-            <Container maxWidth="lg" className={css(style.titleContainer)}>
-              <Title>{title}</Title>
+            <Container maxWidth="lg" className={css(S.titleContainer)}>
+              <S.Title>{title}</S.Title>
             </Container>
 
-            <Container maxWidth="lg" className={css(style.cardContainer)}>
+            <Container maxWidth="lg" className={css(S.cardContainer)}>
               {
                 cardData.map((data, key) => <Card key={key} data={data} route={route}/>)
               }
