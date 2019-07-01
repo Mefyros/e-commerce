@@ -25,7 +25,7 @@ export default class Navbar extends React.Component {
       categorie_list: [],
       categorie_id: null,
       search_value: '',
-      input_searc: '',
+      input_search: '',
       result: undefined
     }
   }
@@ -39,34 +39,39 @@ export default class Navbar extends React.Component {
     this.setState({categorie_id: event.target.value});
   }
 
+  handleChangeSearchTextInput = e => {
+    this.setState({ input_search: e.target.value });
+  }
+
   handleSearch = async (event) => {
-    if(event.key === 'Enter'){
-      if(event.target.value !== ""){
-        console.log(event.target.value)
-        if(this.state.categorie_id !== 'select a category' && this.state.categorie_id !== null){
-          window.location.href = '/search/categorie/'+this.state.categorie_id+'/'+event.target.value;
-          // let result = await SearchService.searchByCategory({
-          //   categorie_id: this.state.categorie_id,
-          //   keyword: event.target.value
-          // })
-          // if(result.data.length > 0){
-          //   this.setState({
-          //     result: result,
-          //   })
-          // }
-        } else {
-          window.location.href = '/search/'+event.target.value;
-          // let result = await SearchService.search(event.target.value)
-          // if(result.data.length > 0){
-          //   this.setState({
-          //     result: result,
-          //   })
-          // }
-        }
+    const { input_search } = this.state;
+    if(input_search) {
+      console.log(event.target.value)
+      if(this.state.categorie_id !== 'select a category' && this.state.categorie_id !== null){
+        window.location.href = '/search/categorie/'+this.state.categorie_id+'/'+event.target.value;
+        // let result = await SearchService.searchByCategory({
+        //   categorie_id: this.state.categorie_id,
+        //   keyword: event.target.value
+        // })
+        // if(result.data.length > 0){
+        //   this.setState({
+        //     result: result,
+        //   })
+        // }
+      } else {
+        window.location.href = '/search/'+event.target.value;
+        // let result = await SearchService.search(event.target.value)
+        // if(result.data.length > 0){
+        //   this.setState({
+        //     result: result,
+        //   })
+        // }
       }
     }
   }
   render() {
+    const { input_search } = this.state;
+
     return (
       <AppBar className={css(style.header)} position="static" color="default">
 
@@ -77,7 +82,7 @@ export default class Navbar extends React.Component {
           </LogoContainer>
 
           <SearchBarContainer>
-            <InputSelect>
+            <InputSelect onChange={this.handleChangeSelect}>
               <InputOption value="title">Title</InputOption>
               <InputOption value="description">Description</InputOption>
               <InputOption value="categorie">Categorie</InputOption>
@@ -85,9 +90,10 @@ export default class Navbar extends React.Component {
             <InputText 
               placeholder="Search..."
               type="text"
-              
+              onChange={this.handleChangeSearchTextInput}
+              value={input_search}
             />
-            <InputSearch className="fas fa-search"/>
+            <InputSearch className="fas fa-search" onClick={this.handleSearch}/>
           </SearchBarContainer>
 
           <DropdownContainer>
