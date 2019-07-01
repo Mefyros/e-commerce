@@ -100,7 +100,7 @@ class Product extends React.Component {
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
     const options = this.createOptions(quantity > 25 ? 25 : quantity);
     const images = photos || [];
-    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
+    const fakePic = ['http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg'];
 
     return(
       <Container maxWidth="lg">
@@ -114,12 +114,12 @@ class Product extends React.Component {
                     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                       <ol className="carousel-indicators">
                         {
-                          images.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
+                          fakePic.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
                         }
                       </ol>
                       <div className="carousel-inner">
                         {
-                          images.map((img, key) => {
+                          fakePic.map((img, key) => {
                             if (key === 0) {
                               return (
                                 <div key={key} className="carousel-item active" data-interval="999999999">

@@ -14,6 +14,7 @@ export default {
     display: block;
     margin-left: auto !important;
     margin-right: auto !important;
+    background-color: ${Color.white};
   `,
 
   cardContainer: css`
@@ -25,6 +26,7 @@ export default {
     padding-right: 0 !important;
     display: flex;
     flex-wrap: wrap;
+    background-color: ${Color.white};
   `,
 
 }
@@ -39,4 +41,5 @@ export const Title = styled.h2`
   font-weight: bold;
   font-style: Myriad Pro;
   color: ${Color.ecoGreen};
+  /* background-color: ${Color.white}; */
 `;

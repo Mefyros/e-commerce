@@ -50,12 +50,13 @@ class CustomCard extends React.Component {
   render() {
     const { id, name, photos, price } = this.state;
     let productName = name.length > 20 ? `${name.slice(0,20)}...` : name;
+    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
       <Container>
         <Card href={`/product/${id}`}>
           <CardImageContainer>
-            <CardImage src={photos} />
+            <CardImage src={fakePic} />
           </CardImageContainer>
           <Name>{productName}</Name>
           <Price>{price} $</Price>
