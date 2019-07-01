@@ -7,10 +7,12 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ShoppingCartIcon from '@material-ui/icons/AddShoppingCart';
 import { Link } from "react-router-dom";
-import { cardStyle, media, addToCard, descript, content, price} from './style';
+import { cardStyle, media, addToCard, descript, content, priceColor, card} from './style';
 import { css } from 'emotion';
 import { connect } from 'react-redux';
 import { addToCart } from '../../../../Redux/Action/CartAction';
+import Button from '../../../DefaultComponent/Button';
+import Color from "../../../Color";
 
 const mapStateToProps = state => {
     return { products: state.cart };
@@ -61,17 +63,19 @@ class CustomCard extends React.Component {
                     <Typography variant="body2" color="textSecondary" component="h2">
                         (0 reviews)
                     </Typography>
-                    <Typography variant="body2" color="textSecondary" component="h2" className={css(price)}>
+                    <Typography variant="body2" className={css(priceColor)} component="h2">
                          {price}$
                     </Typography>
                     <Typography className={css(descript)} variant="body2" color="textSecondary" component="h2">
                         {description.substring(0, 75)}...
                     </Typography>
                     <CardActions className={css(addToCard)} disableSpacing>
-                        <IconButton  id="add-to-cart" aria-label="Add to cart" onClick={this.addToCart}>
-                            <ShoppingCartIcon id="add-to-cart"/>
-                        </IconButton>
-                        Add to cart
+                        <Button
+                            buttonStyle={css(card)}
+                            text="Add to cart"
+                            onClick={this.addToCart}
+                            icon={<i class="fas fa-cart-plus"></i>}
+                            left/>
                     </CardActions>
                 </CardContent>
                 <Link id={this.productLinkId} to={this.productLink}/>
