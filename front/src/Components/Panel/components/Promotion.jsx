@@ -1,19 +1,16 @@
 import React, { Component } from "react";
 import MaterialTable from "material-table";
-import PromotionService from '../../../ServiPromotionsService';
+import PromotionService from '../../../Service/PromotionService';
 
 
 export default class StockTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-          columns: [{ title: "Name", field: "name" },
-                    { title: "Weigth", field: 'base_cost[0].weight' },
-                    { title: "Base Cost", field: 'base_cost[0].base_cost'},
-                    { title: "Shipment Delay", field: "delivery_delay"},
-                    { title: "Supplement per Product", field:"per_product"},
-                    { title: "BlackList", field:"blacklist[0]"},
-                    { title: "Disponibility", field: "disponibility[0]"}
+          columns: [{ title: "Code", field: "code" },
+                    { title: "% De reduction", field:"reduction"},
+                    { title: "Date de debut", field:"start"},
+                    { title: "Date de fin", field: "end"}
                     ],
         };
       }
@@ -23,8 +20,8 @@ export default class StockTable extends Component {
       }
      
       getPromotions = async () => {
-        const transporters = await PromotionService.GetAllTransporter();
-        this.setState({ transporters }, () => console.log(this.state));
+        const promotions = await PromotionService.getAll();
+        this.setState({ promotions }, () => console.log(this.state));
       } 
 
     render() {
@@ -32,13 +29,14 @@ export default class StockTable extends Component {
         <div style={{ maxWidth: "100%" }}>
             <MaterialTable
             columns={this.state.columns}
-            data={this.state.transporters}
+            data={this.state.promotions}
             editable={{
               onRowAdd: newData =>
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
                     {
-                      const data = this.state.data;
+                      const data = this.state.promotions;
+                      console.log(PromotionService.create(newData));
                       data.push(newData);
                       this.setState({ data }, () => resolve());
                     }
@@ -49,10 +47,10 @@ export default class StockTable extends Component {
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
                     {
-                      const data = this.state.transporters;
+                      const data = this.state.promotions;
                       const index = data.indexOf(oldData);
                       data[index] = newData;
-                      console.log(data[index])
+                      console.log(PromotionService.update(data[index].id, data[index]))
                       this.setState({ data }, () => resolve());
                     }
                     resolve()
@@ -62,16 +60,17 @@ export default class StockTable extends Component {
                 new Promise((resolve, reject) => {
                   setTimeout(() => {
                     {
-                      let data = this.state.data;
+                      let data = this.state.promotions;
                       const index = data.indexOf(oldData);
                       data.splice(index, 1);
+                      PromotionService.delete(oldData.id)
                       this.setState({ data }, () => resolve());
                     }
                     resolve()
                   }, 1000)
                 }),
             }}
-            title="Gestion des Stock"
+            title="Gestion des Promotion"
             />
         </div>
         );

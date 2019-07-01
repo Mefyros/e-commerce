@@ -25,7 +25,7 @@ export default class PromotionService {
 
   static async create(data)
   {
-    return Axios.post(`/api/promo`, data, {headers: {'Content-Type': 'multipart/form-data' }})
+    return Axios.post(`/api/promo`, data)
       .then(res => {
         return res.data;
       })
@@ -36,7 +36,7 @@ export default class PromotionService {
 
   static async update(id, data)
   {
-    return Axios.put(`/api/promo/${id}`, data, {headers: {'Content-Type': 'multipart/form-data' }})
+    return Axios.put(`/api/promo/${id}`, data)
       .then(res => {
         return res.data;
       })
