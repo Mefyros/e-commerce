@@ -3,6 +3,7 @@ import { Home,AccountCircle } from '@material-ui/icons';
 import HomePage from './components/Product';
 import StockPage from './components/Stock';
 import TransporterPage from './components/Transporter';
+import PromotionPage from './components/Promotion';
 
 const Routes = [
   {
@@ -25,6 +26,13 @@ const Routes = [
     navbarName: 'Transporter',
     icon:  AccountCircle,
     component: TransporterPage
+  },
+  {
+    path: '/panel/promotion',
+    sidebarName: 'Promotion',
+    navbarName: 'Promotion',
+    icon:  AccountCircle,
+    component: PromotionPage
   }
 ];
 
