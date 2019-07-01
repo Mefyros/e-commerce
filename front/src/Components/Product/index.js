@@ -1,14 +1,14 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import ProductsService from '../../Service/ProductService';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import Button from '../DefaultComponent/Button';
 import { connect } from 'react-redux';
 import { addToCart } from '../../Redux/Action/CartAction';
+import ProductsService from '../../Service/ProductService';
 import Color from '../Color';
 import * as S from './style';
 
+import Button from '../DefaultComponent/Button';
+import Breadcrumbs from '../DefaultComponent/Breadcrumbs';
 import EcoLabel from './components/EcoLabel';
 import Tabs from './components/Tabs';
 import TabsItem from './components/Tabs/Item';

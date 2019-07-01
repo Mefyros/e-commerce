@@ -2,26 +2,23 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Color from '../Color';
 
-export default {
-  header: css`
-    flex-grow: 1;
-    position: fixed;
-    box-shadow: -1px 1px 5px 1px rgba(0,0,0,.2);
-    background-color: ${Color.white} !important;
+export const header = css`
+  flex-grow: 1;
+  position: fixed;
+  box-shadow: -1px 1px 5px 1px rgba(0,0,0,.2);
+  background-color: ${Color.white} !important;
 
-    @media (max-width: 768px) {
-      height: 150px;
-    }
-  `,
+  @media (max-width: 768px) {
+    height: 150px;
+  }
+`;
 
-  toolbar: css`
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    flex-wrap: wrap;
-    /* justify-content: space-between; */
-  `,
-}
+export const toolbar = css`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+`;
 
 export const LogoContainer = styled.a`
   flex-grow: 1;

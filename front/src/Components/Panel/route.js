@@ -1,9 +1,9 @@
 import React from "react";
 import { Home,AccountCircle } from '@material-ui/icons';
-import HomePage from './components/Product';
-import StockPage from './components/Stock';
-import TransporterPage from './components/Transporter';
-import PromotionPage from './components/Promotion';
+import ProductManagement from './components/ProductManagement';
+import StockManagement from './components/StockManagement';
+import TransporterManagement from './components/TransporterManagement';
+import PromotionManagement from './components/PromotionManagement';
 
 const Routes = [
   {
@@ -11,28 +11,28 @@ const Routes = [
     sidebarName: 'Home',
     navbarName: 'Home',
     icon: Home,
-    component: HomePage
+    component: ProductManagement,
   },
   {
     path: '/panel/stock',
     sidebarName: 'Stock',
     navbarName: 'Stock',
     icon: AccountCircle,
-    component: StockPage
+    component: StockManagement,
   },
   {
     path: '/panel/transporter',
     sidebarName: 'Transporter',
     navbarName: 'Transporter',
     icon:  AccountCircle,
-    component: TransporterPage
+    component: TransporterManagement,
   },
   {
     path: '/panel/promotion',
     sidebarName: 'Promotion',
     navbarName: 'Promotion',
     icon:  AccountCircle,
-    component: PromotionPage
+    component: PromotionManagement,
   }
 ];
 
