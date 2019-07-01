@@ -1,9 +1,9 @@
 import React from 'react';
-import BasketMenu from './components/CartMenu';
+import BasketMenu from './components';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import BasketTotal from './components/CartTotal/CartTotal';
-import { Title } from "./style";
+import BasketTotal from './components/CartTotal';
+import * as S from "./style";
 
 export default class FullCard extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ export default class FullCard extends React.Component {
       <Container maxWidth="lg">
         <Grid container spacing={2}>
 
-          <Title>My Cart</Title>
+          <S.Title>My Cart</S.Title>
           
           <Grid item xs={12} md={8}>
             <BasketMenu inputDisable={this.state.inputDisable}/>

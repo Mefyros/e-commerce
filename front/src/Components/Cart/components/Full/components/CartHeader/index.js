@@ -1,14 +1,5 @@
 import React from 'react';
-import { 
-    Container,
-    NameTitle,
-    PriceTitle,
-    TotalTitle,
-    QuantityTitle,
-    ActionTitle,
-    ActionContainer,
-    ActionText,
-} from "./style";
+import * as S from "./style";
 import { clearCart } from '../../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
 
@@ -30,18 +21,18 @@ class CartHeader extends React.Component {
 
   render() {
     return (
-      <Container>
-        <NameTitle>Product</NameTitle>
-        <PriceTitle>Unit Price</PriceTitle>
-        <QuantityTitle>Quantity</QuantityTitle>
-        <TotalTitle>Sub-Total</TotalTitle>
-        <ActionTitle>
-          <ActionContainer onClick={this.handleTrashClick}>
+      <S.Container>
+        <S.NameTitle>Product</S.NameTitle>
+        <S.PriceTitle>Unit Price</S.PriceTitle>
+        <S.QuantityTitle>Quantity</S.QuantityTitle>
+        <S.TotalTitle>Sub-Total</S.TotalTitle>
+        <S.ActionTitle>
+          <S.ActionContainer onClick={this.handleTrashClick}>
             <i className="far fa-trash-alt"></i>
-            <ActionText>Clear</ActionText>
-          </ActionContainer>
-        </ActionTitle>
-      </Container>
+            <S.ActionText>Clear</S.ActionText>
+          </S.ActionContainer>
+        </S.ActionTitle>
+      </S.Container>
     );
   }
 }

@@ -1,13 +1,7 @@
 import React from 'react';
-import Checkout from '../../../../../Checkout/StepperCheckout';
+import Checkout from './components/Checkout';
 import Button from '../../../../../DefaultComponent/Button';
-import { 
-  Container,
-  Title,
-  Price,
-  Quantity,
-  ColorNumber,
-} from "./style";
+import * as S from "./style";
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
@@ -40,21 +34,21 @@ class CartTotal extends React.Component {
 
     if (this.state.checkout === false) {
       return (
-        <Container>
-          <Title>Cart's Total</Title>
+        <S.Container>
+          <S.Title>Cart's Total</S.Title>
           {
             totalPrice > 1 ? (
-              <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Products in cart</Quantity>
+              <S.Quantity><S.ColorNumber>{ totalProduct }</S.ColorNumber> Products in cart</S.Quantity>
             ) : (
-              <Quantity><ColorNumber>{ totalProduct }</ColorNumber> Product in cart</Quantity>
+              <S.Quantity><S.ColorNumber>{ totalProduct }</S.ColorNumber> Product in cart</S.Quantity>
             )
           }
-          <Price>{ totalPrice } $</Price>
+          <S.Price>{ totalPrice } $</S.Price>
           <Button 
             text="Proceed To Checkout"
             onClick={this.handleClickProceedToCheckout}
           />
-        </Container>
+        </S.Container>
       );
     } else {
       return (

@@ -1,17 +1,5 @@
 import React from 'react';
-import { 
-    Container,
-    TitleContainer,
-    TitleImg,
-    TitleText,
-    Price,
-    Total,
-    Quantity,
-    QuantityInput,
-    Action,
-    ActionContainer,
-    ActionText,
-} from "./style";
+import * as S from "./style";
 import { updateQuantity, deleteItem } from '../../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
 import ProductService from '../../../../../../Service/ProductService';
@@ -74,16 +62,16 @@ class CartItem extends React.Component {
     const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
-      <Container>
-        <TitleContainer>
-          <TitleImg src={fakePic} alt={name}/>
-          <TitleText href={`/product/${id}`}>{name}</TitleText>
-        </TitleContainer>
-        <Price>{price} $</Price>
-        <Quantity>
+      <S.Container>
+        <S.TitleContainer>
+          <S.TitleImg src={fakePic} alt={name}/>
+          <S.TitleText href={`/product/${id}`}>{name}</S.TitleText>
+        </S.TitleContainer>
+        <S.Price>{price} $</S.Price>
+        <S.Quantity>
           {
             inputDisable 
-              ? (<QuantityInput 
+              ? (<S.QuantityInput 
                   type="number" 
                   min="1"
                   max={maxQuantity}
@@ -91,7 +79,7 @@ class CartItem extends React.Component {
                   value={quantity}
                   disabled
                 />)
-              : (<QuantityInput 
+              : (<S.QuantityInput 
                 type="number" 
                 min="1"
                 max={maxQuantity}
@@ -99,15 +87,15 @@ class CartItem extends React.Component {
                 value={quantity}
               />)
             }
-        </Quantity>
-        <Total>{quantity * price} $</Total>
-        <Action>
-          <ActionContainer onClick={this.handleTrashClick}>
+        </S.Quantity>
+        <S.Total>{quantity * price} $</S.Total>
+        <S.Action>
+          <S.ActionContainer onClick={this.handleTrashClick}>
             <i className="fas fa-times" id={id}></i>
-            <ActionText>Remove</ActionText>
-          </ActionContainer>
-        </Action>
-      </Container>
+            <S.ActionText>Remove</S.ActionText>
+          </S.ActionContainer>
+        </S.Action>
+      </S.Container>
     );
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
-import EmptyCart from './components/Empty/Empty';
-import FullCart from './components/Full/Full';
+import EmptyCart from './components/Empty';
+import FullCart from './components/Full';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({

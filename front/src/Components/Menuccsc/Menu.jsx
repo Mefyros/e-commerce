@@ -6,7 +6,7 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Card from './Card/Card';
-import Breadcrumb from '../Breadcrumbs/Breadcrumbs';
+import Breadcrumb from '../DefaultComponent/Breadcrumbs';
 import style, { Title } from './style';
 import { css } from 'emotion';
 

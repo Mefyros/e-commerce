@@ -1,10 +1,7 @@
 import React from 'react';
-import { 
-  Container,
-  BasketContent,
-} from "./style";
-import BasketHeader from './CartHeader/CartHeader';
-import BasketItem from './CartItem/CartItem';
+import * as S from "./style";
+import BasketHeader from './CartHeader';
+import BasketItem from './CartItem';
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
@@ -16,14 +13,14 @@ class CartMenu extends React.Component {
     const { cart } = this.props;
     
     return (
-      <Container>
+      <S.Container>
         <BasketHeader />
-        <BasketContent>
+        <S.BasketContent>
           {
             cart.map((item, key) => <BasketItem key={key} id={item.id} inputDisable={this.props.inputDisable}/>)
           }
-        </BasketContent>
-      </Container>
+        </S.BasketContent>
+      </S.Container>
     );
   }
 }

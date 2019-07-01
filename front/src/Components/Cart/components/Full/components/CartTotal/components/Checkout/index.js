@@ -11,10 +11,10 @@ import Container from '@material-ui/core/Container';
 
 
 //Step
-import InfoUser from './InfoUser';
-import InfoAdress from './InfoAdress';
-import InfoDelivery from './InfoDelivery';
-import InfoPaiement from './InfoPaiement';
+import InfoUser from './components/infoUser';
+import InfoAdress from './components/InfoAdress';
+import InfoDelivery from './components/InfoDelivery';
+import InfoPaiement from './components/InfoPaiement';
 
 const useStyles = makeStyles(theme => ({
   root: {
