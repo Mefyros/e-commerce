@@ -18,13 +18,16 @@ export const titleContainer = css`
 export const cardContainer = css`
   width: 100% !important;
   border: 1px solid ${Color.ecoBrown};
-  margin-left: 32px !important;
-  margin-right: 32px !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
   display: flex;
   flex-wrap: wrap;
   background-color: ${Color.white};
+  
+  @media (max-width: 768px) {
+    justify-content: center;
+    align-items: center;
+  }
 `;
 
 export const Title = styled.h2`

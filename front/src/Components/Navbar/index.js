@@ -2,10 +2,10 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import DropDownUser from './components/DropDownUser/DropDownUser';
-import DropDownSnipCart from './components/DropDownSnipeCart/DropDownSnipCart';
+import DropDownUser from './components/DropDownUser';
+import DropDownSnipCart from './components/DropDownSnipeCart';
 import CategoryService from '../../Service/CategoryService.js';
-import AppendBar from './components/AppendBar/AppendBar';
+import AppendBar from './components/AppendBar';
 import { css }  from 'emotion';
 import style, {
   SearchBarContainer,

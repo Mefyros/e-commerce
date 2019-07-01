@@ -3,11 +3,9 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
-import UserPanelDropdown from './UserPanelDropDown/UserPanelDropdown';
+import UserPanelDropdown from './UserPanelDropDown';
 import { css }  from 'emotion';
-import style, {
-  Container,
-} from './style';
+import * as S from './style';
 
 
 import AuthService from '../../../../Service/AuthService.js';
@@ -34,7 +32,7 @@ export default function SimpleMenu() {
 
 
   return (
-    <Container>
+    <S.Container>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
 
       <Grid container direction='column' justify='center'>
@@ -56,6 +54,6 @@ export default function SimpleMenu() {
       >
         <UserPanelDropdown user={getUser()}/>
       </Menu>
-    </Container>
+    </S.Container>
   );
 }

@@ -4,7 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import { css }  from 'emotion';
 import { Link } from "react-router-dom";
-import style from './style';
+import * as S from './style';
 
 export default class Categories_component extends React.Component {
   constructor(props){
@@ -58,12 +58,12 @@ export default class Categories_component extends React.Component {
 
   render(){
     return(
-      <div className={css(style.categorieComp)}>
+      <div className={css(S.categorieComp)}>
         <Grid container direction="row" justify="space-between">
           <div>
             {this.displayClassesList()}
           </div>
-          <div className={css(style.subListDiv)}>
+          <div className={css(S.subListDiv)}>
             {this.displayCatList(this.state.classe_choice_id)}
           </div>
         </Grid>
@@ -79,12 +79,12 @@ export default class Categories_component extends React.Component {
         <Grid container direction="row" justify="center">
           <h4>{props.name}</h4>
         </Grid>
-        <div className={css(style.cardList)}>
+        <div className={css(S.cardList)}>
           <Grid container direction="column" justify="center">
             {
               props.subCat.map((item) =>
               <Grid container direction="row" justify="center">
-                <Link className={css(style.ccscLink)} to={'/c/'+props.classes+'/'+item.categorie_id+'/'+item.id}><h6>{item.name}</h6></Link>
+                <Link className={css(S.ccscLink)} to={'/c/'+props.classes+'/'+item.categorie_id+'/'+item.id}><h6>{item.name}</h6></Link>
               </Grid>
               )
             }

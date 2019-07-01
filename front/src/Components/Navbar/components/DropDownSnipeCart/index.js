@@ -1,13 +1,10 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
-import Snipcart from '../../../SnipCart/Snipcart';
+import Snipcart from './components/SnipCart';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
-import { css }  from 'emotion';
-import style, {
-  Container,
-} from './style';
+import * as S from './style';
 
 
 export default function SimpleMenu() {
@@ -22,7 +19,7 @@ export default function SimpleMenu() {
   }
 
   return (
-    <Container>
+    <S.Container>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
       <Grid container direction='column' justify='center'>
         <Grid container direction='row' justify='center'>
@@ -43,6 +40,6 @@ export default function SimpleMenu() {
       >
         <Snipcart/>
       </Menu>
-    </Container>
+    </S.Container>
   );
 }

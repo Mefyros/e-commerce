@@ -5,7 +5,7 @@ import* as S from './style';
 
 import './index.css';
 import Routes from './Routes';
-import Navbar from './Navbar/Navbar';
+import Navbar from './Navbar';
 import Footer from './Footer'
 
 

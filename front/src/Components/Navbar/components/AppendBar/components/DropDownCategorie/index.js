@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import CategoriesComponent from '../CatgoriesComponent/CategoriesComponent';
+import CategoriesComponent from './components/CatgoriesComponent';
 import Popover from '@material-ui/core/Popover';
 import { css } from 'emotion';
-import style from './style';
+import * as S from './style';
 
 export default function SimpleMenu(props) {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -21,7 +21,7 @@ export default function SimpleMenu(props) {
 
   return (
     <div>
-      <Button aria-describedby={id} size='small' className={css(style.dropDownBtn)} onClick={handleClick}>
+      <Button aria-describedby={id} size='small' className={css(S.dropDownBtn)} onClick={handleClick}>
         All our product &#9660;
       </Button>
       <Popover
