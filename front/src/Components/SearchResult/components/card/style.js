@@ -33,8 +33,14 @@ export const media = css`
 export const addToCard = css`
   position: absolute;
   bottom: 0;
-  
+  border-radius: 30px;
 `;
+
+export const card = css`
+  border-radius: 30px !important;
+  background-color: ${Color.ecoBrown} !important;
+`;
+
 export const descript = css`
   max-height: 55px;
   overflow: hidden;
@@ -44,7 +50,9 @@ export const content = css`
   width: 70%;
 `;
 
-export const price = css`
+export const priceColor = css`
   color: ${Color.ecoBrown} !important;
-  font-size: 1.1em;
+  font-size: 1.1em !important;
+  margin-top: 0.5em !important;
+  margin-bottom: 0.5em !important;
 `;
