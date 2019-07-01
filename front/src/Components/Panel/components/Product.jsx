@@ -42,7 +42,7 @@ export default class Panel extends React.Component {
     return(
         
           <Grid container spacing={2}>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={7} className={css(style.categorieContainer)}>
               <Container maxWidth="lg" className={css(style.navContainer)}>
                 <AddButton />
                 <FormControl>

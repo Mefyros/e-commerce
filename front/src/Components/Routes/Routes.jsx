@@ -3,7 +3,7 @@ import { Switch ,Route } from "react-router-dom";
 import { connect } from 'react-redux';
 
 import Home from '../Home/Home';
-import Product from '../Product/Product';
+import Product from '../Product';
 import Panel from '../Panel/Panel';
 import ProductForm from '../Form/ProductForm/ProductForm';
 import Menuccsc from '../Menuccsc/Menu';

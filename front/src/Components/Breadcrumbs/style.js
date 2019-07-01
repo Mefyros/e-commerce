@@ -2,14 +2,12 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Color from '../Color';
 
-export default {
-  homeIcon: css`
-    display: flex;
-    align-items: center;
-    margin-right: .3em;
-    color: ${Color.white};
-  `,
-}
+export const homeIcon = css`
+  display: flex;
+  align-items: center;
+  margin-right: .3em;
+  color: ${Color.white};
+`;
 
 const borderRadius = '.7em';
 

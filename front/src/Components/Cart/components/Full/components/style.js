@@ -7,6 +7,7 @@ export const Container = styled.div`
   box-shadow: ${Color.shadow};
   padding: .5em 1em;
   border: 1px solid ${Color.ecoBrown};
+  background-color: ${Color.white};
 `;
 
 export const BasketContent = styled.div`

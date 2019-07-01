@@ -22,6 +22,7 @@ export const CardContent = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  background-color: ${Color.white};
 `;
 
 export const Image = styled.img`
