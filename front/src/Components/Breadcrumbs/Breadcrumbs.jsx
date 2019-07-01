@@ -1,33 +1,27 @@
 import React from 'react';
 import { css } from 'emotion';
-import style, {
-  Container,
-  BreackContainer,
-  BreadLink,
-  BreadLinkHome,
-  Arrow,
-} from './style';
+import * as S from './style';
 
 export default (props) => {
   return (
-    <Container>
-      <BreackContainer>
-        <BreadLinkHome href="/">
-          <i className={`fas fa-home ${css(style.homeIcon)}`}></i>
+    <S.Container>
+      <S.BreackContainer>
+        <S.BreadLinkHome href="/">
+          <i className={`fas fa-home ${css(S.homeIcon)}`}></i>
           Home
-          <Arrow />
-        </BreadLinkHome>
+          <S.Arrow />
+        </S.BreadLinkHome>
 
         {
           props.links.map((link, key) => (
-            <BreadLink key={key} href={link.url} >
+            <S.BreadLink key={key} href={link.url} >
               {link.name}
-              <Arrow />
-            </BreadLink>
+              <S.Arrow />
+            </S.BreadLink>
           ))
         }
-      </BreackContainer>
-    </Container>
+      </S.BreackContainer>
+    </S.Container>
   );
 }
 
