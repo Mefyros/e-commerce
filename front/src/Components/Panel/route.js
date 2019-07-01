@@ -1,39 +1,28 @@
-import React from "react";
-import { Home,AccountCircle } from '@material-ui/icons';
+import React from 'react';
 import ProductManagement from './components/ProductManagement';
 import StockManagement from './components/StockManagement';
 import TransporterManagement from './components/TransporterManagement';
 import PromotionManagement from './components/PromotionManagement';
 
-const Routes = [
+export default [
   {
-    path: '/panel/product',
-    sidebarName: 'Home',
-    navbarName: 'Home',
-    icon: Home,
-    component: ProductManagement,
+    label: "Home",
+    icon: <i class="fas fa-home"></i>,
+    view: ProductManagement,
   },
   {
-    path: '/panel/stock',
-    sidebarName: 'Stock',
-    navbarName: 'Stock',
-    icon: AccountCircle,
-    component: StockManagement,
+    label: "Stock",
+    icon: <i class="fas fa-boxes"></i>,
+    view: StockManagement,
   },
   {
-    path: '/panel/transporter',
-    sidebarName: 'Transporter',
-    navbarName: 'Transporter',
-    icon:  AccountCircle,
-    component: TransporterManagement,
+    label: "Delivery",
+    icon: <i class="fas fa-truck"></i>,
+    view: TransporterManagement,
   },
   {
-    path: '/panel/promotion',
-    sidebarName: 'Promotion',
-    navbarName: 'Promotion',
-    icon:  AccountCircle,
-    component: PromotionManagement,
-  }
-];
-
-export default Routes;
+    label: "Promotion",
+    icon: <i class="fas fa-percent"></i>,
+    view: PromotionManagement,
+  },
+]

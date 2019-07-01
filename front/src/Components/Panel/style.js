@@ -1,10 +1,23 @@
-import { css } from '@emotion/core';
-// import styled from '@emotion/styled';
+import styled from '@emotion/styled';
 
-export const DrawerStyle = css`
-  /* top: 74px !important; */
-`;
+export const Container = styled.div`
+  margin: 0 auto;
+  width: 80%;
+  margin-left: 15%;
 
-export const SpaceLeft = css`
-  margin-left: 250px;
+  @media (max-width: 1280px) {
+    margin-left: 20%;
+    width: 75%;
+  }
+
+  @media (max-width: 992px) {
+    margin-left: 25%;
+    width: 70%;
+  }
+
+  @media (max-width: 768px) {
+    margin-top: 2em;
+    margin-left: 0;
+    width: 100%;
+  }
 `;
