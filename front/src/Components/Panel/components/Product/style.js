@@ -9,7 +9,7 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  border: 1px solid ${Color.lightGrey}; 
+  border: 1px solid ${Color.lightGrey};
 `;
 
 export const Title = styled.p`

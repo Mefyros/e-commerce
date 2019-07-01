@@ -7,33 +7,13 @@ import Button from '../DefaultComponent/Button';
 import { connect } from 'react-redux';
 import { addToCart } from '../../Redux/Action/CartAction';
 import Color from '../Color';
-import {
-  ContainerProduct,
-  CarouselContainer,
-  ProductInfoContainer,
-  ProductName,
-  ReviewContainer,
-  ReviewStars,
-  ReviewText,
-  ProductPrice,
-  EcoContainer,
-  EcoStars,
-  EcoText,
-  EcoLabelContainer,
-  QuantityContainer,
-  QuantityInputContainer,
-  QuantityInputText,
-  QuantityInput,
-  InStock,
-  AddToCart,
-  TabsContainer,
-  TabView,
-  Description,
-} from './style';
-import EcoLabel from './components/EcoLabel/EcoLabel';
-import Tabs from './components/Tabs/Tabs';
-import TabsItem from './components/Tabs/TabItem';
+import * as S from './style';
+
+import EcoLabel from './components/EcoLabel';
+import Tabs from './components/Tabs';
+import TabsItem from './components/Tabs/Item';
 import Specs from './components/Specs';
+import Review from './components/Reviews';
 
 const mapStateToProps = state => {
   return { products: state.cart };
@@ -48,7 +28,7 @@ class Product extends React.Component {
     super(props);
     this.state = {
       inputQuantity: 1,
-      tabsToShow: 1,
+      tabsToShow: 3,
     };
   }
 
@@ -126,11 +106,11 @@ class Product extends React.Component {
       <Container maxWidth="lg">
         <Breadcrumbs links={links}/>
           <Grid container>
-            <ContainerProduct>
+            <S.ContainerProduct>
 
               <Grid container spacing={2}>
                 <Grid  item xs={12} md={6}>
-                  <CarouselContainer>
+                  <S.CarouselContainer>
                     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                       <ol className="carousel-indicators">
                         {
@@ -165,33 +145,33 @@ class Product extends React.Component {
                         <span className="sr-only">Next</span>
                       </a>
                     </div>
-                  </CarouselContainer>
+                  </S.CarouselContainer>
                 </Grid>
 
                 <Grid  item xs={12} md={6}>
-                  <ProductInfoContainer>
-                    <ProductName>{name}</ProductName>
-                    <ReviewContainer>
-                      <ReviewStars>
+                  <S.ProductInfoContainer>
+                    <S.ProductName>{name}</S.ProductName>
+                    <S.ReviewContainer>
+                      <S.ReviewStars>
                         <i className="fas fa-star"></i>
                         <i className="fas fa-star"></i>
                         <i className="fas fa-star"></i>
                         <i className="fas fa-star-half-alt"></i>
                         <i className="far fa-star"></i>
-                      </ReviewStars>
-                      <ReviewText>3.5/5 (3 reviews)</ReviewText>
-                    </ReviewContainer>
-                    <ProductPrice>$ {price}</ProductPrice>
-                    <EcoContainer>
-                      <EcoStars>
+                      </S.ReviewStars>
+                      <S.ReviewText>3.5/5 (3 reviews)</S.ReviewText>
+                    </S.ReviewContainer>
+                    <S.ProductPrice>$ {price}</S.ProductPrice>
+                    <S.EcoContainer>
+                      <S.EcoStars>
                         <i className="fas fa-leaf"></i>
                         <i className="fas fa-leaf"></i>
                         <i className="fas fa-leaf"></i>
                         <i className="fas fa-leaf"></i>
                         <i className="fas fa-leaf not"></i>
-                      </EcoStars>
-                      <EcoText>Eco: 4/5</EcoText>
-                    </EcoContainer>
+                      </S.EcoStars>
+                      <S.EcoText>Eco: 4/5</S.EcoText>
+                    </S.EcoContainer>
                     <EcoLabel data={[
                       { image: fakePic, tooltip: "Test tooltip" },
                       { image: fakePic, tooltip: "Test tooltip" },
@@ -199,24 +179,24 @@ class Product extends React.Component {
                       { image: fakePic, tooltip: "Test tooltip" },
                       { image: fakePic, tooltip: "Test tooltip" },
                     ]}/>
-                    <QuantityContainer>
+                    <S.QuantityContainer>
                       {
                         quantity > 1 
-                          ? (<InStock>In stock: {quantity} products</InStock>)
+                          ? (<S.InStock>In stock: {quantity} products</S.InStock>)
                           : quantity === 0 
-                            ? (<InStock>Not available</InStock>)
-                            : (<InStock>In stock: {quantity} product</InStock>)
+                            ? (<S.InStock>Not available</S.InStock>)
+                            : (<S.InStock>In stock: {quantity} product</S.InStock>)
                       }
-                      <QuantityInputContainer>
-                        <QuantityInputText>Qty:</QuantityInputText>
-                        <QuantityInput value={inputQuantity} onChange={this.quantityChange}>
+                      <S.QuantityInputContainer>
+                        <S.QuantityInputText>Qty:</S.QuantityInputText>
+                        <S.QuantityInput value={inputQuantity} onChange={this.quantityChange}>
                           {
                             options.map((Option, key) => Option)
                           }
-                        </QuantityInput>
-                      </QuantityInputContainer>
-                    </QuantityContainer>
-                    <AddToCart>
+                        </S.QuantityInput>
+                      </S.QuantityInputContainer>
+                    </S.QuantityContainer>
+                    <S.AddToCart>
                       <Button 
                         text="Add to Cart"
                         icon={<i className="fas fa-cart-plus"></i>}
@@ -224,14 +204,14 @@ class Product extends React.Component {
                         left
                         color={Color.lightBlue}
                       />
-                    </AddToCart>
-                  </ProductInfoContainer>
+                    </S.AddToCart>
+                  </S.ProductInfoContainer>
 
                 </Grid>
               </Grid>
 
               <Grid container>
-                <TabsContainer>
+                <S.TabsContainer>
                   <Tabs onChange={this.tabsSwicth} defaultTab={tabsToShow}>
                     {
                       tabsToShow === 1
@@ -249,15 +229,15 @@ class Product extends React.Component {
                         : (<TabsItem label="Reviews" onClick={() => this.tabsSwicth(3)}/>)
                     }
                   </Tabs>
-                  <TabView>
-                    { tabsToShow === 1 && <Description>{description}</Description> }
+                  <S.TabView>
+                    { tabsToShow === 1 && <S.Description>{description}</S.Description> }
                     { tabsToShow === 2 && <Specs specs={specs}/> }
-                    { tabsToShow === 3 && <p>Reviews Tab</p> }
-                  </TabView>
-                </TabsContainer>
+                    { tabsToShow === 3 && <Review /> }
+                  </S.TabView>
+                </S.TabsContainer>
               </Grid>
 
-            </ContainerProduct>
+            </S.ContainerProduct>
             
           </Grid>
       </Container>

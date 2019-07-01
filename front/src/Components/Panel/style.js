@@ -10,6 +10,7 @@ export default {
   `,
 
   categorieContainer: css`
-    border-left: 1px solid ${Color.lightGrey}
+    border-left: 1px solid ${Color.lightGrey};
+    background-color: ${Color.white};
   `,
 }

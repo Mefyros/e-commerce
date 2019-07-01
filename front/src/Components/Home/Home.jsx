@@ -27,7 +27,7 @@ export default class Home extends React.Component {
       <>
         <React.Fragment>
           <CssBaseline />
-            <CarouselPage/>
+          <CarouselPage/>
           <Container maxWidth='lg'  className={css(containerPopu)}>
             <h1 className={css(popTitle)}>
               Popular Items

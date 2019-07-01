@@ -10,6 +10,7 @@ export const Container = styled.div`
   justify-content: center;
   align-items: center;
   box-shadow: ${Color.shadow};
+  background-color: ${Color.white};
 `;
 
 export const Title = styled.h4`
