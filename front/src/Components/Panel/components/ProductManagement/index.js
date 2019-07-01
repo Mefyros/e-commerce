@@ -1,5 +1,4 @@
 import React from 'react';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Container from '@material-ui/core/Container';
 import IconButton from '@material-ui/core/IconButton';
 import Input from '@material-ui/core/Input';
@@ -8,12 +7,12 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormControl from '@material-ui/core/FormControl';
 import SearchIcon from '@material-ui/icons/Search';
 import Grid from '@material-ui/core/Grid';
-import AddButton from './button/AddButton';
-import ProductCard from './Product/Card';
-import CategorieManager from './CategorieManager/CategorieManager';
+import AddButton from './components/AddButton';
+import ProductCard from './components/ProductCard';
+import CategorieManager from './components/CategorieManager';
 import { css } from 'emotion';
-import style from '../style';
-import ProductService from '../../../Service/ProductService';
+import * as S from './style';
+import ProductService from '../../../../Service/ProductService';
 
 export default class Panel extends React.Component {
   constructor(props) {
@@ -42,8 +41,8 @@ export default class Panel extends React.Component {
     return(
         
           <Grid container spacing={2}>
-            <Grid item xs={12} md={7} className={css(style.categorieContainer)}>
-              <Container maxWidth="lg" className={css(style.navContainer)}>
+            <Grid item xs={12} md={7} className={css(S.categorieContainer)}>
+              <Container maxWidth="lg" className={css(S.navContainer)}>
                 <AddButton />
                 <FormControl>
                   <InputLabel htmlFor="search-bar">Search product</InputLabel>
@@ -68,7 +67,7 @@ export default class Panel extends React.Component {
                 }
               </Container>
             </Grid>
-            <Grid item xs={12} md={5} className={css(style.categorieContainer)}>
+            <Grid item xs={12} md={5} className={css(S.categorieContainer)}>
               <CategorieManager />
             </Grid>
           </Grid>

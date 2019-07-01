@@ -6,7 +6,10 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Drawer from '@material-ui/core/Drawer';
+import Grid from '@material-ui/core/Grid';
 import routes from './route';
+import {css} from 'emotion';
+import * as S from './style';
 
 
 
@@ -15,7 +18,7 @@ export default class Panel extends React.Component {
     super(props);
     this.state = {
       drawer : true,
-      view : ''
+      view : '',
     };
   }
 
@@ -27,31 +30,32 @@ export default class Panel extends React.Component {
     this.setState({view : <View/>})
   }
 
- 
-
   render() {
 
     return(
         <Container maxWidth="lg">
-          <Drawer variant="persistent"
-        anchor="left" open={this.state.drawer}>
-          <div
-            role="presentation"
-          >
-        <List>
-          {routes.map((prop, key) => {
-            return (
-            <ListItem button key={key} onClick={this.HandleView.bind(this, prop.component)}>
-            <ListItemIcon><prop.icon /> </ListItemIcon>
-            <ListItemText primary={prop.sidebarName} />
-          </ListItem>
-            )
-          })}
-        </List>
-      </div>
-          </Drawer>
           <CssBaseline />
+          <Drawer
+            variant="persistent"
+            anchor="left" 
+            open={this.state.drawer}
+          >
+            <div role="presentation" className={css(S.DrawerStyle)}>
+              <List>
+                {routes.map((prop, key) => {
+                  return (
+                  <ListItem button key={key} onClick={this.HandleView.bind(this, prop.component)}>
+                  <ListItemIcon><prop.icon /> </ListItemIcon>
+                  <ListItemText primary={prop.sidebarName} />
+                </ListItem>
+                  )
+                })}
+              </List>
+            </div>
+          </Drawer>
+          
           <this.View />
+
         </Container>
     );
   } 

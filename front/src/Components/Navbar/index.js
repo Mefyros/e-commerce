@@ -7,16 +7,8 @@ import DropDownSnipCart from './components/DropDownSnipeCart';
 import CategoryService from '../../Service/CategoryService.js';
 import AppendBar from './components/AppendBar';
 import { css }  from 'emotion';
-import style, {
-  SearchBarContainer,
-  LogoContainer,
-  Logo,
-  InputSelect,
-  InputText,
-  InputOption,
-  InputSearch,
-  DropdownContainer,
-} from './style';
+import { Link } from "react-router-dom";
+import * as S from './style';
 
 export default class Navbar extends React.Component {
   constructor(props){
@@ -73,33 +65,33 @@ export default class Navbar extends React.Component {
     const { input_search } = this.state;
 
     return (
-      <AppBar className={css(style.header)} position="static" color="default">
+      <AppBar className={css(S.header)} position="static" color="default">
 
-        <Toolbar className={css(style.toolbar)}>
+        <Toolbar className={css(S.toolbar)}>
         
-          <LogoContainer href="/">
-            <Logo src="../../assets/eco_logo.png" alt="logo"/>
-          </LogoContainer>
+          <S.LogoContainer href="/">
+            <S.Logo src="../../assets/eco_logo.png" alt="logo"/>
+          </S.LogoContainer>
 
-          <SearchBarContainer>
-            <InputSelect onChange={this.handleChangeSelect}>
-              <InputOption value="title">Title</InputOption>
-              <InputOption value="description">Description</InputOption>
-              <InputOption value="categorie">Categorie</InputOption>
-            </InputSelect>
-            <InputText 
+          <S.SearchBarContainer>
+            <S.InputSelect onChange={this.handleChangeSelect}>
+              <S.InputOption value="title">Title</S.InputOption>
+              <S.InputOption value="description">Description</S.InputOption>
+              <S.InputOption value="categorie">Categorie</S.InputOption>
+            </S.InputSelect>
+            <S.InputText 
               placeholder="Search..."
               type="text"
               onChange={this.handleChangeSearchTextInput}
               value={input_search}
             />
-            <InputSearch className="fas fa-search" onClick={this.handleSearch}/>
-          </SearchBarContainer>
+            <S.InputSearch className="fas fa-search" onClick={this.handleSearch}/>
+          </S.SearchBarContainer>
 
-          <DropdownContainer>
+          <S.DropdownContainer>
               <DropDownUser/>
               <DropDownSnipCart/>
-          </DropdownContainer>
+          </S.DropdownContainer>
 
         </Toolbar>
 

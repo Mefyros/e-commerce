@@ -1,9 +1,7 @@
 import React from 'react';
-import DeleteButton from '../button/DeleteButton';
-import EditButton from '../button/EditButton';
-import StockButton from '../button/StockButton';
+import { DeleteButton, EditButton, StockButton } from './Button';
 import { Link } from "react-router-dom";
-import { Container, ButtonContainer, Title } from './style';
+import * as S from './style';
 
 export default class Crad extends React.Component {
   constructor(props) {
@@ -22,15 +20,15 @@ export default class Crad extends React.Component {
     const { name, id, quantity } = this.state;
 
     return(
-      <Container>
-        <Title onClick={this.handleTitleClick}>{name}</Title>
-        <ButtonContainer>
+      <S.Container>
+        <S.Title onClick={this.handleTitleClick}>{name}</S.Title>
+        <S.ButtonContainer>
           <DeleteButton productId={id}/>
           <EditButton productId={id}/>
           <StockButton id={id} quantity={quantity}/>
           <Link id={`product${id}`} to={`/product/${id}`}/>
-        </ButtonContainer>
-      </Container>
+        </S.ButtonContainer>
+      </S.Container>
     );
   }
 }

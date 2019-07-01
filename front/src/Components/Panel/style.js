@@ -1,16 +1,10 @@
 import { css } from '@emotion/core';
-import Color from '../Color';
+// import styled from '@emotion/styled';
 
-export default {
-  navContainer: css`
-    display: flex;
-    margin-top: 2em;
-    margin-bottom: 2em;
-    align-items: center;
-  `,
+export const DrawerStyle = css`
+  /* top: 74px !important; */
+`;
 
-  categorieContainer: css`
-    border-left: 1px solid ${Color.lightGrey};
-    background-color: ${Color.white};
-  `,
-}
+export const SpaceLeft = css`
+  margin-left: 250px;
+`;

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import MaterialTable from "material-table";
-import TransporterService from '../../../Service/TransporterService';
+import TransporterService from '../../../../Service/TransporterService';
 
 
 export default class StockTable extends Component {

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 import Home from '../Home';
 import Product from '../Product';
-import Panel from '../Panel/Panel';
+import Panel from '../Panel';
 import ProductForm from '../Form/ProductForm';
 import Menuccsc from '../Menuccsc';
 import Cart from '../Cart';

@@ -7,10 +7,10 @@ import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { css } from 'emotion';
-import style from './style';
-import ClassService from '../../../../Service/ClassService';
-import CategorieService from '../../../../Service/CategoryService';
-import SubCategorieService from '../../../../Service/SubCatService';
+import * as S from './style';
+import ClassService from '../../../../../../Service/ClassService';
+import CategorieService from '../../../../../../Service/CategoryService';
+import SubCategorieService from '../../../../../../Service/SubCatService';
 
 export default class CategorieManager extends React.Component {
   constructor(props) {
@@ -181,10 +181,10 @@ export default class CategorieManager extends React.Component {
     const showDeleteButton = !showNewCcscButton && (Number.isInteger(classSelectValue) || Number.isInteger(categorieSelectValue) ||Number.isInteger(subCategorieSelectValue)) ? true : false;
 
     return(
-      <div className={css(style.container)}>
-        <h4 className={css(style.title)}>Manage Class</h4>
-        <div className={css(style.inputContainer)}>
-          <FormControl className={css(style.formControl)}>
+      <div className={css(S.container)}>
+        <h4 className={css(S.title)}>Manage Class</h4>
+        <div className={css(S.inputContainer)}>
+          <FormControl className={css(S.formControl)}>
             <InputLabel shrink htmlFor="class-name">Class</InputLabel>
             <Select
               value={classSelectValue}
@@ -209,7 +209,7 @@ export default class CategorieManager extends React.Component {
                   margin="normal"
                 />
               ) : showCategorieSelect ? (
-                <FormControl className={css(style.formControl)}>
+                <FormControl className={css(S.formControl)}>
                   <InputLabel shrink htmlFor="categorie-name">Categorie</InputLabel>
                   <Select
                     value={categorieSelectValue}
@@ -239,7 +239,7 @@ export default class CategorieManager extends React.Component {
                 margin="normal"
               />
             ) : showSubCategorieSelect ? (
-              <FormControl className={css(style.formControl)}>
+              <FormControl className={css(S.formControl)}>
                 <InputLabel shrink htmlFor="sub-categorie-name">Sub-Categorie</InputLabel>
                 <Select
                   value={subCategorieSelectValue}
@@ -273,12 +273,12 @@ export default class CategorieManager extends React.Component {
           }
           {
             showNewCcscButton ? (
-              <Typography className={css(style.buttonBox)}>
-                <Button className={css(style.createButton)} onClick={this.handleAddNewCscc}>Create new</Button>
+              <Typography className={css(S.buttonBox)}>
+                <Button className={css(SVGAnimateElement.createButton)} onClick={this.handleAddNewCscc}>Create new</Button>
               </Typography>
             ) : showDeleteButton ? (
-              <Typography className={css(style.buttonBox)}>
-                <Button className={css(style.deleteButton)} onClick={this.handleDeleteCscc}>Delete</Button>
+              <Typography className={css(S.buttonBox)}>
+                <Button className={css(S.deleteButton)} onClick={this.handleDeleteCscc}>Delete</Button>
               </Typography>
             ) : (
               null

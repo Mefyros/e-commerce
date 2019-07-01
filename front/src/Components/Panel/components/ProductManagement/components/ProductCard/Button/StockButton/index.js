@@ -8,8 +8,8 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import TextField from '@material-ui/core/TextField';
 import { css } from 'emotion';
-import style, { ModalTitle, InputContainer } from './style';
-import ProductService from '../../../../Service/ProductService';
+import * as S from './style';
+import ProductService from '../../../../../../../../Service/ProductService';
 
 export default class StockButton extends React.Component {
   constructor(props) {
@@ -61,8 +61,8 @@ export default class StockButton extends React.Component {
 
     return(
       <>
-        <Typography className={css(style.buttonBox)} onClick={this.handleUpdateStockClick}>
-            <Button className={css(style.stockButton)}>Update stock</Button>
+        <Typography className={css(S.buttonBox)} onClick={this.handleUpdateStockClick}>
+            <Button className={css(S.stockButton)}>Update stock</Button>
         </Typography>
 
         <Modal
@@ -73,11 +73,11 @@ export default class StockButton extends React.Component {
           disableEscapeKeyDown={true}
           disableBackdropClick={true}
         >
-          <div className={css(style.modalStyle)}>
-            <ModalTitle>Update product quantity</ModalTitle>
+          <div className={css(S.modalStyle)}>
+            <S.ModalTitle>Update product quantity</S.ModalTitle>
 
-            <InputContainer>
-              <FormControl className={css(style.formControl)}>
+            <S.InputContainer>
+              <FormControl className={css(S.formControl)}>
                 <InputLabel shrink htmlFor="manage-stock">Manage Stock</InputLabel>
                 <Select
                   value={inStock}
@@ -100,10 +100,10 @@ export default class StockButton extends React.Component {
                   null
                 )
               }
-            </InputContainer>
+            </S.InputContainer>
 
-            <Typography className={css(style.buttonBox)}>
-              <Button className={css(style.saveButton)} onClick={this.handleSave}>Save</Button>
+            <Typography className={css(S.buttonBox)}>
+              <Button className={css(S.saveButton)} onClick={this.handleSave}>Save</Button>
             </Typography>
           </div>
         </Modal>

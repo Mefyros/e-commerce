@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import Snipcart from './components/SnipCart';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
+import { Link } from "react-router-dom";
 import * as S from './style';
 
 
