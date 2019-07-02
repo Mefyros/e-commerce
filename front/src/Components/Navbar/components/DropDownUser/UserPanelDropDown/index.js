@@ -20,7 +20,8 @@ export default class User_panel_dropdown extends React.Component {
     this.state = {
       register: false,
       token: null,
-      user: this.props.user
+      user: this.props.user,
+      error: false,
     };
   }
 
@@ -41,11 +42,14 @@ export default class User_panel_dropdown extends React.Component {
         email: this.state.email,
         password: this.state.password,
       });
-      localStorage.setItem('eToken', res.data.success.token);
-      const user = await AuthService.getUser(res.data.success.token);
-      // console.log(user);
-      // console.log(res.data.success.toke);
-      await this.setState({token: res.data.success.token, user: user.user});
+      if (typeof res.data === 'undefined') {
+        await this.setState({error: true});
+      }else {
+        console.log('connect');
+        localStorage.setItem('eToken', res.data.success.token);
+        const user = await AuthService.getUser(res.data.success.token);
+        await this.setState({token: res.data.success.token, user: user.user});
+      }
     }
     if (context === 'register') {
       const res = await LoginRegisterService.register({
@@ -54,9 +58,14 @@ export default class User_panel_dropdown extends React.Component {
         password: this.state.password,
         c_password: this.state.password_verif
       });
-      localStorage.setItem('eToken', res.data.success.token);
-      const user = await AuthService.getUser(res.data.success.token);
-      await this.setState({user: user.user, token: res.data.success.token });
+      if (typeof res.data === 'undefined') {
+        await this.setState({error: true});
+      }else {
+        console.log('connect');
+        localStorage.setItem('eToken', res.data.success.token);
+        const user = await AuthService.getUser(res.data.success.token);
+        await this.setState({token: res.data.success.token, user: user.user});
+      }
     }
 }
 
@@ -78,6 +87,13 @@ async logout(){
           <Grid container direction='row' justify='center'>
           <TextField type='password' helperText='Required' fullWidth label="Password" name='password' margin="normal" variant="outlined" onChange={this.handleInputChange.bind(this)}/>
           </Grid>
+          <Grid>
+              {
+                this.state.error === true
+                  ? (<p style={{color: 'red'}}>Une erreur est survenu, veuillez vous re-connecter</p>)
+                  : (null)
+              }
+          </Grid>
           <Grid container direction='row' justify='center'>
             <Button onClick={() => this.submit('login')}>Login</Button>
           </Grid>
@@ -85,7 +101,7 @@ async logout(){
             <h6>Ou</h6>
           </Grid>
           <Grid container direction='row' justify='center'>
-            <Button onClick={() => this.setState({register: true})}>Register</Button>
+            <Button onClick={() => this.setState({register: true, error: false})}>Register</Button>
           </Grid>
         </Container>
       </div>
@@ -114,6 +130,13 @@ async logout(){
           <Grid container direction='row' justify='center'>
           <TextField type='password' helperText='Required' fullWidth label="Password" name='password_verif' margin="normal" variant="outlined" onChange={this.handleInputChange.bind(this)}/>
           </Grid>
+          <Grid>
+              {
+                this.state.error === true
+                  ? (<p style={{color: 'red'}}>Une erreur est survenu, veuillez réessayer</p>)
+                  : (null)
+              }
+          </Grid>
           <Grid container direction='row' justify='center'>
             <Button onClick={() => this.submit('register')}>Let's go !</Button>
           </Grid>
@@ -121,7 +144,7 @@ async logout(){
             <h6>Ou</h6>
           </Grid>
           <Grid container direction='row' justify='center'>
-            <Button onClick={() => this.setState({register: false})}>Sign in !</Button>
+            <Button onClick={() => this.setState({register: false, error: false})}>Sign in !</Button>
           </Grid>
         </Container>
       </div>
@@ -149,13 +172,10 @@ async logout(){
       <Container>
         <List>
           <ListItem button>
-            <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
+            <Link to={'/my_account'}><ListItemText><h6>Mon compte</h6></ListItemText></Link>
           </ListItem>
           <ListItem button component={Link} to="/cart">
-            <ListItemText><h6>My cart</h6></ListItemText>
-          </ListItem>
-          <ListItem button>
-            <Link to={'/panel'}><ListItemText><h6>Admin Panel</h6></ListItemText></Link>
+            <ListItemText><h6>Voir mon panier</h6></ListItemText>
           </ListItem>
           <ListItem button>
             <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>

@@ -19,7 +19,16 @@ export default class SideBarMenu extends React.Component {
       showTabs: !this.state.showTabs
     }, () => {
       if (this.state.showTabs) {
-
+        console.log('document true');
+        document.onclick = () => {
+          this.handleShow();
+          console.log('click true');
+        };
+      } else {
+        console.log('document false');
+        document.onclick = () => {
+          console.log('click false');
+        };
       }
     });
   }
