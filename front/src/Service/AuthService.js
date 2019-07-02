@@ -42,4 +42,59 @@ export default class Auth {
             })
         }
     }
+
+    static async getUserInfo(token){
+        if(undefined === token){
+            console.log('undefiend token');
+            return false
+        } else {
+            return Axios.get('/api/user/info', {
+                headers: {
+                    'Content-type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer '+token,
+                }
+            }).then(res => {
+                return {user: res.data};
+            }).catch(err => {
+                return {err: err}
+            })
+        }
+    }
+
+    static async updateUser(data) {
+        var token = localStorage.getItem('eToken');
+        return Axios.put(`/api/user/info`,
+                data, {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer '+token,
+                    }
+                })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => {
+                return err;
+            });
+    }
+
+    static async resetPassword(data) {
+        var token = localStorage.getItem('eToken');
+        return Axios.post(`/api/user/password`,
+                data, {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer '+token,
+                    }
+                })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => {
+                return err;
+            });
+    }
 }

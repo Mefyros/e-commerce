@@ -1,4 +1,8 @@
 import React from 'react';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardContent from '@material-ui/core/CardContent';
+import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
 
@@ -25,8 +29,8 @@ export default class InfoPaiement extends React.Component {
       } else {
         if (event.target.name == 'cartNumber') {
             if (event.target.value.length <= 16) {
-              // console.log(parseInt(event.target.value[event.target.value.length - 1]));
-              if (parseInt(event.target.value[event.target.value.length - 1]) &&  !isNaN(parseInt(event.target.value[0]))) {
+              console.log(parseInt(event.target.value[event.target.value.length - 1]));
+              if (parseInt(event.target.value[event.target.value.length - 1]) && parseInt(event.target.value[0]) !== NaN) {
                 this.setState({[event.target.name]: event.target.value});
               }
             }

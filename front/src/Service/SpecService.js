@@ -31,7 +31,7 @@ export default class SpecService {
           });
   }
   static async getByIdCategori(id) {
-      return Axios.get(`/api/subcategorie/${id}/specs`, {
+      return Axios.get(`/api/categorie/${id}/specs`, {
               headers: {
                   "Content-type": "application/json"
               }

@@ -265,7 +265,7 @@ export default class ProductForm extends React.Component {
         }
       }
       await this.setState({id_sub_categorie: product.sub_categorie_id});
-      var specs = await SpecService.getByIdCategori(this.state.id_sub_categorie);
+      var specs = await SpecService.getByIdCategori(product.parent.categorie_id);
       await this.setState({specification_list: specs});
 
 
