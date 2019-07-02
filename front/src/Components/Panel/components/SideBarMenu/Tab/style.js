@@ -7,10 +7,24 @@ export const Container = styled.div`
   flex-direction: row;
   align-items: center;
   padding: 1em 2em;
+  background-color: ${Color.white};
+
+  i, p {
+    user-select: none;
+  }
+
+  &.active {
+    i, p {
+      color: ${Color.ecoBrownHover};
+    }
+  }
 
   &:hover {
     cursor: pointer;
-    background-color: ${Color.ecoBrownHover}33;
+
+    i, p {
+      color: ${Color.ecoBrownHover};
+    }
   }
 `;
 

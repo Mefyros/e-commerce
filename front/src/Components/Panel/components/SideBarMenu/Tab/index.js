@@ -3,10 +3,10 @@ import * as S from './style';
 
 export default class Tab extends React.Component {
   render() {
-    const { label, icon, onClick } = this.props;
+    const { label, icon, onClick, className } = this.props;
 
     return (
-      <S.Container onClick={onClick}>
+      <S.Container onClick={onClick} className={className}>
         <S.IconLeft className={icon.props.class}/>
         <S.Label>{label}</S.Label>
         <S.IconRight className="fas fa-chevron-right"/>
