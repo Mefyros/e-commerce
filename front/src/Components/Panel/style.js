@@ -1,16 +1,19 @@
-import { css } from '@emotion/core';
-import Color from '../Color';
+import styled from '@emotion/styled';
 
-export default {
-  navContainer: css`
-    display: flex;
+export const Container = styled.div`
+  margin: 0 auto;
+  width: 80%;
+
+  @media (max-width: 1280px) {
+    width: 80%;
+  }
+
+  @media (max-width: 992px) {
+    width: 80%;
+  }
+
+  @media (max-width: 768px) {
     margin-top: 2em;
-    margin-bottom: 2em;
-    align-items: center;
-  `,
-
-  categorieContainer: css`
-    border-left: 1px solid ${Color.lightGrey};
-    background-color: ${Color.white};
-  `,
-}
+    width: 100%;
+  }
+`;
