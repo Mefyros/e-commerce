@@ -9,7 +9,7 @@ class SuppliersController extends Controller
 {
     //
 
-    public function showAll () {
+    public function GetAll () {
         return Suppliers::all();
     }
 
@@ -21,7 +21,7 @@ class SuppliersController extends Controller
 
     public function delete($id){
         $sup = Suppliers::find($id);
-        if(null === $sub){
+        if(null === $sup){
             return ['error' => 'Suppliers not found'];
         }
         $sup->delete();
