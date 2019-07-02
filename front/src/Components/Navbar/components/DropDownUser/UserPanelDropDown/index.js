@@ -172,10 +172,13 @@ async logout(){
       <Container>
         <List>
           <ListItem button>
-            <Link to={'/my_account'}><ListItemText><h6>Mon compte</h6></ListItemText></Link>
+            <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
           </ListItem>
           <ListItem button component={Link} to="/cart">
-            <ListItemText><h6>Voir mon panier</h6></ListItemText>
+            <ListItemText><h6>My cart</h6></ListItemText>
+          </ListItem>
+          <ListItem button component={Link} to="/panel">
+            <ListItemText><h6>Admin panel</h6></ListItemText>
           </ListItem>
           <ListItem button>
             <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>
