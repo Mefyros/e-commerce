@@ -23,6 +23,8 @@ export default class Commands extends React.Component {
   }
 
   render(){
+    const { order } = this.state;
+
     return(
       <div>
       <Grid container direction='row' justify='center'>
@@ -40,15 +42,37 @@ export default class Commands extends React.Component {
           </TableHead>
           <TableBody>
           {
-            this.state.order.map((item) =>
-              <TableRow>
-                <TableCell>{item.id}</TableCell>
-                <TableCell>{item.ordered.split('T')[0]} [{item.ordered.split('T')[1].split('.000000Z')[0]}]</TableCell>
-                <TableCell>{item.step}</TableCell>
-                <TableCell>Pas de detail</TableCell>
-              </TableRow>
-            )
+            // order.map((item) => (
+            //     <TableRow key={item.id}>
+            //       <TableCell>{item.id}</TableCell>
+            //       <TableCell>{item.ordered.split('T')[0]} [{item.ordered.split('T')[1].split('.000000Z')[0]}]</TableCell>
+            //       <TableCell>{item.step}</TableCell>
+            //       <TableCell>Pas de detail</TableCell>
+            //     </TableRow>
+            //   )
+            // )
           }
+
+            <TableRow>
+              <TableCell>N° 135359</TableCell>
+              <TableCell>01/07/2019</TableCell>
+              <TableCell>En cours d'envoi</TableCell>
+              <TableCell>Details de la conmmande</TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell>N° 126676</TableCell>
+              <TableCell>21/05/2019</TableCell>
+              <TableCell>Commande recu</TableCell>
+              <TableCell>Details de la conmmande</TableCell>
+            </TableRow>
+
+            <TableRow>
+              <TableCell>N° 76218</TableCell>
+              <TableCell>14/10/2018</TableCell>
+              <TableCell>Commande recu</TableCell>
+              <TableCell>Details de la conmmande</TableCell>
+            </TableRow>
 
           </TableBody>
         </Table>

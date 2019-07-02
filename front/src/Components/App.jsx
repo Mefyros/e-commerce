@@ -1,24 +1,24 @@
 import React from 'react';
 
 import { css }  from 'emotion';
-import { SpaceTop, SpaceBottom, footer, mainContainer } from './style';
+import* as S from './style';
 
 import './index.css';
-import Routes from './Routes/Routes';
-import Navbar from './Navbar/Navbar';
-import Footer from './Footer/Footer'
+import Routes from './Routes';
+import Navbar from './Navbar';
+import Footer from './Footer'
 
 
 export default class App extends React.Component {
 
   render() {
     return (
-      <div className={css(mainContainer)}>
+      <div className={css(S.mainContainer)}>
         <Navbar />
-        <SpaceTop />
+        <S.SpaceTop />
         <Routes />
-        <SpaceBottom />
-        <div className={css(footer)}>
+        <S.SpaceBottom />
+        <div className={css(S.footer)}>
           <Footer/>
         </div>
       </div>

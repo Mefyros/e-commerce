@@ -1,22 +1,18 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
-import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 
 import General from './Components/General';
 import CreditCard from './Components/CreditCard';
 import Commands from './Components/Commands';
 
 import TicketService from '../../Service/TicketService.js';
-import AuthService from '../../Service/AuthService.js';
+// import AuthService from '../../Service/AuthService.js';
 
 import { css }  from 'emotion';
 
-import { principal_grid, itemMenuList, menuList, panelView } from './style';
+import { principal_grid, itemMenuList, menuList, panelView, Container } from './style';
 
 export default class Account extends React.Component {
   constructor(props){
@@ -51,12 +47,12 @@ export default class Account extends React.Component {
 
   render(){
     return(
-      <div>
+      <Container>
         <div className={css(principal_grid)}>
           <this.OngletList />
           <OngletChoice user={this.state.user} state={this.state} choice={this.state.onglet_choice} />
         </div>
-      </div>
+      </Container>
     );
   }
 }
