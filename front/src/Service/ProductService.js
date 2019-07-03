@@ -58,7 +58,7 @@ export default class ProductService {
 
   static async visited(id)
   {
-    return Axios.delete(`/api/visit/${id}`)
+    return Axios.get(`/api/product/${id}/visit`)
       .then(res => {
         return res.data;
       })
