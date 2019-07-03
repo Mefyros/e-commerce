@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
-import Color from '../../../../../Color';
+import Color from '../../../../../../Color';
 
 const baseTitle = css`
   margin: 0;

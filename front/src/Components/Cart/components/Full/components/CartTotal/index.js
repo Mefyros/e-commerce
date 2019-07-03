@@ -17,6 +17,8 @@ class CartTotal extends React.Component {
   }
 
   handleClickProceedToCheckout = () => {
+    const {openModal} = this.props;
+    openModal();
     this.setState({ checkout: true });
     this.props.changeInputStatus();
   }
