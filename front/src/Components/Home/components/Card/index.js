@@ -55,7 +55,7 @@ class CustomCard extends React.Component {
           buttonStyle={css(S.ButtonStyle)}
           text="Add to cart"
           onClick={this.addToCart}
-          icon={<i class="fas fa-cart-plus"></i>}
+          icon={<i className="fas fa-cart-plus"></i>}
           left
         />
       </S.Container>
