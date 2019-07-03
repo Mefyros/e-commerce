@@ -11,11 +11,8 @@ import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
-import {
-  userConnect,
-  userLogout,
-} from '../../../../../Redux/Action/UserAction';
 
+import * as A from '../../../../../Redux/Action/UserAction';
 import AuthService from '../../../../../Service/AuthService.js';
 import LoginRegisterService from '../../../../../Service/LoginRegisterService.js';
 
@@ -26,8 +23,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapDispatchToProps = dispatch => ({
-  userConnect: payload => dispatch(userConnect(payload)),
-  userLogout: payload => dispatch(userLogout(payload)),
+  userConnect: payload => dispatch(A.userConnect(payload)),
+  userLogout: payload => dispatch(A.userLogout(payload)),
 });
 
 class UserPanelDropdown extends React.Component {
@@ -35,8 +32,6 @@ class UserPanelDropdown extends React.Component {
     super(props);
     this.state = {
       register: false,
-      token: null,
-      user: this.props.user,
       error: false,
     };
   }
@@ -172,7 +167,7 @@ class UserPanelDropdown extends React.Component {
   }
 
   panelUser(){
-    const {name, email} = this.props.user;
+    const {name, email, isAdmin} = this.props.user;
 
     return(
       <>
@@ -198,9 +193,15 @@ class UserPanelDropdown extends React.Component {
             <ListItem button component={Link} to="/cart">
               <ListItemText><h6>My cart</h6></ListItemText>
             </ListItem>
-            <ListItem button component={Link} to="/panel">
-              <ListItemText><h6>Admin panel</h6></ListItemText>
-            </ListItem>
+            {
+              isAdmin
+                ? (
+                  <ListItem button component={Link} to="/panel">
+                    <ListItemText><h6>Admin panel</h6></ListItemText>
+                  </ListItem>
+                  )
+                : (null)
+            }
             <ListItem button>
               <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>
             </ListItem>
@@ -225,7 +226,7 @@ class UserPanelDropdown extends React.Component {
   }
 
   async componentDidMount(){
-    var user = await AuthService.getUser(localStorage.getItem('eToken'));
+    const user = await AuthService.getUser(localStorage.getItem('eToken'));
     if (user.user) {
       this.connect(user.user);
     }
