@@ -1,4 +1,4 @@
- import React from 'react';
+import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
@@ -33,7 +33,9 @@ class Product extends React.Component {
   }
 
   componentDidMount = async () => {
-    const product = await ProductsService.getById(this.props.match.params.id);
+    const { id } = this.props.match.params;
+    const product = await ProductsService.getById(id);
+    ProductsService.visited(id);
 
     if (typeof product === 'object') {
       const classe = product.parent.parent.parent;
