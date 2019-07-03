@@ -8,6 +8,27 @@ export default class SideBarMenu extends React.Component {
     active: 0,
   }
 
+  componentDidMount = () => {
+    this.setEvent();
+  }
+
+  setEvent = () => {
+    window.onkeydown = (e) => {
+      if (e.key === 'Escape')
+        this.closeMenu();
+    }
+
+    document.onclick = (e) => {
+      if (!e.target.id.includes('menu')) {
+        this.closeMenu();
+      }
+    }
+  }
+
+  closeMenu = () => {
+    this.setState({showTabs: false});
+  }
+
   onChange = (view, active) => {
     const { onChange } = this.props;
     this.setState({active})
@@ -17,19 +38,6 @@ export default class SideBarMenu extends React.Component {
   handleShow = () => {
     this.setState({
       showTabs: !this.state.showTabs
-    }, () => {
-      if (this.state.showTabs) {
-        console.log('document true');
-        document.onclick = () => {
-          this.handleShow();
-          console.log('click true');
-        };
-      } else {
-        console.log('document false');
-        document.onclick = () => {
-          console.log('click false');
-        };
-      }
     });
   }
 
@@ -40,6 +48,7 @@ export default class SideBarMenu extends React.Component {
     return tabs.map((tab, key) => (
       <Tab 
         className={key === active ? 'active' : ''}
+        id="menu-tab"
         key={key}
         label={tab.label}
         icon={tab.icon}
@@ -55,10 +64,10 @@ export default class SideBarMenu extends React.Component {
       <S.Container>
         {
           showTabs
-            ? (<S.ShowButton className="fas fa-bars show" onClick={this.handleShow}/>)
-            : (<S.ShowButton className="fas fa-bars" onClick={this.handleShow}/>)
+            ? (<S.ShowButton id="menu-button" className="fas fa-bars show" onClick={this.handleShow}/>)
+            : (<S.ShowButton id="menu-button" className="fas fa-bars" onClick={this.handleShow}/>)
         }
-        <S.TabsContainer>
+        <S.TabsContainer id="menu">
           { 
             showTabs
               ? this.getTabs()

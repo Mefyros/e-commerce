@@ -6,11 +6,11 @@ export default class Tab extends React.Component {
     const { label, icon, onClick, className } = this.props;
 
     return (
-      <S.Container onClick={onClick} className={className}>
-        <S.IconLeft className={icon.props.class}/>
-        <S.Label>{label}</S.Label>
-        <S.IconRight className="fas fa-chevron-right"/>
-        <S.IconDown className="fas fa-chevron-down"/>
+      <S.Container id="menu-container" onClick={onClick} className={className}>
+        <S.IconLeft id="menu-icon" className={icon.props.class}/>
+        <S.Label id="menu-label">{label}</S.Label>
+        <S.IconRight id="menu-icon" className="fas fa-chevron-right"/>
+        <S.IconDown id="menu-icon" className="fas fa-chevron-down"/>
       </S.Container>
     )
   }
