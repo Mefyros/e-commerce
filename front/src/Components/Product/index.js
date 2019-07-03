@@ -1,4 +1,4 @@
-import React from 'react';
+ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
@@ -114,12 +114,12 @@ class Product extends React.Component {
                     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                       <ol className="carousel-indicators">
                         {
-                          fakePic.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
+                          images.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
                         }
                       </ol>
                       <div className="carousel-inner">
                         {
-                          fakePic.map((img, key) => {
+                          images.map((img, key) => {
                             if (key === 0) {
                               return (
                                 <div key={key} className="carousel-item active" data-interval="999999999">
