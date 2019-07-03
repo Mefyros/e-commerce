@@ -3,6 +3,7 @@ import ProductManagement from './components/ProductManagement';
 import StockManagement from './components/StockManagement';
 import TransporterManagement from './components/TransporterManagement';
 import PromotionManagement from './components/PromotionManagement';
+import SupplierManagement from './components/SupplierManagement';
 
 export default [
   {
@@ -24,5 +25,10 @@ export default [
     label: "Promotion",
     icon: <i class="fas fa-percent"></i>,
     view: PromotionManagement,
+  },
+  {
+    label: "Supplier",
+    icon: <i class="fas fa-parachute-box"></i>,
+    view: SupplierManagement,
   },
 ]
