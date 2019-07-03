@@ -1,18 +1,30 @@
 // import AuthService from '../../Service/AuthService';
 // import LoginRegisterService from '../../Service/LoginRegisterService';
 
-const initialState = {
+let initialState = {
   isLogin: false,
-  userData: [],
+  isAdmin: false,
+  token: null,
 };
 
 export default (state = initialState, action) => {
 
   switch (action.type) {
-    case "LOG_USER":
+    case "USER_CONNECT":
+      const ROLES = JSON.parse(action.payload.roles);
       return {
         isLogin: true,
-        userData: action.payload,
+        isAdmin: ROLES.includes("ROLE_ADMIN") || false,
+        token: localStorage.getItem('eToken'),
+        ...action.payload, 
+        roles: ROLES,
+      };
+
+    case "USER_LOGOUT":
+      return {
+        isLogin: false,
+        isAdmin: false,
+        token: null,
       };
 
     default:

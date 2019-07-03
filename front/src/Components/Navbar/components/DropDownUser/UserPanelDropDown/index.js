@@ -10,11 +10,27 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import {
+  userConnect,
+  userLogout,
+} from '../../../../../Redux/Action/UserAction';
 
 import AuthService from '../../../../../Service/AuthService.js';
 import LoginRegisterService from '../../../../../Service/LoginRegisterService.js';
 
-export default class User_panel_dropdown extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  userConnect: payload => dispatch(userConnect(payload)),
+  userLogout: payload => dispatch(userLogout(payload)),
+});
+
+class UserPanelDropdown extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -45,10 +61,9 @@ export default class User_panel_dropdown extends React.Component {
       if (typeof res.data === 'undefined') {
         await this.setState({error: true});
       }else {
-        console.log('connect');
         localStorage.setItem('eToken', res.data.success.token);
         const user = await AuthService.getUser(res.data.success.token);
-        await this.setState({token: res.data.success.token, user: user.user});
+        this.connect(user.user);
       }
     }
     if (context === 'register') {
@@ -61,18 +76,23 @@ export default class User_panel_dropdown extends React.Component {
       if (typeof res.data === 'undefined') {
         await this.setState({error: true});
       }else {
-        console.log('connect');
         localStorage.setItem('eToken', res.data.success.token);
         const user = await AuthService.getUser(res.data.success.token);
-        await this.setState({token: res.data.success.token, user: user.user});
+        this.connect(user.user);
       }
     }
-}
+  }
 
-async logout(){
-  await this.setState({user: null, token: null});
-  localStorage.removeItem('eToken');
-}
+  connect = (userData) => {
+    const {userConnect} = this.props;
+    userConnect(userData);
+  }
+
+  logout(){
+    const {userLogout} = this.props;
+    userLogout();
+    localStorage.removeItem('eToken');
+  }
 
   login(){
     return (
@@ -152,45 +172,48 @@ async logout(){
   }
 
   panelUser(){
-    // console.log(this.state);
+    const {name, email} = this.props.user;
+
     return(
-      <div>
-      <Container>
+      <>
+        <Container>
+          <Grid container direction='row' justify='center'>
+          <Avatar style={{width: 60, height: 60}}>img</Avatar>
+          </Grid>
+        </Container>
+        <Container style={{marginTop: 10}}>
         <Grid container direction='row' justify='center'>
-        <Avatar style={{width: 60, height: 60}}>img</Avatar>
+          <h5>{name}</h5>
+          </Grid>
+          <Grid container direction='row' justify='center'>
+          <p>{email}</p>
         </Grid>
-      </Container>
-      <Container style={{marginTop: 10}}>
-      <Grid container direction='row' justify='center'>
-        <h5>{this.state.user.name}</h5>
-        </Grid>
-        <Grid container direction='row' justify='center'>
-        <p>{this.state.user.email}</p>
-      </Grid>
-      </Container>
-      <Divider/>
-      <Container>
-        <List>
-          <ListItem button>
-            <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
-          </ListItem>
-          <ListItem button component={Link} to="/cart">
-            <ListItemText><h6>My cart</h6></ListItemText>
-          </ListItem>
-          <ListItem button component={Link} to="/panel">
-            <ListItemText><h6>Admin panel</h6></ListItemText>
-          </ListItem>
-          <ListItem button>
-            <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>
-          </ListItem>
-        </List>
-      </Container>
-      </div>
+        </Container>
+        <Divider/>
+        <Container>
+          <List>
+            <ListItem button>
+              <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
+            </ListItem>
+            <ListItem button component={Link} to="/cart">
+              <ListItemText><h6>My cart</h6></ListItemText>
+            </ListItem>
+            <ListItem button component={Link} to="/panel">
+              <ListItemText><h6>Admin panel</h6></ListItemText>
+            </ListItem>
+            <ListItem button>
+              <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>
+            </ListItem>
+          </List>
+        </Container>
+      </>
     );
   }
 
   display(){
-    if (this.state.token !== null && this.state.user !== null && typeof this.state.user !== 'undefined') {
+    const { isLogin } = this.props.user;
+
+    if (isLogin) {
       return this.panelUser();
     }else {
       if (this.state.register === true) {
@@ -201,17 +224,20 @@ async logout(){
     }
   }
 
-   async componentDidMount(){
-     var user = await AuthService.getUser(localStorage.getItem('eToken'));
-     await this.setState({token: localStorage.getItem('eToken'), user: user.user});
-     await this.setState({token: localStorage.getItem('eToken')});
+  async componentDidMount(){
+    var user = await AuthService.getUser(localStorage.getItem('eToken'));
+    if (user.user) {
+      this.connect(user.user);
     }
+  }
 
   render(){
     return(
-      <div>
+      <>
         {this.display()}
-      </div>
+      </>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPanelDropdown);

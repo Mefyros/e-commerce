@@ -29,8 +29,6 @@ export default function SimpleMenu() {
     });
   }
 
-
-
   return (
     <S.Container>
       <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>

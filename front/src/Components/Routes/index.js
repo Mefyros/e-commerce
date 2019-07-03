@@ -20,8 +20,7 @@ const mapStateToProps = state => {
 
 class Routes extends React.Component {
   render() {
-    const { isLogin, userData } = this.props.user;
-    const { isAdmin } = userData;
+    const { isLogin, isAdmin, data } = this.props.user;
 
     return (
       <Switch>
