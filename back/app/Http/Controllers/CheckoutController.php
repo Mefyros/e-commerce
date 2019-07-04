@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Order;
 use App\OrderStep;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class CheckoutController extends Controller
 {
@@ -27,26 +28,29 @@ class CheckoutController extends Controller
     public function orderCommand(Request $request){
         $userCart = new UserCartController();
         $cart = $userCart->parseCart($request->cart);
-        $credentials = BankingCredentials::where('creditCardNumber', $request->credentials['creditCardNumber'])
-        ->where('expiration', $request->credentials['expiration'])
-        ->first();
-        $user_id = (null !== Auth::user()) ? Auth::user()->id : null;
-        if(Hash::check($request->credentials['ccv'], $credentials->ccv)){
-            $order = Order::create([
-                'user_id' => $user_id,
-                'cart' => json_encode($cart),
-                'address' => json_encode($request->address),
-                'transporter_id' => $request->transporter,
-            ]);
-            $order = Order::find($order->id);
-            $temp = [
-                'id' => $order->id,
-                'cart' => $order->cart,
-                'step' => $order->orderStep->step,
-                'ordered' => $order->created_at
-            ];
-            return $temp;
+        if($request->paymentOption === "creditCard"){
+            $credentials = BankingCredentials::where('creditCardNumber', $request->credentials['creditCardNumber'])
+            ->where('expiration', $request->credentials['expiration'])
+            ->first();
+            $user_id = (null !== Auth::user()) ? Auth::user()->id : null;
+            if(!Hash::check($request->credentials['ccv'], $credentials->ccv)){
+                return response('invalid creditcard number', 401);
+            }
         }
+        $order = Order::create([
+            'user_id' => $user_id,
+            'cart' => json_encode($cart),
+            'address' => json_encode($request->address),
+            'transporter_id' => $request->transporter,
+        ]);
+        $order = Order::find($order->id);
+        $temp = [
+            'id' => $order->id,
+            'cart' => $order->cart,
+            'step' => $order->orderStep->step,
+            'ordered' => $order->created_at
+        ];
+        return $temp;
         
     }
     public function parseCart($cart){
