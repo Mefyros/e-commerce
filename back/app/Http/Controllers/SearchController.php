@@ -11,20 +11,26 @@ class SearchController extends Controller
     //
     public function byKeyword($keyword, Request $request){
         $results = Product::where('name', 'REGEXP', $keyword)->paginate(10);
+        foreach($results as $result)
         if($results){
             $temp = [];
-            if($request->specs){
-                foreach($results as $product){
-                    foreach($request->specs as $key => $spec){
-                        if(isset(json_decode($product->specs)->$key)){
-                            if(json_decode($product->specs)->$key === $spec){
-                                $temp[] = $product;
-                            }
-                        }
-                    }
-                }
-                return $temp;
+            foreach($results as $result){
+                $temp[] = $result;
+                $temp->categorie;
+                $temp->subCategorie;
             }
+            // if($request->specs){
+            //     foreach($results as $product){
+            //         foreach($request->specs as $key => $spec){
+            //             if(isset(json_decode($product->specs)->$key)){
+            //                 if(json_decode($product->specs)->$key === $spec){
+            //                     $temp[] = $product;
+            //                 }
+            //             }
+            //         }
+            //     }
+            //     return $temp;
+            // }
             return $results;
         }
     }
