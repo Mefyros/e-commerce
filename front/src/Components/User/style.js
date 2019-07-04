@@ -27,27 +27,8 @@ export const panelView = css`
   padding: 30px;
 `;
 
-export const dFlexRowCenter = css`
-  display: flex;
-  justify-content: center;
-`;
-
-export const dFlexColumnCenter = css`
-  display: flex;
-  flex-direction: column
-  justify-content: center;
-`;
-
-export const dFlexRowSpaceAround = css`
-  display: flex;
-  justify-content: space-around;
-`;
-
-export const dFlexRowSpaceBetween = css`
-  display: flex;
-  justify-content: space-between;
-`;
-
-export const generalLeftDiv = css`
-  border-right: 1px solid #8fd6a0;
+export const Tab = styled.div`
+  &:hover {
+    cursor: pointer;
+  }
 `;
