@@ -9,7 +9,7 @@ import ProductForm from '../Form/ProductForm';
 import Menuccsc from '../Menuccsc';
 import Cart from '../Cart';
 import SearchResult from '../SearchResult';
-import Account from '../User/Account';
+import Account from '../User';
 import NotFound from '../NotFound';
 
 const mapStateToProps = state => {

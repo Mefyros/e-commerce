@@ -97,4 +97,62 @@ export default class Auth {
                 return err;
             });
     }
+
+    //For create object
+    // creditCardNumber,
+    // ccv,
+    // expiration,
+
+    static async createCreditCard(data) {
+        var token = localStorage.getItem('eToken');
+        return Axios.post(`/api/user/creditcard`,
+                data, {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer '+token,
+                    }
+                })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => {
+                return err;
+            });
+    }
+
+    static async getCreditCard() {
+        var token = localStorage.getItem('eToken');
+        return Axios.get(`/api/user/creditcard`, {
+                    headers: {
+                        "Content-type": "application/json",
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer '+token,
+                    }
+                })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => {
+                return err;
+            });
+    }
+
+    static async deleteCreditCard(id) {
+        var token = localStorage.getItem('eToken');
+        console.log(token);
+        return Axios.delete(`/api/user/creditcard/${id}`,{
+                    headers: {
+                        "Content-type": "application/json",
+                        'Accept': 'application/json',
+                        'Authorization': 'Bearer '+token,
+                    }
+                })
+            .then(res => {
+                return res.data;
+            })
+            .catch(err => {
+                return err;
+            });
+    }
 }

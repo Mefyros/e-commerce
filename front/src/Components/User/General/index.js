@@ -1,53 +1,39 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
-import Container from '@material-ui/core/Container';
 import Button from '@material-ui/core/Button';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
 
 import AuthService from '../../../Service/AuthService.js';
 
 import { css }  from 'emotion';
-import {
-  dFlexRowCenter,
-  dFlexRowSpaceAround,
-  generalLeftDiv,
-  dFlexColumnCenter,
-  dFlexRowSpaceBetween
-} from '../style';
+import * as S from './style';
 
 export default class General extends React.Component {
-  constructor(props){
-    super(props);
-    this.error = {
-      message_password: null,
-      password_curent: false,
-      passwordNew: false,
-      passwordNew2: false,
-    }
-    this.state = {
-      passwordCurent: '',
-      passwordNew: '',
-      passwordNew2: '',
-    }
+  error = {
+    message_password: null,
+    password_curent: false,
+    passwordNew: false,
+    passwordNew2: false,
   }
 
-  async handleInputChange(event){
-    await this.setState({[event.target.name]: event.target.value});
+  state = {
+    passwordCurent: '',
+    passwordNew: '',
+    passwordNew2: '',
   }
 
-  async componentDidMount(){
-       var user = await AuthService.getUserInfo(localStorage.getItem('eToken'));
-       console.log(user);
-        await this.setState(user.user);
+  handleInputChange(event){
+    this.setState({[event.target.name]: event.target.value});
+  }
+
+  componentDidMount = async () => {
+    var user = await AuthService.getUserInfo(localStorage.getItem('eToken'));
+    this.setState(user.user);
   }
 
   updateData = async () => {
-    console.log(this.state);
     var user_updated = JSON.stringify(this.state);
-    console.log(user_updated);
-    var user = await AuthService.updateUser(user_updated);
-    console.log(user);
+    AuthService.updateUser(user_updated);
   }
 
   resetPassword = async () => {
@@ -55,17 +41,15 @@ export default class General extends React.Component {
     if (!this.checkErrorPassword(passwordCurent, passwordNew, passwordNew2)) {
       return;
     }
-    console.log('reset password confirm');
     var res = await AuthService.resetPassword({
       actual_pass: passwordCurent,
       password: passwordNew,
       password_confirmation: passwordNew2,
     });
-    console.info(res);
-    if (res == 'success') {
-      console.info('ok');
+    if (res === 'success') {
+      // console.info('ok');
     }else {
-      console.info('nop');
+      // console.info('nop');
     }
   }
 
@@ -109,10 +93,10 @@ export default class General extends React.Component {
     const { password_curent, passwordNew, passwordNew2} = this.error;
     return(
       <div>
-        <div className={css(dFlexRowSpaceAround)}>
-          <div className={css(generalLeftDiv)} style={{width: '150%', paddingLeft: '8%', paddingRight: '10%'}}>
-            <h5 className={css(dFlexRowCenter)}>Information personnel</h5>
-            <div className={css(dFlexRowSpaceBetween)}>
+        <div className={css(S.dFlexRowSpaceAround)}>
+          <div className={css(S.generalLeftDiv)} style={{width: '150%', paddingLeft: '8%', paddingRight: '10%'}}>
+            <h5 className={css(S.dFlexRowCenter)}>Information personnel</h5>
+            <div className={css(S.dFlexRowSpaceBetween)}>
               <TextField variant="outlined" label="Prenom" margin="normal" name={'lastname'} value={this.state.lastname} onChange={this.handleInputChange.bind(this)}/>
               <TextField variant="outlined"  label="Nom" margin="normal" name={'name'} value={this.state.name} onChange={this.handleInputChange.bind(this)}/>
             </div>
@@ -128,7 +112,7 @@ export default class General extends React.Component {
             </Grid>
           </div>
           <Grid style={{paddingLeft: '17%', paddingRight: '0%'}} container direction='column' justify='center'>
-            <h5 className={css(dFlexRowCenter)}>Modifer son mot de passe</h5>
+            <h5 className={css(S.dFlexRowCenter)}>Modifer son mot de passe</h5>
             <TextField type={'password'} error={password_curent} variant="outlined"  label="Mot de passe actuel" margin="normal" name={'passwordCurent'} value={this.state.passwordCurent} onChange={this.handleInputChange.bind(this)}/>
             <TextField type={'password'} error={passwordNew} variant="outlined"  label="Nouveau mot de passe" margin="normal" name={'passwordNew'} value={this.state.passwordNew} onChange={this.handleInputChange.bind(this)}/>
             <TextField type={'password'} error={passwordNew2} variant="outlined"  label="Retaper le nouveau mot de passe" margin="normal" name={'passwordNew2'} value={this.state.passwordNew2} onChange={this.handleInputChange.bind(this)}/>

@@ -10,24 +10,24 @@ export default class InfoPaiement extends React.Component {
   }
 
   handleInputChange(event){
-    if (event.target.name == 'expireDate') {
+    if (event.target.name === 'expireDate') {
       if (event.target.value.length <= 5) {
-        if (event.target.value.length == 2 && event.target.value.length > this.state.expireDate.length) {
+        if (event.target.value.length === 2 && event.target.value.length > this.state.expireDate.length) {
             this.setState({[event.target.name]: event.target.value + '/'});
         } else {
             this.setState({[event.target.name]: event.target.value});
         }
       }
     } else {
-      if (event.target.name == 'ccv') {
+      if (event.target.name === 'ccv') {
         if (event.target.value.length <= 3) {
           this.setState({[event.target.name]: event.target.value});
         }
       } else {
-        if (event.target.name == 'cartNumber') {
+        if (event.target.name === 'cartNumber') {
             if (event.target.value.length <= 16) {
               console.log(parseInt(event.target.value[event.target.value.length - 1]));
-              if (parseInt(event.target.value[event.target.value.length - 1]) && parseInt(event.target.value[0]) !== NaN) {
+              if (parseInt(event.target.value[event.target.value.length - 1]) &&  !isNaN(parseInt(event.target.value[0]))) {
                 this.setState({[event.target.name]: event.target.value});
               }
             }

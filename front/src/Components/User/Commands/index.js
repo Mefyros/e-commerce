@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-import TicketService from '../../../Service/TicketService.js';
+// import TicketService from '../../../Service/TicketService.js';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -23,7 +23,7 @@ export default class Commands extends React.Component {
   }
 
   render(){
-    const { order } = this.state;
+    // const { order } = this.state;
 
     return(
       <div>
