@@ -57,6 +57,8 @@ export default class Menuccsc extends React.Component {
 
     if (Number.isInteger(parseInt(subcategorie))) {
       const subCat = await SubCategoryService.getById(subcategorie);
+      console.log('======================');
+      this.setState({cardData : subCat.products})
       if (subCat.children === undefined) {
         subCat.children = [];
       }

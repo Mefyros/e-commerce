@@ -111,6 +111,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/user/info', 'UserInfoController@get');
     Route::post('/user/info', 'UserInfoController@create');
     Route::post('/user/creditcard', 'BankingCredentialsController@create');
+    Route::delete('/user/creditcard/{id}', 'BankingCredentialsController@remove');
     Route::get('/user/creditcard', 'BankingCredentialsController@get');
     Route::post('/user/creditcard/check', 'BankingCredentialsController@check');
     Route::post('/order', 'CheckoutController@orderCommand');

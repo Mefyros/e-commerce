@@ -16,11 +16,16 @@ class BankingCredentialsController extends Controller
             'user_id' => Auth::user()->id,
             'creditCardNumber' => $request->creditCardNumber,
             'ccv' => Hash::make($request->ccv),
-            'expiration' => $request->expiration
+            'expiration' => $request->expiration,
+            'titulaire' => $request->titulaire
         ]);
+        $creditCard->creditCardNumber =  str_repeat('*', strlen($creditCard->creditCardNumber) - 4) . substr($creditCard->creditCardNumber, -4);
         return $creditCard;
     }
     public function get(){
+        if(isset(Auth::user()->creditCards[0])){
+        Auth::user()->creditCards[0]->creditCardNumber = str_repeat('*', strlen(Auth::user()->creditCards[0]->creditCardNumber) - 4) . substr(Auth::user()->creditCards[0]->creditCardNumber, -4);
+        }
         return Auth::user()->creditCards;
     }
     public function check(Request $request){
@@ -36,7 +41,9 @@ class BankingCredentialsController extends Controller
         $creditCard = BankingCredentials::find($id);
         if(null !== $creditCard){
             $creditCard->delete();
-        }
+            return ['success' => 'Card deleted'];
+        } else {
         return ['not found'];
+        }
     }
 }
