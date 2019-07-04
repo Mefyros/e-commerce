@@ -4,6 +4,7 @@ import Menu from '@material-ui/core/Menu';
 import Snipcart from './SnipCart';
 import Grid from '@material-ui/core/Grid';
 import Icon from '@material-ui/core/Icon';
+// eslint-disable-next-line no-unused-vars
 import { Link } from "react-router-dom";
 import * as S from './style';
 

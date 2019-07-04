@@ -4,6 +4,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
 import AppendBar from './AppendBar';
 import { css }  from 'emotion';
+// eslint-disable-next-line no-unused-vars
 import { Link } from "react-router-dom";
 import DropDownUser from './DropDownUser';
 import DropDownSnipCart from './DropDownSnipeCart';
