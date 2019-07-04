@@ -31,7 +31,7 @@ class SearchController extends Controller
             //     }
             //     return $temp;
             // }
-            return $results;
+            return $temp;
         }
     }
     public function byCategorie($id, $keyword, Request $request){
