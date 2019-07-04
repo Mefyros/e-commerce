@@ -2,15 +2,15 @@ import React from 'react';
 import { Switch ,Route, Redirect } from "react-router-dom";
 import { connect } from 'react-redux';
 
-import Home from '../Home';
-import Product from '../Product';
-import Panel from '../Panel';
-import ProductForm from '../Form/ProductForm';
-import Menuccsc from '../Menuccsc';
-import Cart from '../Cart';
-import SearchResult from '../SearchResult';
-import Account from '../User';
-import NotFound from '../NotFound';
+import Home from './Home';
+import Product from './Product';
+import Panel from './Panel';
+import ProductForm from './Form/ProductForm';
+import Menuccsc from './Menuccsc';
+import Cart from './Cart';
+import SearchResult from './SearchResult';
+import Account from './User';
+import NotFound from './NotFound';
 
 const mapStateToProps = state => {
   return {
