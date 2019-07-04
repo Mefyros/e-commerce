@@ -1,6 +1,7 @@
 import React from 'react';
 import TextField from '@material-ui/core/TextField';
 import Container from '@material-ui/core/Container';
+import Paypal from './components/index'
 
 export default class InfoPaiement extends React.Component {
   constructor(props){
@@ -40,6 +41,9 @@ export default class InfoPaiement extends React.Component {
   render(){
     return(
       <Container>
+
+          <Paypal/>
+
           <TextField style={padding_field} error={false} helperText='Required' fullWidth label="Nom du titulaire" value={this.state.titulaireName} name='titulaireName' onChange={this.handleInputChange.bind(this)} margin="normal" variant="outlined"/>
           <TextField style={padding_field} error={false} helperText='Required' label="Numero de carte" value={this.state.cartNumber} name='cartNumber' onChange={this.handleInputChange.bind(this)} margin="normal" variant="outlined"/>
           <TextField style={padding_field} error={false} helperText='Required' label="Date d'expiration" value={this.state.expireDate} name='expireDate' onChange={this.handleInputChange.bind(this)} margin="normal" variant="outlined"/>
