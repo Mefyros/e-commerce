@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from "./style";
-import { clearCart } from '../../../../../../../Redux/Action/CartAction';
+import { clearCart } from '../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => {

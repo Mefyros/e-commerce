@@ -1,8 +1,8 @@
 import React from 'react';
 import * as S from "./style";
-import { updateQuantity, deleteItem } from '../../../../../../../Redux/Action/CartAction';
+import { updateQuantity, deleteItem } from '../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
-import ProductService from '../../../../../../../Service/ProductService';
+import ProductService from '../../../../../Service/ProductService';
 
 const mapStateToProps = (state, ownProps) => {
   return {

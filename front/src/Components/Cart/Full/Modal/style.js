@@ -2,16 +2,6 @@ import styled from '@emotion/styled';
 import Color from '../../../Color';
 import {css} from '@emotion/core';
 
-export const Title = styled.h1`
-  width: 100%;
-  text-align: center;
-  margin: 0;
-  margin-bottom: 1em;
-  user-select: none;
-`;
-
-// MODAL STYLE
-
 export const ModalContainer = styled.div`
   position: absolute;
   top: 0;
@@ -102,5 +92,52 @@ export const ButtonStyleNo = css`
 
   &:hover {
     background-color: ${Color.darkRed} !important;
+  }
+`;
+
+export const FormControl = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+`;
+
+export const InputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  width: 50%;
+
+  @media (max-width: 1280px) {
+    width: 50%;
+  }
+
+  @media (max-width: 992px) {
+    width: 50%;
+  }
+
+  @media (max-width: 768px) {
+    width: 70%;
+  }
+`;
+
+export const InputLabel = styled.label`
+  margin: 0;
+`;
+
+export const InputText = styled.input`
+  margin: 0;
+  width: 100%;
+  padding: 0 .2em;
+  border: none;
+  border-bottom: 1px solid ${Color.grey};
+
+  &:hover {
+    border-bottom: 2px solid ${Color.ecoGreenHover};
+  }
+
+  &:focus {
+    border-bottom: 2px solid ${Color.ecoGreenHover};
   }
 `;

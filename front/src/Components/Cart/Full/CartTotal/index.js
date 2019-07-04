@@ -1,11 +1,12 @@
 import React from 'react';
-import Checkout from './components/Checkout';
-import Button from '../../../../../DefaultComponent/Button';
+import Checkout from './Checkout';
+import Button from '../../../DefaultComponent/Button';
 import * as S from "./style";
 import { connect } from 'react-redux';
 
 const mapStateToProps = state => ({
   cart: state.cart,
+  user: state.user,
 })
 
 class CartTotal extends React.Component {
@@ -17,8 +18,10 @@ class CartTotal extends React.Component {
   }
 
   handleClickProceedToCheckout = () => {
-    const {openModal} = this.props;
-    openModal();
+    const {openModal, user} = this.props;
+    if (!user.isLogin) {
+      openModal();
+    }
     this.setState({ checkout: true });
     this.props.changeInputStatus();
   }
