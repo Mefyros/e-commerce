@@ -1,10 +1,6 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 
-export default {
-
-};
-
 export const SpaceTop = styled.div`
   width: 100%;
   height: 4em;

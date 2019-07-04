@@ -1,10 +1,5 @@
-import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Color from '../../../Color';
-
-export default {
-  
-}
 
 export const Container = styled.div`
   margin: .5em 0;

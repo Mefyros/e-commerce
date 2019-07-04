@@ -1,39 +1,34 @@
-import React from "react";
-import { Home,AccountCircle } from '@material-ui/icons';
-import HomePage from './components/Product';
-import StockPage from './components/Stock';
-import TransporterPage from './components/Transporter';
-import PromotionPage from './components/Promotion';
+import React from 'react';
+import ProductManagement from './components/ProductManagement';
+import StockManagement from './components/StockManagement';
+import TransporterManagement from './components/TransporterManagement';
+import PromotionManagement from './components/PromotionManagement';
+import SupplierManagement from './components/SupplierManagement';
 
-const Routes = [
+export default [
   {
-    path: '/panel/product',
-    sidebarName: 'Home',
-    navbarName: 'Home',
-    icon: Home,
-    component: HomePage
+    label: "Home",
+    icon: <i class="fas fa-home"></i>,
+    view: ProductManagement,
   },
   {
-    path: '/panel/stock',
-    sidebarName: 'Stock',
-    navbarName: 'Stock',
-    icon: AccountCircle,
-    component: StockPage
+    label: "Stock",
+    icon: <i class="fas fa-boxes"></i>,
+    view: StockManagement,
   },
   {
-    path: '/panel/transporter',
-    sidebarName: 'Transporter',
-    navbarName: 'Transporter',
-    icon:  AccountCircle,
-    component: TransporterPage
+    label: "Delivery",
+    icon: <i class="fas fa-truck"></i>,
+    view: TransporterManagement,
   },
   {
-    path: '/panel/promotion',
-    sidebarName: 'Promotion',
-    navbarName: 'Promotion',
-    icon:  AccountCircle,
-    component: PromotionPage
-  }
-];
-
-export default Routes;
+    label: "Promotion",
+    icon: <i class="fas fa-percent"></i>,
+    view: PromotionManagement,
+  },
+  {
+    label: "Supplier",
+    icon: <i class="fas fa-parachute-box"></i>,
+    view: SupplierManagement,
+  },
+]

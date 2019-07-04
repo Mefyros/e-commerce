@@ -38,6 +38,7 @@ class ProductsController extends Controller
                 'photos' => json_encode($file),
                 'sub_categorie_id' => $request->sub_categorie_id,
                 'weight' => $request->weight,
+                'marque' => $request->marque
             ]);
             return response()->json(['response' => 'inserted', 'product' => $inserted]);
         } else {
@@ -115,6 +116,7 @@ class ProductsController extends Controller
             $product->specs = json_encode($request->specifications);
             $product->description = $request->description;
             $product->price = intval($request->price);
+            $product->marque = $request->marque;
             $product->save();
             return ['product' => $product];
 

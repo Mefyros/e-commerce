@@ -1,6 +1,13 @@
-export const addToCart = (payload) => {
+export const userConnect = (payload) => {
   return {
-    type: "ADD",
+    type: "USER_CONNECT",
+    payload,
+  };
+}
+
+export const userLogout = (payload) => {
+  return {
+    type: "USER_LOGOUT",
     payload,
   };
 }

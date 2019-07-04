@@ -1,14 +1,14 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import ProductsService from '../../Service/ProductService';
-import Breadcrumbs from '../Breadcrumbs/Breadcrumbs';
-import Button from '../DefaultComponent/Button';
 import { connect } from 'react-redux';
 import { addToCart } from '../../Redux/Action/CartAction';
+import ProductsService from '../../Service/ProductService';
 import Color from '../Color';
 import * as S from './style';
 
+import Button from '../DefaultComponent/Button';
+import Breadcrumbs from '../DefaultComponent/Breadcrumbs';
 import EcoLabel from './components/EcoLabel';
 import Tabs from './components/Tabs';
 import TabsItem from './components/Tabs/Item';
@@ -33,7 +33,9 @@ class Product extends React.Component {
   }
 
   componentDidMount = async () => {
-    const product = await ProductsService.getById(this.props.match.params.id);
+    const { id } = this.props.match.params;
+    const product = await ProductsService.getById(id);
+    ProductsService.visited(id);
 
     if (typeof product === 'object') {
       const classe = product.parent.parent.parent;
@@ -114,12 +116,12 @@ class Product extends React.Component {
                     <div id="carouselExampleIndicators" className="carousel slide" data-ride="carousel">
                       <ol className="carousel-indicators">
                         {
-                          fakePic.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
+                          images.map((img, key) => <li key={key} data-target="#carouselExampleIndicators" data-slide-to={key}></li>)
                         }
                       </ol>
                       <div className="carousel-inner">
                         {
-                          fakePic.map((img, key) => {
+                          images.map((img, key) => {
                             if (key === 0) {
                               return (
                                 <div key={key} className="carousel-item active" data-interval="999999999">

@@ -74,6 +74,7 @@ class UserController extends Controller
                 return response('pass not egal', 401);
             } else {
                 Auth::user()->password = bcrypt($request->password);
+                Auth::user()->save();
                 return 'success ';
             }
         }
