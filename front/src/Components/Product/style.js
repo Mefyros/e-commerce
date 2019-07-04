@@ -6,6 +6,7 @@ export const CarouselContainer = styled.div`
   width: 80%;
   margin: 0 auto;
   margin-top: 3em;
+  margin-bottom: 3em;
   border: 4px solid ${Color.ecoLightOrange};
   border-radius: 3px;
 `;
@@ -65,6 +66,35 @@ export const ReviewStars = styled.div`
 `;
 
 export const ReviewText = styled.p`
+  ${baseText}
+  margin-left: .6em;
+  font-weight: 300;
+`;
+
+export const EcoContainer = styled.div`
+  ${centerMedia}
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: .6em;
+  padding: 1.2em 0;
+  width: 100%;
+  border-top: 1px solid ${Color.lightGrey};
+`;
+
+export const EcoStars = styled.div`
+  ${baseText}
+  
+  i.fas {
+    color: ${Color.ecoGreen};
+  }
+
+  i.not {
+    color: ${Color.grey};
+  }
+`;
+
+export const EcoText = styled.p`
   ${baseText}
   margin-left: .6em;
   font-weight: 300;

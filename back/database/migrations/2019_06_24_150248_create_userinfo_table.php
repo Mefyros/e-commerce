@@ -16,14 +16,14 @@ class CreateUserinfoTable extends Migration
         Schema::create('userinfo', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('user_id');
-            $table->string('name');
-            $table->string('lastname');
-            $table->string('phone');
-            $table->string('voie');
-            $table->string('departement');
-            $table->string('code_postal');
-            $table->string('ville');
-            $table->string('pays');
+            $table->string('name')->nullable();
+            $table->string('lastname')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('voie')->nullable();
+            $table->string('departement')->nullable();
+            $table->string('code_postal')->nullable();
+            $table->string('ville')->nullable();
+            $table->string('pays')->nullable();
         });
     }
 

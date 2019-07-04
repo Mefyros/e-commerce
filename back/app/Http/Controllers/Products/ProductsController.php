@@ -19,7 +19,8 @@ class ProductsController extends Controller
             'specifications',
             'price',
             'specifications',
-            'photos'
+            'photos',
+            'weight'
         ]);
         if($validator === true){
             $file = $this->getPhotos($request->photos);
@@ -36,6 +37,8 @@ class ProductsController extends Controller
                 'price' => intval($request->price),
                 'photos' => json_encode($file),
                 'sub_categorie_id' => $request->sub_categorie_id,
+                'weight' => $request->weight,
+                'marque' => $request->marque
             ]);
             return response()->json(['response' => 'inserted', 'product' => $inserted]);
         } else {
@@ -64,6 +67,7 @@ class ProductsController extends Controller
                 if($file->isValid()){
                     $path = $file->store('public/productImages');
                     $path = '/'.str_replace('public', 'storage', $path);
+                    asset($path);
                     $paths[] = $path;
                 }
             }
@@ -72,7 +76,7 @@ class ProductsController extends Controller
             if($files->isValid()){
                 $path = $files->store('public/productImages');
                 $path = str_replace('public', 'storage', asset($path));
-                return [asset($path)];
+                return [$path];
             }
         }
     }
@@ -112,6 +116,7 @@ class ProductsController extends Controller
             $product->specs = json_encode($request->specifications);
             $product->description = $request->description;
             $product->price = intval($request->price);
+            $product->marque = $request->marque;
             $product->save();
             return ['product' => $product];
 

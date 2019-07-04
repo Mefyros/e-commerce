@@ -13,7 +13,8 @@ class BankingCredentials extends Model
         'ccv',
         'creditCardNumber',
         'expiration',
-        'user_id'
+        'user_id',
+        'titulaire'
     ];
     protected $hidden = ['ccv'];
     public function user(){

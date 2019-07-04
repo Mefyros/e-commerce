@@ -41,7 +41,7 @@ class User extends Authenticatable
         return $this->hasOne('App\Cart', 'user_id', 'id');
     }
     public function UserInfo(){
-        return $this->hasMany('App\UserInfo', 'user_id', 'id');
+        return $this->hasOne('App\UserInfo', 'user_id', 'id');
     }
     public function creditCards(){
         return $this->hasMany('App\BankingCredentials', 'user_id', 'id');

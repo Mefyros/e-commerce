@@ -22,4 +22,7 @@ class Categorie extends Model
     public function products(){
         return $this->hasManyThrough('App\Product', 'App\SubCategorie', 'categorie_id', 'sub_categorie_id', 'id', 'id');
     }
+    public function specs(){
+        return $this->hasManyThrough('App\Spec', 'App\CategorieSpec', 'categorie_id', 'id', 'id', 'spec_id');
+    }
 }

@@ -8,15 +8,12 @@ export const CardContainer = styled.div`
   border-radius: 0;
   margin: 1.5vh;
   border: 1px solid ${Color.ecoBrown};
-  transition-duration: 250ms;
-  /* box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.05); */
+  transition-duration: 200ms;
 
   &:hover {
-    cursor: pointer;
     transform: scale(1.005);
     border-color: ${Color.ecoGreenHover};
-    box-shadow: -1px -1px 5px 1px rgba(0,0,0,.05), 1px 1px 5px 1px rgba(0,0,0,.05);
-    /* box-shadow: -1px -1px 5px 1px rgba(0,0,0,.1), 1px 1px 5px 1px rgba(0,0,0,.1); */
+    box-shadow: ${Color.shadow};
   }
 `;
 
@@ -25,6 +22,7 @@ export const CardContent = styled.div`
   height: 100%;
   display: flex;
   align-items: center;
+  background-color: ${Color.white};
 `;
 
 export const Image = styled.img`
@@ -32,12 +30,13 @@ export const Image = styled.img`
   height: 100%;
 `;
 
-export const CardText = styled.p`
+export const CardText = styled.div`
   margin: 0;
   padding: 0 2em;
   font-size: 1.1em;
   font-family: Myriad Pro;
-  transition-duration: 250ms;
+  transition-duration: 200ms;
+  text-align: center;
 
   &:hover {
     color: ${Color.green};
@@ -45,16 +44,10 @@ export const CardText = styled.p`
 `;
 
 export const viewBtn = css`
-   width: 7em;
-  margin: 0;
-  margin-top: 1em;
-  border: 1px solid ${Color.green};
-  border-radius: 30px;
-  background-color: ${Color.ecoGreen};
-  padding: .5em 1em;
-  transition-duration: 200ms;
-  box-shadow: ${Color.shadow};
-  user-select: none;
-  color: white;
-  text-align: center;
+  width: 7em !important;
+  margin: 0 !important;
+  margin-top: 1em !important;
+  border: 1px solid ${Color.green} !important;
+  border-radius: 30px !important;
+  padding: .5em 1em !important;
 `;
