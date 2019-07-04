@@ -1,8 +1,9 @@
 import React from 'react';
-import BasketMenu from './components';
+import BasketMenu from './CartContent';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
-import BasketTotal from './components/CartTotal';
+import BasketTotal from './CartTotal';
+import Modal from './Modal';
 import * as S from "./style";
 
 export default class FullCard extends React.Component {
@@ -10,6 +11,7 @@ export default class FullCard extends React.Component {
     super(props);
     this.state = {
       inputDisable: false,
+      showModal: false,
     };
   }
 
@@ -17,7 +19,17 @@ export default class FullCard extends React.Component {
     this.setState({ inputDisable: true });
   }
 
+  closeModal = () => {
+    this.setState({showModal: false});
+  }
+
+  openModal = () => {
+    this.setState({showModal: true});
+  }
+
   render() {
+    const {inputDisable, showModal} = this.state;
+
     return (
       <Container maxWidth="lg">
         <Grid container spacing={2}>
@@ -25,14 +37,14 @@ export default class FullCard extends React.Component {
           <S.Title>My Cart</S.Title>
           
           <Grid item xs={12} md={8}>
-            <BasketMenu inputDisable={this.state.inputDisable}/>
+            <BasketMenu inputDisable={inputDisable}/>
           </Grid>
 
-          <Grid item xs={12} md={1} />
-
-          <Grid item xs={12} md={3}>
-            <BasketTotal changeInputStatus={this.changeInputStatus}/>
+          <Grid item xs={12} md={4}>
+            <BasketTotal changeInputStatus={this.changeInputStatus} openModal={this.openModal}/>
           </Grid>
+
+          {showModal && <Modal close={this.closeModal}/>}
 
         </Grid>
       </Container>

@@ -4,7 +4,7 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 
-import CheckoutService from '../../../../../../../../../../Service/DeliveryService';
+import CheckoutService from '../../../../../../Service/DeliveryService';
 
 export default class Info_delivery extends React.Component {
   constructor(props){

@@ -1,8 +1,8 @@
 import React from 'react';
 import * as S from "./style";
-import { updateQuantity, deleteItem } from '../../../../../../Redux/Action/CartAction';
+import { updateQuantity, deleteItem } from '../../../../../Redux/Action/CartAction';
 import { connect } from 'react-redux';
-import ProductService from '../../../../../../Service/ProductService';
+import ProductService from '../../../../../Service/ProductService';
 
 const mapStateToProps = (state, ownProps) => {
   return {
@@ -59,12 +59,12 @@ class CartItem extends React.Component {
     const { image, quantity } = cartItem;
     const { maxQuantity, id, name, price } = this.state;
 
-    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
+    // const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
       <S.Container>
         <S.TitleContainer>
-          <S.TitleImg src={fakePic} alt={name}/>
+          <S.TitleImg src={image} alt={name}/>
           <S.TitleText href={`/product/${id}`}>{name}</S.TitleText>
         </S.TitleContainer>
         <S.Price>{price} $</S.Price>
