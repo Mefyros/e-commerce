@@ -25,7 +25,6 @@ async componentDidMount(){
           <TextField style={padding_field} error={false} helperText='Required' label="Email" fullWidth name='mail' value={this.state.mail} onChange={this.handleInputChange.bind(this)} margin="normal" variant="outlined"/>
           <TextField style={padding_field} error={false} helperText='Required' label="Phone" fullWidth name='phone' value={this.state.phone} onChange={this.handleInputChange.bind(this)} margin="normal" variant="outlined"/>
       </Container>
-
     );
   }
 }

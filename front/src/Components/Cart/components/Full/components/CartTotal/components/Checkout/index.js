@@ -10,11 +10,17 @@ import Typography from '@material-ui/core/Typography';
 import Container from '@material-ui/core/Container';
 
 
+//cb
+import {Elements, StripeProvider} from 'react-stripe-elements';
+
+
 //Step
 import InfoUser from './components/infoUser';
 import InfoAdress from './components/InfoAdress';
 import InfoDelivery from './components/InfoDelivery';
 import InfoPaiement from './components/InfoPaiement';
+
+import AuthService from '../../../../../../../../Service/AuthService.js'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -36,6 +42,17 @@ function getSteps() {
   return ['Vos informations personnelle', 'Adresse de livraison', 'Methode de livraison', 'Paiement'];
 }
 
+async function getInfoUser(){
+  var data = {};
+  var res = await AuthService.getUserInfo(localStorage.getItem('eToken'));
+  console.log(res);
+  if (res.user) {
+    data = {info : {lastname: res.user.lastname, mail: res.user.email,name: res.user.name,phone: res.user.phone}, adress : {pays: res.user.pays,ville: res.user.ville,code_postal: res.user.code_postal,departement: res.user.departement,voie: res.user.voie}};
+    localStorage.setItem('eUser_info', JSON.stringify(data.info));
+    localStorage.setItem('eUser_adress', JSON.stringify(data.adress));
+  }
+}
+
 function getStepContent(step) {
   switch (step) {
     case 0:
@@ -45,13 +62,14 @@ function getStepContent(step) {
     case 2:
       return (<InfoDelivery local={localStorage.getItem('eUser_delivery')}/>);
     case 3:
-      return (<InfoPaiement/>);
+      return (<InfoPaiement />);
     default:
       return 'Unknown step';
   }
 }
 
 export default function Stepper_checkout() {
+  getInfoUser();
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const steps = getSteps();

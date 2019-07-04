@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import MaterialTable,{MTableToolbar} from "material-table";
 import Input from '@material-ui/core/Input';
 import ProductService from '../../../../Service/ProductService';
+import SupplierService from '../../../../Service/SupplierService';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -17,22 +18,24 @@ export default class StockTable extends Component {
                     { title: "Product to buy", field: "order", render: rowData => <div><Input type="number" onChange={(e) => {rowData.order = e.target.value; }} defaultValue={rowData.stock}/></div>},
                     { title: "Shipment Status", field:"delivery", emptyValue: "No Order for this Product" }
                     ],
-          suppliers:[
-              {name: "OuiCorp"},
-              {name: "YesDistrib"}
-          ],
+          suppliers:[],
           supplier: "NonCorp"
         };
       }
 
       componentDidMount = () => {
         this.getProducts();
-        console.log(this.state.products)
+        this.getSuppliers();
       }
      
       getProducts = async () => {
         const products = await ProductService.getAll();
-        this.setState({ products }, () => console.log(this.state));
+        this.setState({ products });
+      } 
+
+      getSuppliers = async () => {
+        const suppliers = await SupplierService.getAll();
+        this.setState({ suppliers }, () => console.log(this.state));
       } 
 
     render() {

@@ -10,17 +10,29 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Icon from '@material-ui/core/Icon';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
 
+import * as A from '../../../../../Redux/Action/UserAction';
 import AuthService from '../../../../../Service/AuthService.js';
 import LoginRegisterService from '../../../../../Service/LoginRegisterService.js';
 
-export default class User_panel_dropdown extends React.Component {
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  }
+}
+
+const mapDispatchToProps = dispatch => ({
+  userConnect: payload => dispatch(A.userConnect(payload)),
+  userLogout: payload => dispatch(A.userLogout(payload)),
+});
+
+class UserPanelDropdown extends React.Component {
   constructor(props){
     super(props);
     this.state = {
       register: false,
-      token: null,
-      user: this.props.user
+      error: false,
     };
   }
 
@@ -41,11 +53,13 @@ export default class User_panel_dropdown extends React.Component {
         email: this.state.email,
         password: this.state.password,
       });
-      localStorage.setItem('eToken', res.data.success.token);
-      const user = await AuthService.getUser(res.data.success.token);
-      // console.log(user);
-      // console.log(res.data.success.toke);
-      await this.setState({token: res.data.success.token, user: user.user});
+      if (typeof res.data === 'undefined') {
+        await this.setState({error: true});
+      }else {
+        localStorage.setItem('eToken', res.data.success.token);
+        const user = await AuthService.getUser(res.data.success.token);
+        this.connect(user.user);
+      }
     }
     if (context === 'register') {
       const res = await LoginRegisterService.register({
@@ -54,16 +68,26 @@ export default class User_panel_dropdown extends React.Component {
         password: this.state.password,
         c_password: this.state.password_verif
       });
-      localStorage.setItem('eToken', res.data.success.token);
-      const user = await AuthService.getUser(res.data.success.token);
-      await this.setState({user: user.user, token: res.data.success.token });
+      if (typeof res.data === 'undefined') {
+        await this.setState({error: true});
+      }else {
+        localStorage.setItem('eToken', res.data.success.token);
+        const user = await AuthService.getUser(res.data.success.token);
+        this.connect(user.user);
+      }
     }
-}
+  }
 
-async logout(){
-  await this.setState({user: null, token: null});
-  localStorage.removeItem('eToken');
-}
+  connect = (userData) => {
+    const {userConnect} = this.props;
+    userConnect(userData);
+  }
+
+  logout(){
+    const {userLogout} = this.props;
+    userLogout();
+    localStorage.removeItem('eToken');
+  }
 
   login(){
     return (
@@ -78,6 +102,13 @@ async logout(){
           <Grid container direction='row' justify='center'>
           <TextField type='password' helperText='Required' fullWidth label="Password" name='password' margin="normal" variant="outlined" onChange={this.handleInputChange.bind(this)}/>
           </Grid>
+          <Grid>
+              {
+                this.state.error === true
+                  ? (<p style={{color: 'red'}}>Une erreur est survenu, veuillez vous re-connecter</p>)
+                  : (null)
+              }
+          </Grid>
           <Grid container direction='row' justify='center'>
             <Button onClick={() => this.submit('login')}>Login</Button>
           </Grid>
@@ -85,7 +116,7 @@ async logout(){
             <h6>Ou</h6>
           </Grid>
           <Grid container direction='row' justify='center'>
-            <Button onClick={() => this.setState({register: true})}>Register</Button>
+            <Button onClick={() => this.setState({register: true, error: false})}>Register</Button>
           </Grid>
         </Container>
       </div>
@@ -114,6 +145,13 @@ async logout(){
           <Grid container direction='row' justify='center'>
           <TextField type='password' helperText='Required' fullWidth label="Password" name='password_verif' margin="normal" variant="outlined" onChange={this.handleInputChange.bind(this)}/>
           </Grid>
+          <Grid>
+              {
+                this.state.error === true
+                  ? (<p style={{color: 'red'}}>Une erreur est survenu, veuillez réessayer</p>)
+                  : (null)
+              }
+          </Grid>
           <Grid container direction='row' justify='center'>
             <Button onClick={() => this.submit('register')}>Let's go !</Button>
           </Grid>
@@ -121,7 +159,7 @@ async logout(){
             <h6>Ou</h6>
           </Grid>
           <Grid container direction='row' justify='center'>
-            <Button onClick={() => this.setState({register: false})}>Sign in !</Button>
+            <Button onClick={() => this.setState({register: false, error: false})}>Sign in !</Button>
           </Grid>
         </Container>
       </div>
@@ -129,45 +167,54 @@ async logout(){
   }
 
   panelUser(){
-    // console.log(this.state);
+    const {name, email, isAdmin} = this.props.user;
+
     return(
-      <div>
-      <Container>
+      <>
+        <Container>
+          <Grid container direction='row' justify='center'>
+          <Avatar style={{width: 60, height: 60}}>img</Avatar>
+          </Grid>
+        </Container>
+        <Container style={{marginTop: 10}}>
         <Grid container direction='row' justify='center'>
-        <Avatar style={{width: 60, height: 60}}>img</Avatar>
+          <h5>{name}</h5>
+          </Grid>
+          <Grid container direction='row' justify='center'>
+          <p>{email}</p>
         </Grid>
-      </Container>
-      <Container style={{marginTop: 10}}>
-      <Grid container direction='row' justify='center'>
-        <h5>{this.state.user.name}</h5>
-        </Grid>
-        <Grid container direction='row' justify='center'>
-        <p>{this.state.user.email}</p>
-      </Grid>
-      </Container>
-      <Divider/>
-      <Container>
-        <List>
-          <ListItem button>
-            <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
-          </ListItem>
-          <ListItem button component={Link} to="/cart">
-            <ListItemText><h6>My cart</h6></ListItemText>
-          </ListItem>
-          <ListItem button>
-            <Link to={'/panel'}><ListItemText><h6>Admin Panel</h6></ListItemText></Link>
-          </ListItem>
-          <ListItem button>
-            <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>
-          </ListItem>
-        </List>
-      </Container>
-      </div>
+        </Container>
+        <Divider/>
+        <Container>
+          <List>
+            <ListItem button>
+              <Link to={'/my_account'}><ListItemText><h6>My account</h6></ListItemText></Link>
+            </ListItem>
+            <ListItem button component={Link} to="/cart">
+              <ListItemText><h6>My cart</h6></ListItemText>
+            </ListItem>
+            {
+              isAdmin
+                ? (
+                  <ListItem button component={Link} to="/panel">
+                    <ListItemText><h6>Admin panel</h6></ListItemText>
+                  </ListItem>
+                  )
+                : (null)
+            }
+            <ListItem button>
+              <ListItemText onClick={() => this.logout()}><h6>Logout</h6></ListItemText>
+            </ListItem>
+          </List>
+        </Container>
+      </>
     );
   }
 
   display(){
-    if (this.state.token !== null && this.state.user !== null && typeof this.state.user !== 'undefined') {
+    const { isLogin } = this.props.user;
+
+    if (isLogin) {
       return this.panelUser();
     }else {
       if (this.state.register === true) {
@@ -178,17 +225,20 @@ async logout(){
     }
   }
 
-   async componentDidMount(){
-     var user = await AuthService.getUser(localStorage.getItem('eToken'));
-     await this.setState({token: localStorage.getItem('eToken'), user: user.user});
-     await this.setState({token: localStorage.getItem('eToken')});
+  async componentDidMount(){
+    const user = await AuthService.getUser(localStorage.getItem('eToken'));
+    if (user.user) {
+      this.connect(user.user);
     }
+  }
 
   render(){
     return(
-      <div>
+      <>
         {this.display()}
-      </div>
+      </>
     );
   }
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserPanelDropdown);

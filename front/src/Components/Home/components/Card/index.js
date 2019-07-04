@@ -41,13 +41,12 @@ class CustomCard extends React.Component {
   render() {
     const { id, name, photos, price } = this.state;
     let productName = name.length > 20 ? `${name.slice(0,20)}...` : name;
-    const fakePic = 'http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg';
 
     return (
       <S.Container>
         <S.Card href={`/product/${id}`}>
           <S.CardImageContainer>
-            <S.CardImage src={fakePic} />
+            <S.CardImage src={photos[0]} />
           </S.CardImageContainer>
           <S.Name>{productName}</S.Name>
           <S.Price>{price} $</S.Price>
@@ -56,7 +55,7 @@ class CustomCard extends React.Component {
           buttonStyle={css(S.ButtonStyle)}
           text="Add to cart"
           onClick={this.addToCart}
-          icon={<i class="fas fa-cart-plus"></i>}
+          icon={<i className="fas fa-cart-plus"></i>}
           left
         />
       </S.Container>

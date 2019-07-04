@@ -19,7 +19,6 @@ import {
 export default class General extends React.Component {
   constructor(props){
     super(props);
-    console.log(props.user);
     this.error = {
       message_password: null,
       password_curent: false,
@@ -37,23 +36,11 @@ export default class General extends React.Component {
     await this.setState({[event.target.name]: event.target.value});
   }
 
-  // async componentDidMount(){
-  //      var user = await AuthService.getUserInfo(localStorage.getItem('eToken'));
-  //      console.log(user);
-  //   await this.setState({
-  //     lastname: user.user.lastname,
-  //     name: user.user.name,
-  //     email: user.user.email,
-  //     phone: user.user.phone,
-  //     voie: user.user.voie,
-  //     ville: user.user.ville,
-  //     code_postal: user.user.code_postal,
-  //     departement: user.user.departement,
-  //     pays: user.user.pays,
-  //
-  //   })
-  //   console.log(this.props.user);
-  // }
+  async componentDidMount(){
+       var user = await AuthService.getUserInfo(localStorage.getItem('eToken'));
+       console.log(user);
+        await this.setState(user.user);
+  }
 
   updateData = async () => {
     console.log(this.state);
@@ -68,13 +55,18 @@ export default class General extends React.Component {
     if (!this.checkErrorPassword(passwordCurent, passwordNew, passwordNew2)) {
       return;
     }
-    console.log('send');
-    // var res = await AuthService.resetPassword({
-    //   actual_pass: passwordCurent,
-    //   password: passwordNew,
-    //   password_confirmation: passwordNew2,
-    // });
-    // console.log(res);
+    console.log('reset password confirm');
+    var res = await AuthService.resetPassword({
+      actual_pass: passwordCurent,
+      password: passwordNew,
+      password_confirmation: passwordNew2,
+    });
+    console.info(res);
+    if (res == 'success') {
+      console.info('ok');
+    }else {
+      console.info('nop');
+    }
   }
 
   checkErrorPassword = (passwordCurent, passwordNew, passwordNew2) => {

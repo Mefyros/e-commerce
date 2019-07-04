@@ -87,6 +87,11 @@ Route::post('/promo', 'PromoController@create');
 Route::delete('/promo/{id}', 'PromoController@delete');
 Route::put('/promo/{id}', 'PromoController@update');
 
+Route::get('/supplier', 'SuppliersController@GetAll');
+Route::post('/supplier', 'SuppliersController@create');
+Route::delete('/supplier/{id}', 'SuppliersController@delete');
+Route::put('/supplier/{id}', 'SuppliersController@update');
+
 Route::get('/order', 'OrderController@getAll');
 Route::delete('/order/{id}', 'OrderController@delete');
 
