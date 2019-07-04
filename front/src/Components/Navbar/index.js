@@ -2,12 +2,12 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
-import DropDownUser from './components/DropDownUser';
-import DropDownSnipCart from './components/DropDownSnipeCart';
-import CategoryService from '../../Service/CategoryService.js';
-import AppendBar from './components/AppendBar';
+import AppendBar from './AppendBar';
 import { css }  from 'emotion';
 import { Link } from "react-router-dom";
+import DropDownUser from './DropDownUser';
+import DropDownSnipCart from './DropDownSnipeCart';
+import CategoryService from '../../Service/CategoryService.js';
 import * as S from './style';
 
 export default class Navbar extends React.Component {
