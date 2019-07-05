@@ -11,6 +11,7 @@ import Cart from './Cart';
 import SearchResult from './SearchResult';
 import Account from './User';
 import NotFound from './NotFound';
+import AboutUs from './AboutUs';
 
 const mapStateToProps = state => {
   return {
@@ -74,6 +75,9 @@ class Routes extends React.Component {
     
           <Route exact path="/search/:keyword" component={SearchResult} />
           <Route exact path="/search/categorie/:categorie/:keyword" component={SearchResult} />
+
+          <Route exact path="/about-us" component={AboutUs} />
+          <Redirect from="/about" to="/about-us"/>
   
           {this.privateRoutes()}
           {/* {this.notFound()} */}
