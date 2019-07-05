@@ -1,8 +1,8 @@
 import React from 'react';
 import { css } from 'emotion';
 import { connect } from 'react-redux';
-import { addToCart } from '../../../../Redux/Action/CartAction';
-import Button from '../../../DefaultComponent/Button';
+import { addToCart } from '../../../Redux/Action/CartAction';
+import Button from '../../DefaultComponent/Button';
 import * as S from './style';
 
 const mapStateToProps = state => {
