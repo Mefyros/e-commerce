@@ -14,9 +14,8 @@ const centerMedia = css`
 
 const EcoLabelContainer = styled.div`
   ${centerMedia}
-  padding-bottom: 1.2em;
-  margin-bottom: 1.2em;
-  border-bottom: 1px solid ${Color.lightGrey};
+  margin-top: 1em;
+  margin-bottom: 1em;
   display: flex;
   flex-wrap: wrap;
 `;
@@ -24,21 +23,12 @@ const EcoLabelContainer = styled.div`
 const EcoLabel = styled.div`
   width: 75px;
   height: 75px;
-  margin: .2em .4em;
-  background-color: ${Color.ecoGreen};
+  margin: .2em 2em;
+  background-color: ${Color.white};
   border: 2px solid ${Color.ecoBrown};
   border-radius: 50%;
   box-shadow: ${Color.shadow};
   position: relative;
-
-  &:hover {
-    box-shadow: ${Color.hoverShadow};
-    cursor: pointer;
-
-    div {
-      display: block;
-    }
-  }
 `;
 
 const LabelImage = styled.img`
@@ -48,14 +38,14 @@ const LabelImage = styled.img`
 `;
 
 const LabelTooltipContainer = styled.div`
-  display: none;
   position: absolute;
-  top: 70px;
+  top: 85px;
   left: -15px;
   border: 1px solid ${Color.ecoGreenHover};
   padding: .2em .4em;
   border-radius: 3px;
   background-color: ${Color.white};
+  box-shadow: ${Color.shadow};
   min-width: 100px;
 `;
 

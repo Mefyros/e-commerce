@@ -21,11 +21,19 @@ export const AboutsUsContainer = styled.div`
 export const CertificationContainer = styled.div`
   ${baseContainer}
   margin-top: 2em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const PartnerContainer = styled.div`
   ${baseContainer}
-  margin-top: 2em;
+  margin-top: 5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 
   h3 {
     margin-bottom: .5em;
@@ -41,6 +49,13 @@ export const Text = styled.p`
   margin-top: 1em;
 `;
 
+export const Partener = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
 export const Link = styled.a`
   margin: 0;
   color: ${Color.ecoGreenHover};
@@ -49,4 +64,9 @@ export const Link = styled.a`
     color: ${Color.ecoGreenHover};
     text-decoration: underline;
   }
+`;
+
+export const Image = styled.img`
+  height: 75px;
+  margin: 1em;
 `;

@@ -2,8 +2,17 @@ import React from 'react';
 import Container from '@material-ui/core/Container';
 import * as S from './style';
 import Labels from './EcoLabel';
+import Partners from './partner';
 
 export default class AboutUs extends React.Component {
+  partnerLink = (partner, key) => {
+    return (
+      <S.Link key={key} href={partner.link} target="_blanck">
+        <S.Image src={partner.image}/>
+      </S.Link>
+    )
+  }
+
   render() {
     return (
       <Container maxWidth="lg">
@@ -43,7 +52,11 @@ export default class AboutUs extends React.Component {
 
           <S.PartnerContainer>
             <S.Title>Nos partenaires</S.Title>
-            <S.Link href="https://www.reforestaction.com/" target="_blanck">Reforest action</S.Link>
+            <S.Partener>
+              {
+                Partners.map((partner, key) => this.partnerLink(partner, key))
+              }
+            </S.Partener>
           </S.PartnerContainer>
 
         </S.Container>

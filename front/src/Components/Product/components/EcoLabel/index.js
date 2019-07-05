@@ -2,6 +2,7 @@ import React from 'react';
 import styled from '@emotion/styled';
 import { css } from '@emotion/core';
 import Color from '../../../Color';
+import LabelList from './label';
 
 
 const centerMedia = css`
@@ -24,7 +25,7 @@ const EcoLabel = styled.div`
   width: 75px;
   height: 75px;
   margin: .2em .4em;
-  background-color: ${Color.ecoGreen};
+  background-color: ${Color.white};
   border: 2px solid ${Color.ecoBrown};
   border-radius: 50%;
   box-shadow: ${Color.shadow};
@@ -56,6 +57,7 @@ const LabelTooltipContainer = styled.div`
   border-radius: 3px;
   background-color: ${Color.white};
   min-width: 100px;
+  box-shadow: ${Color.shadow};
 `;
 
 const LabelTooltipText = styled.p`
@@ -78,12 +80,12 @@ const Label = label => (
 
 export default class Labels extends React.Component {
   render() {
-    const { data } = this.props;
+    // const { data } = this.props;
 
     return (
       <EcoLabelContainer>
         {
-          data.map((label, key) => Label(label))
+          LabelList.map((label, key) => Label(label))
         }
       </EcoLabelContainer>
     );
