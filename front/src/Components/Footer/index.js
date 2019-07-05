@@ -9,10 +9,19 @@ export default function Footer() {
         <div className={css(S.container)}>
             <AppBar className={css(S.footer)} position="static" color="default">
                 <Toolbar className={css(S.tool)}>
+
                     <div className={css(S.typoFooter)}>
                         Privacy | Terms | API Policy | CSR | Sitemap
                     </div>
                     <div className={css(S.about)}>
+                        <div className={css(S.aboutdiv)}>
+                            <h3 className={css(S.title3)}> Follow Us</h3>
+                            <div>
+                                <a href='https://twitter.com'><S.SNS className="fab fa-twitter-square"></S.SNS></a>
+                                <a href='https://www.instagram.com'><S.SNS className="fab fa-instagram"></S.SNS></a>
+                            </div>
+                        </div>
+
                         <div className={css(S.aboutdiv)}>
                             <h3 className={css(S.title3)}> About Website</h3>
                             <div>
