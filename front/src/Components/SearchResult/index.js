@@ -26,13 +26,13 @@ export default class SearchResult extends Component{
             result = await SearchService.searchByCategory({
                 categorie_id: params.categorie,
                 keyword: params.keyword
-            })
+            });
         } else {
-            result = await SearchService.search(params.keyword)
+            result = await SearchService.search(params.keyword);
         }
         console.log(result.data)
         this.setState({
-            result: result.data.data
+            result: result.data,
         })
     }
     render(){
