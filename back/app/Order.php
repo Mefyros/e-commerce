@@ -13,6 +13,8 @@ class Order extends Model
         'step',
         'address',
         'transporter_id',
+        'order_id'
+        
     ];
     protected $table = 'order';
 
