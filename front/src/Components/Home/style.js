@@ -55,6 +55,8 @@ export const PartnerContainer = styled.div`
 
 export const Title = styled.h3`
   margin: 0;
+  font-size: 2.5em;
+  font-weight: 300;
 `;
 
 export const Text = styled.p`

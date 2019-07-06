@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Card from '@material-ui/core/Card';
 import CardMedia from '@material-ui/core/CardMedia';
+import Modal from '@material-ui/core/Modal';
 
 
 //Services
@@ -25,6 +26,9 @@ export default class ProductForm extends React.Component {
         super(props);
         this.display_spec = [];
         this.state = {
+          savedEdit: false,
+          savedCreate: false,
+          editContext: false,
           input_label_categorie: null,
           sendedTry : false,
           fileButtonColor : 'primary',
@@ -37,6 +41,7 @@ export default class ProductForm extends React.Component {
             specifications: false,
             categorie: false,
             sub_categorie: false,
+            marque: false,
           },
           id_categorie : null,
           id_sub_categorie: null,
@@ -51,6 +56,7 @@ export default class ProductForm extends React.Component {
         }
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendData = this.sendData.bind(this);
+        this.saveProduct = this.saveProduct.bind(this);
         this.checkError = this.checkError.bind(this);
         this.submit = this.submit.bind(this);
     }
@@ -160,12 +166,44 @@ export default class ProductForm extends React.Component {
         formData.append('description', this.state.description);
         formData.append('photos', file_array);
         formData.append('price', this.state.price);
+        formData.append('marque', this.state.marque);
 
-       await axios.post(`/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
+          await axios.post(`/api/product`, formData, {headers: {'Content-Type': 'multipart/form-data' }})
           .then(res => {
             console.log(res);
             console.log(res.data);
+            if (res.status === 200) {
+              this.setState({savedCreate: true});
+            }
           })
+      }
+
+      async saveProduct() {
+        console.log('save');
+        var formData = new FormData();
+        var file_array = [];
+        var temp = [];
+        for (let [key, value] of Object.entries(this.state.specification)) {
+          formData.append('specifications['+value.name+']', value.specification);
+        }
+        formData.append('weight', this.state.weight);
+        formData.append('sub_categorie_id', this.state.id_sub_categorie);
+        formData.append('name',this.state.name);
+        formData.append('description', this.state.description);
+        // formData.append('photos', file_array);
+        formData.append('price', this.state.price);
+        formData.append('marque', this.state.marque);
+        formData.append('_method', 'PUT');
+
+        await axios.post(`/api/product/`+ this.props.match.params.id, formData, {headers: {'Content-Type': 'multipart/form-data' }})
+        .then(res => {
+          console.log(res.status);
+          if (res.status === 200) {
+            this.setState({savedEdit: true});
+          }
+        }).catch(err => {
+          console.log(err);
+        })
       }
 
     async checkError(context){
@@ -186,12 +224,14 @@ export default class ProductForm extends React.Component {
             error.categorie = false;
             await this.setState({error: error});
           }
-          if (typeof this.state.file === "undefined") {
-            error.file = true;
-            await this.setState({error: error, fileButtonColor: 'secondary'});
-          }else {
-            error.file = false;
-            await this.setState({error: error, fileButtonColor: 'primary'});
+          if (!this.state.editContext) {
+            if (typeof this.state.file === "undefined") {
+              error.file = true;
+              await this.setState({error: error, fileButtonColor: 'secondary'});
+            }else {
+              error.file = false;
+              await this.setState({error: error, fileButtonColor: 'primary'});
+            }
           }
           if (this.state.specification.length <= 0) {
             error.specifications = true;
@@ -205,6 +245,13 @@ export default class ProductForm extends React.Component {
             await this.setState({error: error});
           }else {
             error.name = false;
+            await this.setState({error: error});
+          }
+          if (typeof this.state.marque === "undefined" || this.state.marque === "") {
+            error.marque = true;
+            await this.setState({error: error});
+          }else {
+            error.marque = false;
             await this.setState({error: error});
           }
           if (typeof this.state.description === "undefined" || this.state.description === "") {
@@ -256,6 +303,8 @@ export default class ProductForm extends React.Component {
         id_categorie: product.parent.categorie_id,
         id_sub_categorie: product.sub_categorie_id,
         price: product.price,
+        marque: product.marque,
+        weight: product.weight,
         image: JSON.parse(product.photos),
       });
       for (var i = 0; i < this.state.categorie_list.length; i++) {
@@ -280,6 +329,7 @@ export default class ProductForm extends React.Component {
       var res = await CategoryService.getAll();
       await this.setState({categorie_list : res});
       if (this.props.match.params.id) {
+        await this.setState({editContext: true});
         this.addForEdit();
       }
     }
@@ -345,58 +395,97 @@ export default class ProductForm extends React.Component {
           )}
 
         return(
-                <form encType="multipart/form-data" noValidate autoComplete="off" style={{marginBottom: 30}}>
-                    <Container maxWidth="sm">
-                        <TextField error={this.state.error.name} helperText='Required' fullWidth label="Nom de l'annonce" margin="normal" value={this.state.name} name='name' onChange={this.handleInputChange}/>
-                    </Container>
-                        <Container maxWidth="sm">
-                            <TextField error={this.state.error.description} helperText='Required' fullWidth multiline={true} rows={10} label="Description" value={this.state.description} name='description' margin="normal" variant="outlined" onChange={this.handleInputChange}
-                        />
-                    </Container>
-                    <Container maxWidth="sm">
-                      {CategoriesContainer}
-                    </Container>
-                    <Container maxWidth="sm">
-                        <Grid container direction="row" justify="space-evenly" alignItems="baseline">
-                            <TextField error={this.state.error.price} helperText='Required' label="Prix" value={this.state.price} name='price' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
-                            <TextField error={this.state.error.weight} helperText='Required' label="Poid" value={this.state.weight} name='weight' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
-                            <Button variant="outlined" color="primary" onClick={this.addSpec}>
-                                Specifications +
-                            </Button>
-                        </Grid>
-                    </Container>
-                    <Container maxWidth="sm">
-                        {this.appendDisplaySpec2()}
-                    </Container>
-                    <Container style={{marginTop: 35}} maxWidth="sm">
-                        <Grid container direction="row" justify="space-evenly" alignItems="baseline">
-                        <input style={{display: 'none'}} name="file" type="file" id="file" multiple onChange={this.handleInputChange} />
-                        <label htmlFor="file">
-                            <Button color={this.state.fileButtonColor} variant="outlined"  component="span">
-                                Ajouter des images a votre annonce
-                            </Button>
-                        </label>
-                        </Grid>
-                    </Container>
-                    <div style={{backgroundColor: '#2c3e50'}}>
-                    <Container style={{backgroundColor: '#2c3e50'}} fluid>
-                    {this.imageCard()}
-                    </Container>
-                    </div>
-                    <Container maxWidth="sm">
-                        <Grid container direction="row" justify="space-evenly" alignItems="baseline">
-                            {spec_error}
-                        </Grid>
-                        </Container>
+          <form encType="multipart/form-data" noValidate autoComplete="off" style={{marginBottom: 30, backgroundColor: 'white'}}>
+              <Container maxWidth="sm">
+                  <TextField error={this.state.error.name} helperText='Required' fullWidth label="Nom de l'annonce" margin="normal" value={this.state.name} name='name' onChange={this.handleInputChange}/>
+              </Container>
+                  <Container maxWidth="sm">
+                      <TextField error={this.state.error.description} helperText='Required' fullWidth multiline={true} rows={10} label="Description" value={this.state.description} name='description' margin="normal" variant="outlined" onChange={this.handleInputChange}
+                  />
+              </Container>
+              <Container maxWidth="sm">
+                  <TextField error={this.state.error.marque} helperText='Required' fullWidth multiline={false} rows={10} label="Marque" value={this.state.marque} name='marque' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
+              </Container>
+              <Container maxWidth="sm">
+                {CategoriesContainer}
+              </Container>
+              <Container maxWidth="sm">
+                  <Grid container direction="row" justify="space-evenly" alignItems="baseline">
+                      <TextField error={this.state.error.price} helperText='Required' label="Prix" value={this.state.price} name='price' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
+                      <TextField error={this.state.error.weight} helperText='Required' label="Poid" value={this.state.weight} name='weight' margin="normal" variant="outlined" onChange={this.handleInputChange}/>
+                      <Button variant="outlined" color="primary" onClick={this.addSpec}>
+                          Specifications +
+                      </Button>
+                  </Grid>
+              </Container>
+              <Container maxWidth="sm">
+                  {this.appendDisplaySpec2()}
+              </Container>
+              <Container style={{marginTop: 35}} maxWidth="sm">
+                  <Grid container direction="row" justify="space-evenly" alignItems="baseline">
+                  <input style={{display: 'none'}} name="file" type="file" id="file" multiple onChange={this.handleInputChange} />
+                  <label htmlFor="file">
+                      <Button color={this.state.fileButtonColor} variant="outlined"  component="span">
+                          Ajouter des images a votre annonce
+                      </Button>
+                  </label>
+                  </Grid>
+              </Container>
+              <div style={{backgroundColor: '#2c3e50'}}>
+              <Container style={{backgroundColor: '#2c3e50'}} fluid>
+              {this.imageCard()}
+              </Container>
+              </div>
+              <Container maxWidth="sm">
+                  <Grid container direction="row" justify="space-evenly" alignItems="baseline">
+                      {spec_error}
+                  </Grid>
+                  </Container>
 
-                    <Container maxWidth="sm">
-                        <Grid container direction="row" justify="space-evenly" alignItems="baseline">
-                            <Button variant="outlined" color="primary" onClick={this.submit}>
-                                Ajouter
-                            </Button>
+              <Container maxWidth="sm">
+                  <Grid container direction="row" justify="space-evenly" alignItems="baseline">
+                  {
+                    this.state.editContext === false
+                    ? (<Button variant="outlined" color="primary" onClick={this.submit}>
+                        Ajouter
+                    </Button>)
+                    : (<Button variant="outlined" color="primary" onClick={this.saveProduct}>
+                        Enregister
+                    </Button>)
+                  }
+                  </Grid>
+                  <Modal open={this.state.savedEdit}>
+                    <Container style={{marginTop: '13em'}}>
+                        <Grid container direction='column' justify='center'>
+                          <Grid container direction='row' justify='center'>
+                            <i style={{fontSize: '150px', color: '#15e857', borderBottom: '3px solid #15e857', padding: 5}} class="fas fa-check"></i>
+                          </Grid>
+                          <Grid style={{marginTop: 50}} container direction='row' justify='center'>
+                          <h1 style={{color: 'white', fontWeight: 'bold'}}>Vos modification on bien etais enregister</h1>
+                          </Grid>
+                          <Grid style={{marginTop: 50}}  container direction='row' justify='center'>
+                          <Button style={{backgroundColor: 'white'}} onClick={() => this.setState({savedEdit: false})}>OK !</Button>
+                          </Grid>
                         </Grid>
-                        </Container>
-                </form>
+                    </Container>
+                  </Modal>
+                  <Modal open={this.state.savedCreate}>
+                    <Container style={{marginTop: '13em'}}>
+                        <Grid container direction='column' justify='center'>
+                          <Grid container direction='row' justify='center'>
+                            <i style={{fontSize: '150px', color: '#15e857', borderBottom: '3px solid #15e857', padding: 5}} class="fas fa-check"></i>
+                          </Grid>
+                          <Grid style={{marginTop: 50}} container direction='row' justify='center'>
+                          <h1 style={{color: 'white', fontWeight: 'bold'}}>Produit ajouter avec succès</h1>
+                          </Grid>
+                          <Grid style={{marginTop: 50}}  container direction='row' justify='center'>
+                          <Button style={{backgroundColor: 'white'}} onClick={() => this.setState({savedCreate: false})}>OK !</Button>
+                          </Grid>
+                        </Grid>
+                    </Container>
+                  </Modal>
+                  </Container>
+          </form>
         );
     }
 }
