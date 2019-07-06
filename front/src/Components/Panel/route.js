@@ -1,9 +1,9 @@
 import React from 'react';
-import ProductManagement from './components/ProductManagement';
-import StockManagement from './components/StockManagement';
-import TransporterManagement from './components/TransporterManagement';
-import PromotionManagement from './components/PromotionManagement';
-import SupplierManagement from './components/SupplierManagement';
+import ProductManagement from './ProductManagement';
+import StockManagement from './StockManagement';
+import TransporterManagement from './TransporterManagement';
+import PromotionManagement from './PromotionManagement';
+import SupplierManagement from './SupplierManagement';
 
 export default [
   {

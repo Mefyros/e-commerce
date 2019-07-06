@@ -11,7 +11,7 @@ import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 
 //cb
-import {Elements, StripeProvider} from 'react-stripe-elements';
+// import {Elements, StripeProvider} from 'react-stripe-elements';
 
 //Step
 import InfoUser from './infoUser';

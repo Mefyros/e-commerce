@@ -1,6 +1,6 @@
 import React from 'react';
 import * as S from './style';
-import SideBarMenu from './components/SideBarMenu';
+import SideBarMenu from './SideBarMenu';
 import tabs from './route';
 
 export default class Panel extends React.Component {

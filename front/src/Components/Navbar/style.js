@@ -29,7 +29,7 @@ export const LogoContainer = styled.a`
 `;
 
 export const Logo = styled.img`
-  width: 50px;
+  width: 82px;
   height: 50px;
 `;
 
