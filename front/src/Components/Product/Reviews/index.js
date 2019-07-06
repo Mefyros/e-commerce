@@ -84,9 +84,7 @@ export default class Reviews extends React.Component {
 
   componentDidMount = async () => {
     const {productId} = this.props;
-    // console.log(this.props);
     const reviews = await ReviewService.getAllByProductId(productId) || [];
-    // console.log(reviews);
     this.setState({reviews: reviews.reverse()});
   }
 

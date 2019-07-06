@@ -55,7 +55,7 @@ class Product extends React.Component {
       this.setState({ 
         ...product,
         reviews,
-        averageRating: totalRating / reviews.length,
+        averageRating: totalRating / reviews.length || 0,
         photos: JSON.parse(product.photos),
         classe: {
           id: classe.id,
@@ -109,18 +109,29 @@ class Product extends React.Component {
 
   getReviewStars = () => {
     const {averageRating} = this.state;
-    const half = averageRating + 0.5;
+    console.log(averageRating)
     const stars = [];
+    let half = [0.5, 1];
 
-    console.log(half);
+    if (averageRating >= 4.5)
+      half = [4.5, 5];
+    else if (averageRating >= 3.5)
+      half = [3.5, 4];
+    else if (averageRating >= 2.5)
+      half = [2.5, 3];
+    else if (averageRating >= 1.5)
+      half = [1.5, 2];
 
-    for (let i = 0; i < 5; i++) {
-      if (i + 1 < averageRating)
+    for (let i = 0; i < averageRating; i++) {
+      if (Math.floor(averageRating) > i)
         stars.push(<i className="fas fa-star"></i>);
-      else if (averageRating >= half && averageRating < i + 1)
-        stars.push(<i className="fas fa-star-half-alt"></i>);
-      else
-        stars.push(<i className="far fa-star"></i>);
+    }
+
+    if (averageRating >= half[0] && averageRating < half[1])
+      stars.push(<i className="fas fa-star-half-alt"></i>);
+
+    while (stars.length < 5) {
+      stars.push(<i className="far fa-star"></i>);
     }
 
     return stars;
