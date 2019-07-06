@@ -37,6 +37,7 @@ class CheckoutController extends Controller
                 return response('invalid creditcard number', 401);
             }
         }
+        
         $order = Order::create([
             'user_id' => $user_id,
             'cart' => json_encode($cart),

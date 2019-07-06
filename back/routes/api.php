@@ -120,5 +120,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/product/{id}/review', 'ReviewController@get');
     Route::post('/review/{id}/poce', 'ReviewController@poce');
     Route::post('/user/password', 'UserController@passwordModifer');
-
+    Route::get('userCollection', 'UserController@userCollection');
 });
+Route::get('userCollection', 'UserController@userCollection');

@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use App\Exports\UsersExport;
+use Maatwebsite\Excel\Facades\Excel;
 use Validator;
 
 class UserController extends Controller
@@ -78,5 +80,8 @@ class UserController extends Controller
                 return 'success ';
             }
         }
+    }
+    public function userCollection(){
+        return Excel::download(new UsersExport, 'users.xlsx');
     }
 }
