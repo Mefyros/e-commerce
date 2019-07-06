@@ -57,12 +57,8 @@ export default class Menuccsc extends React.Component {
 
     if (Number.isInteger(parseInt(subcategorie))) {
       const subCat = await SubCategoryService.getById(subcategorie);
-      console.log('======================');
-      this.setState({cardData : subCat.products})
-      if (subCat.children === undefined) {
-        subCat.children = [];
-      }
-      this.setStartStateData(subCat.name, subCat.children, this.createBreadcrumLinks({
+      
+      this.setStartStateData(subCat.name, subCat.products, this.createBreadcrumLinks({
         classes: subCat.parent.parent.name,
         categorie: subCat.parent.name,
         subcategorie: subCat.name,
@@ -90,12 +86,13 @@ export default class Menuccsc extends React.Component {
   }
 
   setStartStateData = (title, cardData, links) => {
-    this.setState({ title, cardData, links });
+    console.log(cardData)
+    this.setState({ title, cardData, links }, () => console.log(this.state));
   }
 
   render() {
     const { title, cardData, route, links } = this.state;
-
+    
     return (
       <Container maxWidth="lg">
         <CssBaseline />

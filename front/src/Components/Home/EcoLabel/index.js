@@ -1,19 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { css } from '@emotion/core';
 import Color from '../../Color';
 import LabelData from './label';
 
-
-const centerMedia = css`
-  @media (max-width: 768px) {
-    text-align: center;
-    justify-content: center;
-  }
-`;
-
 const EcoLabelContainer = styled.div`
-  ${centerMedia}
+  text-align: center;
+  justify-content: center;
   margin-top: 1em;
   margin-bottom: 1em;
   display: flex;
@@ -29,6 +21,13 @@ const EcoLabel = styled.div`
   border-radius: 50%;
   box-shadow: ${Color.shadow};
   position: relative;
+
+  &:hover {
+    cursor: pointer;
+    div {
+      display: block;
+    }
+  }
 `;
 
 const LabelImage = styled.img`
@@ -38,8 +37,9 @@ const LabelImage = styled.img`
 `;
 
 const LabelTooltipContainer = styled.div`
+  display: none;
   position: absolute;
-  top: 85px;
+  top: 75px;
   left: -15px;
   border: 1px solid ${Color.ecoGreenHover};
   padding: .2em .4em;
@@ -47,6 +47,7 @@ const LabelTooltipContainer = styled.div`
   background-color: ${Color.white};
   box-shadow: ${Color.shadow};
   min-width: 100px;
+  z-index: 1;
 `;
 
 const LabelTooltipText = styled.p`

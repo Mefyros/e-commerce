@@ -15,7 +15,11 @@ export default (props) => {
         {
           props.links.map((link, key) => (
             <S.BreadLink key={key} href={link.url} >
-              {link.name}
+              {
+                link.name.length > 30
+                  ? `${link.name.slice(0,30)}...`
+                  : link.name
+              }
               <S.Arrow />
             </S.BreadLink>
           ))
