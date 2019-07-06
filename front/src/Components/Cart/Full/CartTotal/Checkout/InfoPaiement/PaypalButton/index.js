@@ -1,15 +1,33 @@
 import React from 'react';
 import ReactDOM from 'react-dom'
+import {connect} from 'react-redux';
 
 declare var paypal;
 
+const mapStateToProps = state => ({
+    cart: state.cart,
+})
+
 let PayPalButton = paypal.Buttons.driver('react', { React, ReactDOM });
-class Main extends React.Component {
+
+class Button extends React.Component {
+    getTotalCart = () => {
+        const {cart} = this.props;
+        let totalPrice = 0;
+
+        for (let i = 0; i < cart.length; ++i) {
+            const { price, quantity } = cart[i];
+            totalPrice += price * quantity;
+        }
+
+        return totalPrice;
+    }
+
     createOrder(data, actions) {
         return actions.order.create({
             purchase_units: [{
                 amount: {
-                    value: '0.01'
+                    value: this.getTotalCart(),
                 }
             }]
         });
@@ -20,11 +38,11 @@ class Main extends React.Component {
     render() {
         return (
             <PayPalButton
-        createOrder={ (data, actions) => this.createOrder(data, actions) }
-        onApprove={ (data, actions) => this.onApprove(data, actions) }
+            createOrder={ (data, actions) => this.createOrder(data, actions) }
+            onApprove={ (data, actions) => this.onApprove(data, actions) }
         />
     );
     }
 }
 
-export default Main;
+export default connect(mapStateToProps)(Button);
