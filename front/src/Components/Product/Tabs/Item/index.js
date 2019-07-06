@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import Color from '../../../../Color';
+import Color from '../../../Color';
 
 const Tab = styled.div`
   background-color: ${Color.ecoGreen};

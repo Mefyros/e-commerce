@@ -2,6 +2,21 @@ import { css } from '@emotion/core';
 import styled from '@emotion/styled';
 import Color from '../Color';
 
+export const ImageTitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 175px;
+
+  @media (max-width: 768px) {
+    height: 100px;
+  }
+`;
+
+export const ImageTitle = styled.img`
+  height: 100%;
+`;
+
 export const container = css`
     display: flex;
     flex-wrap: wrap;
@@ -25,7 +40,8 @@ export const ValeurContainer = styled.div`
   margin: 2em 0;
   padding: 2em 0;
   background-color: ${Color.white};
-  box-shadow: ${Color.shadow};
+  /* box-shadow: ${Color.shadow}; */
+  border: 1px solid ${Color.ecoBrown};
 `;
 
 export const AboutsUsContainer = styled.div`
