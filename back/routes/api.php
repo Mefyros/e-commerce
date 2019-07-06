@@ -101,6 +101,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
 
+Route::post('/order', 'CheckoutController@orderCommand');
+
+
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'UserController@details');
     Route::get('/user/cart', 'UserCartController@getCart');
@@ -114,7 +117,6 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::delete('/user/creditcard/{id}', 'BankingCredentialsController@remove');
     Route::get('/user/creditcard', 'BankingCredentialsController@get');
     Route::post('/user/creditcard/check', 'BankingCredentialsController@check');
-    Route::post('/order', 'CheckoutController@orderCommand');
     Route::get('/user/order', 'OrderController@getAllByUser');
     Route::post('/product/{id}/review', 'ReviewController@create');
     Route::get('/product/{id}/review', 'ReviewController@get');
