@@ -1,25 +1,15 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import * as S from './style';
-import Labels from './EcoLabel';
-import Partners from './partner';
 
 export default class AboutUs extends React.Component {
-  partnerLink = (partner, key) => {
-    return (
-      <S.Link key={key} href={partner.link} target="_blanck">
-        <S.Image src={partner.image}/>
-      </S.Link>
-    )
-  }
-
   render() {
     return (
       <Container maxWidth="lg">
         <S.Container>
 
           <S.AboutsUsContainer>
-            <S.Title>Qui somme nous ?</S.Title>
+            <S.Title>Qui sommes nous ?</S.Title>
             <S.Text>
               Nous somme Ecoponent, une jeune startup française fan de nouvelles technologies
               mais aussi investie dans l'écologie, car nous avons compris que nous vivons 
@@ -44,20 +34,6 @@ export default class AboutUs extends React.Component {
               de nouvelles matières première.
             </S.Text>
           </S.AboutsUsContainer>
-
-          <S.CertificationContainer>
-            <S.Title>Nos labels</S.Title>
-            <Labels />
-          </S.CertificationContainer>
-
-          <S.PartnerContainer>
-            <S.Title>Nos partenaires</S.Title>
-            <S.Partener>
-              {
-                Partners.map((partner, key) => this.partnerLink(partner, key))
-              }
-            </S.Partener>
-          </S.PartnerContainer>
 
         </S.Container>
       </Container>
