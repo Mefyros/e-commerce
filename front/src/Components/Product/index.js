@@ -4,16 +4,17 @@ import Container from '@material-ui/core/Container';
 import { connect } from 'react-redux';
 import { addToCart } from '../../Redux/Action/CartAction';
 import ProductsService from '../../Service/ProductService';
+import ReviewService from '../../Service/ReviewService';
 import Color from '../Color';
 import * as S from './style';
 
 import Button from '../DefaultComponent/Button';
 import Breadcrumbs from '../DefaultComponent/Breadcrumbs';
-import EcoLabel from './components/EcoLabel';
-import Tabs from './components/Tabs';
-import TabsItem from './components/Tabs/Item';
-import Specs from './components/Specs';
-import Review from './components/Reviews';
+import EcoLabel from './EcoLabel';
+import Tabs from './Tabs';
+import TabsItem from './Tabs/Item';
+import Specs from './Specs';
+import Review from './Reviews';
 
 const mapStateToProps = state => {
   return { products: state.cart };
@@ -28,15 +29,24 @@ class Product extends React.Component {
     super(props);
     this.state = {
       inputQuantity: 1,
-      tabsToShow: 3,
+      tabsToShow: 1,
+      id: null,
+      reviews: [],
+      averageRating: 0,
     };
   }
 
   componentDidMount = async () => {
     const { id } = this.props.match.params;
     const product = await ProductsService.getById(id);
+    const reviews = await ReviewService.getAllByProductId(id);
+    let totalRating = 0;
     ProductsService.visited(id);
-
+    
+    for (let i = 0; i < reviews.length; i++) {
+      totalRating += reviews[i].rate;
+    }
+    
     if (typeof product === 'object') {
       const classe = product.parent.parent.parent;
       const categorie = product.parent.parent;
@@ -44,6 +54,8 @@ class Product extends React.Component {
 
       this.setState({ 
         ...product,
+        reviews,
+        averageRating: totalRating / reviews.length,
         photos: JSON.parse(product.photos),
         classe: {
           id: classe.id,
@@ -65,7 +77,6 @@ class Product extends React.Component {
   }
 
   handleAddToCart = () => {
-    console.log('add to cart');
     const { addToCart } = this.props;
     const { id, name, price, photos } = this.state;
     addToCart({ id, name,price, image: photos[0] });
@@ -96,13 +107,31 @@ class Product extends React.Component {
     this.setState({ tabsToShow });
   }
 
+  getReviewStars = () => {
+    const {averageRating} = this.state;
+    const half = averageRating + 0.5;
+    const stars = [];
+
+    console.log(half);
+
+    for (let i = 0; i < 5; i++) {
+      if (i + 1 < averageRating)
+        stars.push(<i className="fas fa-star"></i>);
+      else if (averageRating >= half && averageRating < i + 1)
+        stars.push(<i className="fas fa-star-half-alt"></i>);
+      else
+        stars.push(<i className="far fa-star"></i>);
+    }
+
+    return stars;
+  }
+
   render() {
     const { id, name, photos, price, quantity, description, categorie, classe, 
-      subCategorie, inputQuantity, tabsToShow, specs } = this.state;
+      subCategorie, inputQuantity, tabsToShow, specs, averageRating, reviews } = this.state;
     const links = classe && categorie && subCategorie ? [classe, categorie, subCategorie, { id, name, url:`/product/${id}` }] : [];
     const options = this.createOptions(quantity > 25 ? 25 : quantity);
     const images = photos || [];
-    const fakePic = ['http://www.eldiariodecoahuila.com.mx/u/fotografias/fotosnoticias/2018/10/15/695930.jpg'];
 
     return(
       <Container maxWidth="lg">
@@ -155,13 +184,11 @@ class Product extends React.Component {
                     <S.ProductName>{name}</S.ProductName>
                     <S.ReviewContainer>
                       <S.ReviewStars>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star"></i>
-                        <i className="fas fa-star-half-alt"></i>
-                        <i className="far fa-star"></i>
+                        {
+                          this.getReviewStars().map((star) => star)
+                        }
                       </S.ReviewStars>
-                      <S.ReviewText>3.5/5 (3 reviews)</S.ReviewText>
+                      <S.ReviewText>{averageRating}/5 ({reviews.length} reviews)</S.ReviewText>
                     </S.ReviewContainer>
                     <S.ProductPrice>$ {price}</S.ProductPrice>
                     <S.EcoContainer>
@@ -174,13 +201,7 @@ class Product extends React.Component {
                       </S.EcoStars>
                       <S.EcoText>Eco: 4/5</S.EcoText>
                     </S.EcoContainer>
-                    <EcoLabel data={[
-                      { image: fakePic, tooltip: "Test tooltip" },
-                      { image: fakePic, tooltip: "Test tooltip" },
-                      { image: fakePic, tooltip: "Test tooltip" },
-                      { image: fakePic, tooltip: "Test tooltip" },
-                      { image: fakePic, tooltip: "Test tooltip" },
-                    ]}/>
+                    <EcoLabel />
                     <S.QuantityContainer>
                       {
                         quantity > 1 
@@ -234,7 +255,7 @@ class Product extends React.Component {
                   <S.TabView>
                     { tabsToShow === 1 && <S.Description>{description}</S.Description> }
                     { tabsToShow === 2 && <Specs specs={specs}/> }
-                    { tabsToShow === 3 && <Review /> }
+                    { tabsToShow === 3 && <Review productId={id} openModal={this.openModal}/> }
                   </S.TabView>
                 </S.TabsContainer>
               </Grid>
@@ -242,6 +263,7 @@ class Product extends React.Component {
             </S.ContainerProduct>
             
           </Grid>
+
       </Container>
     );
   }

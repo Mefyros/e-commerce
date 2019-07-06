@@ -35,6 +35,11 @@ export default class Home extends React.Component {
       <>
         <React.Fragment>
           <CssBaseline />
+
+          <S.ImageTitleContainer>
+            <S.ImageTitle src="/title_Home.png"/>
+          </S.ImageTitleContainer>
+
           <CarouselPage/>
 
           <Grid container justify="center">
