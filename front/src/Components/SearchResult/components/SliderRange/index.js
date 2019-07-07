@@ -14,7 +14,13 @@ function valuetext(value) {
 
 export default function RangeSlider(props) {
     const classes = useStyles();
-    const [value, setValue] = React.useState([1, 1000]);
+    // console.log(props.max)
+    const max = parseInt(props.max);
+    const [value, setValue] = React.useState([1,100]);
+    // console.log(value)
+    let ValuePrice = value;
+    return  ValuePrice;
+    // setValue([1, max]);
 
     const handleChange = (event, newValue) => {
         setValue(newValue);

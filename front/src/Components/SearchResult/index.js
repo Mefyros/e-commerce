@@ -14,50 +14,66 @@ export default class SearchResult extends Component{
     constructor(props){
         super(props)
         this.state = {
-            result: [],
+            products: [],
             cat: [],
             subCat: [],
             brand: [],
             maxPrice: 2,
+            filters: [],
         }
     }
 
+    handleChange = (name, key, event) => {
+        console.log(name);
+        const filters = [...this.state.filters];
+
+        if (!event.target.checked) {
+            // filters.pop();
+            filters.filter((filter) => {
+                if (filter !== name) return filter;
+            });
+        }
+        else {
+            if (!filters.includes(name))
+                filters.push(name);
+        }
+        this.setState({filters}, () => console.log(this.state));
+    };
 
     componentDidMount = async () => {
-        let params = this.props.match.params, result
-        // console.log(params);
+        let params = this.props.match.params;
+        let products;
         if(params.categorie){
-            result = await SearchService.searchByCategory({
+            products = await SearchService.searchByCategory({
                 categorie_id: params.categorie,
                 keyword: params.keyword
             })
         } else {
-            result = await SearchService.search(params.keyword)
+            products = await SearchService.search(params.keyword)
         }
         let arrayCat = [];
         let arraySub = [];
         let arrayBrand = [];
         let maxPrice = 2;
+        const PRODUCTS = products.data;
 
-        for (let i = 0; i < result.data.length; i++)
+        for (let i = 0; i < PRODUCTS.length; i++)
         {
-            if (!arrayCat.includes(result.data[i].categorie.name))
-                arrayCat.push(result.data[i].categorie.name);
+            if (!arrayCat.includes(PRODUCTS[i].categorie.name))
+                arrayCat.push(PRODUCTS[i].categorie.name);
 
-            if (!arraySub.includes(result.data[i].sub_categorie.name))
-                arraySub.push(result.data[i].sub_categorie.name);
+            if (!arraySub.includes(PRODUCTS[i].sub_categorie.name))
+                arraySub.push(PRODUCTS[i].sub_categorie.name);
 
-            if (!arrayBrand.includes(result.data[i].marque))
-                arrayBrand.push(result.data[i].marque);
+            if (!arrayBrand.includes(PRODUCTS[i].marque))
+                arrayBrand.push(PRODUCTS[i].marque);
 
-            if (maxPrice < result.data[i].price)
-                maxPrice = result.data[i].price;
+            if (maxPrice < PRODUCTS[i].price)
+                maxPrice = PRODUCTS[i].price;
         }
 
-        console.log(result.data)
-
         this.setState({
-            result: result.data,
+            products: PRODUCTS,
             cat: arrayCat,
             subCat: arraySub,
             brand: arrayBrand,
@@ -66,9 +82,36 @@ export default class SearchResult extends Component{
 
 
     }
+
+    getProducts = () => {
+        const {products, filters} = this.state;
+        let flag = true;
+        let result = [];
+        
+        for (let p = 0; p<products.length; p++)
+        {
+            for(let f = 0; f<filters.length; f++)
+            {
+              console.log(products[p]);
+              console.log(filters[f]);
+
+            }
+            if (flag)
+            {
+                // console.log('push');
+                result.push(products[p])
+            }
+            flag = true;
+        }
+       // console.log(result);
+        return result;
+    };
+
     render(){
-        const {maxPrice} = this.state;
-        // console.log(this.state.result)
+        const {maxPrice, cat, subCat, brand} = this.state;
+        const result = this.getProducts() || [];
+        // console.log(result);
+
         return(
             <Container>
                 <Grid  container item xs={12} spacing={3} justify='center'>
@@ -82,13 +125,14 @@ export default class SearchResult extends Component{
                         <div className={css(filterContent)}>
                             <h3 className={css(filterTitle)}>FILTER BY CATEGORY</h3>
                             <div>
-                                 {this.state.cat.map(rescat => {
-                                     // console.log(rescat)
+                                 {cat.map(rescat => {
+
                                      return (
                                          <>
                                              <div>
                                                 <Checkbox
-                                                value="checked"
+                                                value= {rescat}
+                                                onChange={(event => this.handleChange(rescat, 'categorie', event))}
                                                 inputProps={{
                                                     'aria-label': 'uncontrolled-checkbox',
                                                     }}
@@ -105,12 +149,13 @@ export default class SearchResult extends Component{
                             <div className={css(filterContent)}>
                                 <h3 className={css(filterTitle)}>FILTER BY SUB-CATEGORY</h3>
                                 <div>
-                                    {this.state.subCat.map(resSubcat => {
+                                    {subCat.map(resSubcat => {
                                         return (
                                             <>
                                                 <div>
                                                     <Checkbox
-                                                        value="checked"
+                                                        value={resSubcat}
+                                                        onChange={(event => this.handleChange(resSubcat, 'sub-categorie',event))}
                                                         inputProps={{
                                                             'aria-label': 'uncontrolled-checkbox',
                                                         }}
@@ -127,12 +172,13 @@ export default class SearchResult extends Component{
                         <div className={css(filterContent)}>
                             <h3 className={css(filterTitle)}>FILTER BY BRAND</h3>
                             <div>
-                                {this.state.brand.map(resBrand => {
+                                {brand.map(resBrand => {
                                     return (
                                         <>
                                             <div>
                                                 <Checkbox
-                                                    value="checked"
+                                                    value={resBrand}
+                                                    onChange={(event => this.handleChange(resBrand, 'marque',event))}
                                                     inputProps={{
                                                         'aria-label': 'uncontrolled-checkbox',
                                                     }}
@@ -146,31 +192,31 @@ export default class SearchResult extends Component{
                             </div>
                         </div>
 
-                        <div className={css(filterContent)}>
-                            <h3 className={css(filterTitle)}>SPECIAL SPEC</h3>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> MADE IN FRANCE
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Green Power
-                            </div>
-                            <hr/>
-                        </div>
+                        {/*<div className={css(filterContent)}>*/}
+                        {/*    <h3 className={css(filterTitle)}>SPECIAL SPEC</h3>*/}
+                        {/*    <div>*/}
+                        {/*        <Checkbox*/}
+                        {/*            value="checkedC"*/}
+                        {/*            inputProps={{*/}
+                        {/*                'aria-label': 'uncontrolled-checkbox',*/}
+                        {/*            }}*/}
+                        {/*        /> MADE IN FRANCE*/}
+                        {/*    </div>*/}
+                        {/*    <hr/>*/}
+                        {/*    <div>*/}
+                        {/*        <Checkbox*/}
+                        {/*            value="checkedC"*/}
+                        {/*            inputProps={{*/}
+                        {/*                'aria-label': 'uncontrolled-checkbox',*/}
+                        {/*            }}*/}
+                        {/*        /> Green Power*/}
+                        {/*    </div>*/}
+                        {/*    <hr/>*/}
+                        {/*</div>*/}
 
                     </Grid>
                     <Grid  item xs={8}>
-                    {this.state.result.map(res => {
+                    {result.map(res => {
                         return (
                                 <CustomCard product={res}/>
                         )
