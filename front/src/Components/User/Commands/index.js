@@ -2,13 +2,17 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
 
-// import TicketService from '../../../Service/TicketService.js';
+import TicketService from '../../../Service/TicketService.js';
+import BillService from '../../../Service/BillService.js';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import CircularProgress from '@material-ui/core/CircularProgress';
+import * as S from './style';
+
 
 export default class Commands extends React.Component {
   constructor(props){
@@ -19,11 +23,24 @@ export default class Commands extends React.Component {
   }
 
   async componentDidMount(){
-    await this.setState({order: this.props.order})
+    const order = await TicketService.getAllByUser(localStorage.getItem('eToken'))
+    await this.setState({order})
+    for(let i in order) {
+      const bill = await this.getBills(order[i].id)
+      order[i].bill = bill.pdf
+      await this.setState({order})
+
+    }
+
+  }
+
+  getBills = async (id) => {
+    return await BillService.getBills(id)
+    
   }
 
   render(){
-    // const { order } = this.state;
+    const { order } = this.state;
 
     return(
       <div>
@@ -38,42 +55,33 @@ export default class Commands extends React.Component {
               <TableCell>Ordered</TableCell>
               <TableCell>Step</TableCell>
               <TableCell>Detail</TableCell>
+              <TableCell>Bill</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
           {
-            // order.map((item) => (
-            //     <TableRow key={item.id}>
-            //       <TableCell>{item.id}</TableCell>
-            //       <TableCell>{item.ordered.split('T')[0]} [{item.ordered.split('T')[1].split('.000000Z')[0]}]</TableCell>
-            //       <TableCell>{item.step}</TableCell>
-            //       <TableCell>Pas de detail</TableCell>
-            //     </TableRow>
-            //   )
-            // )
+            order.map((item) => (
+                <TableRow key={item.id}>
+                  <TableCell>{item.id}</TableCell>
+                  <TableCell>{item.ordered.split('T')[0]} [{item.ordered.split('T')[1].split('.000000Z')[0]}]</TableCell>
+                  <TableCell>{item.step}</TableCell>
+                  <TableCell>Pas de detail</TableCell>
+                  {item.bill ? <TableCell><S.Link href={item.bill} download><i className="fas fa-file-invoice"></i></S.Link></TableCell> :<CircularProgress/>}
+                </TableRow>
+              )
+            )
           }
-
-            <TableRow>
-              <TableCell>N° 135359</TableCell>
-              <TableCell>01/07/2019</TableCell>
-              <TableCell>En cours d'envoi</TableCell>
-              <TableCell>Details de la conmmande</TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>N° 126676</TableCell>
-              <TableCell>21/05/2019</TableCell>
-              <TableCell>Commande recu</TableCell>
-              <TableCell>Details de la conmmande</TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>N° 76218</TableCell>
-              <TableCell>14/10/2018</TableCell>
-              <TableCell>Commande recu</TableCell>
-              <TableCell>Details de la conmmande</TableCell>
-            </TableRow>
-
+          {/* {
+            fakeData.map((order, key) => (
+              <TableRow key={order.id}>
+                <TableCell>N° {order.id}</TableCell>
+                <TableCell>{order.date}</TableCeldownload file reactjsl>
+                <TableCell>{order.status}</TableCell>
+                <TableCell><S.Link href={order.detail}>Details de la conmmande</S.Link></TableCell>
+                <TableCell><S.Link href={order.bill} download><i className="fas fa-file-invoice"></i></S.Link></TableCell>
+              </TableRow>
+            ))
+          } */}
           </TableBody>
         </Table>
       </Container>

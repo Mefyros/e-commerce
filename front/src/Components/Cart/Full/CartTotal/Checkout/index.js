@@ -49,7 +49,6 @@ function getSteps() {
 async function getInfoUser(){
   var data = {};
   var res = await AuthService.getUserInfo(localStorage.getItem('eToken'));
-  console.log(res);
   if (res.user) {
     data = {info : {id_user: res.user.user_id, lastname: res.user.lastname, mail: res.user.email,name: res.user.name,phone: res.user.phone}, adress : {pays: res.user.pays,ville: res.user.ville,code_postal: res.user.code_postal,departement: res.user.departement,voie: res.user.voie}};
     localStorage.setItem('eUser_info', JSON.stringify(data.info));

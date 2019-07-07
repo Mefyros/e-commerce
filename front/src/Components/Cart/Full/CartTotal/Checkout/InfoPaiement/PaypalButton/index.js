@@ -27,7 +27,7 @@ class Main extends React.Component {
     createOrder(data, actions) {
         console.log(data);
         var token = actions.order.create.__id__
-        return actions.order.create({            
+        return actions.order.create({
             purchase_units: [{
                 amount: {
                     value: this.getTotalCart(),
@@ -59,8 +59,8 @@ class Main extends React.Component {
     render() {
         return (
             <PayPalButton style={{color:  'blue', shape:  'pill', label:  'pay', height: 40}}
-        createOrder={ (data, actions) => this.createOrder(data, actions) }
-        onApprove={ (data, actions) => this.onApprove(data, actions) }
+            createOrder={ (data, actions) => this.createOrder(data, actions) }
+            onApprove={ (data, actions) => this.onApprove(data, actions) }
         />
     );
     }

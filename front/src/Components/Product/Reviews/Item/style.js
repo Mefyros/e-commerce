@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import Color from '../../../../Color';
+import Color from '../../../Color';
 import { css } from '@emotion/core';
 
 const baseText = css`
@@ -8,7 +8,7 @@ const baseText = css`
 `;
 
 export const Container = styled.div`
-  border: 1px solid ${Color.grey};
+  border: 1px solid ${Color.ecoBrown};
   margin-top: .5em;
   margin-bottom: .5em;
   padding: 1em;
@@ -32,3 +32,20 @@ export const Mark = styled.p`
 export const Content = styled.p`
   ${baseText}
 `
+export const ButtonBox = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+  align-items: center;
+  margin-top: 1em;
+`;
+
+export const thumbsDown = css`
+  margin-left: 1em !important;
+  background-color: ${Color.ecoBrown} !important;
+  border-color: ${Color.ecoBrown} !important;
+
+  &:hover {
+    background-color: ${Color.ecoBrownHover} !important;
+  }
+`;

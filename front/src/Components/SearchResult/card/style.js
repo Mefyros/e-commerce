@@ -1,5 +1,5 @@
 import { css } from '@emotion/core';
-import Color from '../../../Color';
+import Color from '../../Color';
 
 export const cardStyle = css`
   position: relative;
