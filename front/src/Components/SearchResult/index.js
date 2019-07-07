@@ -14,29 +14,104 @@ export default class SearchResult extends Component{
     constructor(props){
         super(props)
         this.state = {
-            result: []
+            products: [],
+            cat: [],
+            subCat: [],
+            brand: [],
+            maxPrice: 2,
+            filters: [],
         }
     }
 
+    handleChange = (name, key, event) => {
+        console.log(name);
+        const filters = [...this.state.filters];
+
+        if (!event.target.checked) {
+            // filters.pop();
+            filters.filter((filter) => {
+                if (filter !== name) return filter;
+            });
+        }
+        else {
+            if (!filters.includes(name))
+                filters.push(name);
+        }
+        this.setState({filters}, () => console.log(this.state));
+    };
 
     componentDidMount = async () => {
-        let params = this.props.match.params, result
-        console.log(params);
+        let params = this.props.match.params;
+        let products;
         if(params.categorie){
-            result = await SearchService.searchByCategory({
+            products = await SearchService.searchByCategory({
                 categorie_id: params.categorie,
                 keyword: params.keyword
-            })
+            });
         } else {
-            result = await SearchService.search(params.keyword)
+            products = await SearchService.search(params.keyword)
         }
-        console.log(result.data)
+        let arrayCat = [];
+        let arraySub = [];
+        let arrayBrand = [];
+        let maxPrice = 2;
+        const PRODUCTS = products.data;
+
+        for (let i = 0; i < PRODUCTS.length; i++)
+        {
+            if (!arrayCat.includes(PRODUCTS[i].categorie.name))
+                arrayCat.push(PRODUCTS[i].categorie.name);
+
+            if (!arraySub.includes(PRODUCTS[i].sub_categorie.name))
+                arraySub.push(PRODUCTS[i].sub_categorie.name);
+
+            if (!arrayBrand.includes(PRODUCTS[i].marque))
+                arrayBrand.push(PRODUCTS[i].marque);
+
+            if (maxPrice < PRODUCTS[i].price)
+                maxPrice = PRODUCTS[i].price;
+        }
+
         this.setState({
-            result: result.data.data
+            products: PRODUCTS,
+            cat: arrayCat,
+            subCat: arraySub,
+            brand: arrayBrand,
+            maxPrice,
         })
+
+
     }
+
+    getProducts = () => {
+        const {products, filters} = this.state;
+        let flag = true;
+        let result = [];
+        
+        for (let p = 0; p<products.length; p++)
+        {
+            for(let f = 0; f<filters.length; f++)
+            {
+              console.log(products[p]);
+              console.log(filters[f]);
+
+            }
+            if (flag)
+            {
+                // console.log('push');
+                result.push(products[p])
+            }
+            flag = true;
+        }
+       // console.log(result);
+        return result;
+    };
+
     render(){
-        // console.log(this.state.result)
+        const {maxPrice, cat, subCat, brand} = this.state;
+        const result = this.getProducts() || [];
+        // console.log(result);
+
         return(
             <Container>
                 <Grid  container item xs={12} spacing={3} justify='center'>
@@ -44,139 +119,104 @@ export default class SearchResult extends Component{
                         <div className={css(filterContent)}>
                             <h3 className={css(filterTitle)}>FILTER BY PRICE </h3>
                             <div className={css(filterPrice)}>
-                            <SliderRange/>
+                            <SliderRange max={maxPrice} />
                             </div>
                         </div>
                         <div className={css(filterContent)}>
                             <h3 className={css(filterTitle)}>FILTER BY CATEGORY</h3>
                             <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Watercooling
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Accessories
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Motherboard
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Processor
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Graphic Card
-                            </div>
-                            <hr/>
+                                 {cat.map(rescat => {
+
+                                     return (
+                                         <>
+                                             <div>
+                                                <Checkbox
+                                                value= {rescat}
+                                                onChange={(event => this.handleChange(rescat, 'categorie', event))}
+                                                inputProps={{
+                                                    'aria-label': 'uncontrolled-checkbox',
+                                                    }}
+                                                />
+                                                 {rescat}
+                                            </div>
+                                         <hr/>
+                                         </>
+                                     )
+                                 })}
                         </div>
+                        </div>
+
+                            <div className={css(filterContent)}>
+                                <h3 className={css(filterTitle)}>FILTER BY SUB-CATEGORY</h3>
+                                <div>
+                                    {subCat.map(resSubcat => {
+                                        return (
+                                            <>
+                                                <div>
+                                                    <Checkbox
+                                                        value={resSubcat}
+                                                        onChange={(event => this.handleChange(resSubcat, 'sub-categorie',event))}
+                                                        inputProps={{
+                                                            'aria-label': 'uncontrolled-checkbox',
+                                                        }}
+                                                    />
+                                                    {resSubcat}
+                                                </div>
+                                                <hr/>
+                                            </>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+
                         <div className={css(filterContent)}>
                             <h3 className={css(filterTitle)}>FILTER BY BRAND</h3>
                             <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> SAMSUNG
+                                {brand.map(resBrand => {
+                                    return (
+                                        <>
+                                            <div>
+                                                <Checkbox
+                                                    value={resBrand}
+                                                    onChange={(event => this.handleChange(resBrand, 'marque',event))}
+                                                    inputProps={{
+                                                        'aria-label': 'uncontrolled-checkbox',
+                                                    }}
+                                                />
+                                                {resBrand}
+                                            </div>
+                                            <hr/>
+                                        </>
+                                    )
+                                })}
                             </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> ASUS
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Acer
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> MSI
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Intel
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> NVIDIA
-                            </div>
-                            <hr/>
                         </div>
 
-                        <div className={css(filterContent)}>
-                            <h3 className={css(filterTitle)}>SPECIAL SPEC</h3>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> MADE IN FRANCE
-                            </div>
-                            <hr/>
-                            <div>
-                                <Checkbox
-                                    value="checkedC"
-                                    inputProps={{
-                                        'aria-label': 'uncontrolled-checkbox',
-                                    }}
-                                /> Green Power
-                            </div>
-                            <hr/>
-                        </div>
+                        {/*<div className={css(filterContent)}>*/}
+                        {/*    <h3 className={css(filterTitle)}>SPECIAL SPEC</h3>*/}
+                        {/*    <div>*/}
+                        {/*        <Checkbox*/}
+                        {/*            value="checkedC"*/}
+                        {/*            inputProps={{*/}
+                        {/*                'aria-label': 'uncontrolled-checkbox',*/}
+                        {/*            }}*/}
+                        {/*        /> MADE IN FRANCE*/}
+                        {/*    </div>*/}
+                        {/*    <hr/>*/}
+                        {/*    <div>*/}
+                        {/*        <Checkbox*/}
+                        {/*            value="checkedC"*/}
+                        {/*            inputProps={{*/}
+                        {/*                'aria-label': 'uncontrolled-checkbox',*/}
+                        {/*            }}*/}
+                        {/*        /> Green Power*/}
+                        {/*    </div>*/}
+                        {/*    <hr/>*/}
+                        {/*</div>*/}
+
                     </Grid>
                     <Grid  item xs={8}>
-                    {this.state.result.map(res => {
+                    {result.map(res => {
                         return (
                                 <CustomCard product={res}/>
                         )

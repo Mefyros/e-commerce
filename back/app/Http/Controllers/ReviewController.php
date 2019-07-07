@@ -23,6 +23,7 @@ class ReviewController extends Controller
         $temp = [];
         foreach($reviews as $review){
             $temp[] = [
+                'id' => $review->id,
                 'comment' => $review->comment,
                 'author' => ['id' => $review->author->id, 'name' => $review->author->UserInfo->name],
                 'rate' => $review->score,

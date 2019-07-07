@@ -108,16 +108,19 @@ class ProductsController extends Controller
     public function update(Request $request, $id){
         $product = Product::find($id);
         if($product){
-            if(!is_empty($request->delete)){
+            if(!empty($request->delete)){
                 $files = $this->updateProductPhotos();
             }
-            return $files;
+            foreach($request->specifications as $key => $value){
+                $temp[] = ['name' => $key, 'specification' => $value];
+            }
             $product->name = $request->name;
-            $product->specs = json_encode($request->specifications);
+            $product->specs = json_encode($temp);
             $product->description = $request->description;
             $product->price = intval($request->price);
             $product->marque = $request->marque;
             $product->save();
+            $product->specs = json_decode($product->specs);
             return ['product' => $product];
 
         }

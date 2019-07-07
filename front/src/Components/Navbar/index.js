@@ -38,10 +38,11 @@ export default class Navbar extends React.Component {
 
   handleSearch = async (event) => {
     const { input_search } = this.state;
+    
     if(input_search) {
       console.log(event.target.value)
       if(this.state.categorie_id !== 'select a category' && this.state.categorie_id !== null){
-        window.location.href = '/search/categorie/'+this.state.categorie_id+'/'+event.target.value;
+        window.location.href = '/search/categorie/'+this.state.categorie_id+'/'+ input_search;
         // let result = await SearchService.searchByCategory({
         //   categorie_id: this.state.categorie_id,
         //   keyword: event.target.value
@@ -52,7 +53,7 @@ export default class Navbar extends React.Component {
         //   })
         // }
       } else {
-        window.location.href = '/search/'+event.target.value;
+        window.location.href = `/search/${input_search}`;
         // let result = await SearchService.search(event.target.value)
         // if(result.data.length > 0){
         //   this.setState({
