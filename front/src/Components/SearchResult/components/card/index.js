@@ -51,10 +51,10 @@ class CustomCard extends React.Component {
                 <CardMedia
                     className={css(S.media)}
                     image={photos[0]}
-                    title="Bird"
+                    title={name}
                 />
                 <CardContent className={css(S.content)}>
-                    <Typography variant="h5" component="h2">
+                    <Typography variant="h6" component="h2">
                         {name}
                     </Typography>
                     <Typography variant="body2" color="textSecondary" component="h2">
