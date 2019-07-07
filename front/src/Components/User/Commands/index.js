@@ -9,6 +9,9 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import * as S from './style';
+
+import fakeData from './fake';
 
 export default class Commands extends React.Component {
   constructor(props){
@@ -20,6 +23,10 @@ export default class Commands extends React.Component {
 
   async componentDidMount(){
     await this.setState({order: this.props.order})
+  }
+
+  getBills = () => {
+
   }
 
   render(){
@@ -38,6 +45,7 @@ export default class Commands extends React.Component {
               <TableCell>Ordered</TableCell>
               <TableCell>Step</TableCell>
               <TableCell>Detail</TableCell>
+              <TableCell>Bill</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -52,28 +60,17 @@ export default class Commands extends React.Component {
             //   )
             // )
           }
-
-            <TableRow>
-              <TableCell>N° 135359</TableCell>
-              <TableCell>01/07/2019</TableCell>
-              <TableCell>En cours d'envoi</TableCell>
-              <TableCell>Details de la conmmande</TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>N° 126676</TableCell>
-              <TableCell>21/05/2019</TableCell>
-              <TableCell>Commande recu</TableCell>
-              <TableCell>Details de la conmmande</TableCell>
-            </TableRow>
-
-            <TableRow>
-              <TableCell>N° 76218</TableCell>
-              <TableCell>14/10/2018</TableCell>
-              <TableCell>Commande recu</TableCell>
-              <TableCell>Details de la conmmande</TableCell>
-            </TableRow>
-
+          {
+            fakeData.map((order, key) => (
+              <TableRow key={order.id}>
+                <TableCell>N° {order.id}</TableCell>
+                <TableCell>{order.date}</TableCell>
+                <TableCell>{order.status}</TableCell>
+                <TableCell><S.Link href={order.detail}>Details de la conmmande</S.Link></TableCell>
+                <TableCell><S.Link href={order.bill} download><i className="fas fa-file-invoice"></i></S.Link></TableCell>
+              </TableRow>
+            ))
+          }
           </TableBody>
         </Table>
       </Container>
