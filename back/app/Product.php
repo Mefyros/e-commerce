@@ -26,7 +26,7 @@ class Product extends Model
         return $this->belongsTo('App\SubCategorie', 'sub_categorie_id');
     }
     public function Categorie(){
-        return $this->hasOneThrough('App\Categorie', 'App\SubCategorie', 'id', 'id', 'categorie_id', 'sub_categorie_id');
+        return $this->hasOneThrough('App\Categorie', 'App\SubCategorie', 'id', 'id', 'sub_categorie_id','categorie_id');
     }
     public function Promo(){
         return $this->belongsTo('App\Promo', 'promo');
