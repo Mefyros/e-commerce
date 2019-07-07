@@ -3,6 +3,8 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
+import {css} from 'emotion';
+import * as S from './style';
 
 import CheckoutService from '../../../../../../Service/DeliveryService';
 
@@ -11,6 +13,7 @@ export default class Info_delivery extends React.Component {
     super(props);
     this.state = {
       fournisseur: [],
+      selectFurnissor: null,
     };
   }
 
@@ -38,19 +41,21 @@ export default class Info_delivery extends React.Component {
       }
     }
     await this.setState({fournisseur: temp});
-    console.log(this.state);
   }
 
-  selectFurnissor(id){
+  selectFurnissor(selectFurnissor, id){
     localStorage.setItem('eUser_delivery', JSON.stringify({transporter_id: id}));
+    this.setState({selectFurnissor});
   }
 
   render(){
+    const {selectFurnissor} = this.state;
+
     return(
       <div>
       <Grid container direction="row" justify='space-around'>
-      {this.state.fournisseur.map((item, i) =>
-        <Card raised={true} style={style.card} id={i} onClick={() => this.selectFurnissor(item.id)}>
+      {this.state.fournisseur.map((item, key) =>
+        <Card raised={true} className={`${css(S.Active)} ${selectFurnissor === key ? "active" : ""}`} id={key} onClick={() => this.selectFurnissor(key, item.id)}>
          <CardActionArea>
           <CardContent>
           <h3>{item.name}</h3>
@@ -68,12 +73,5 @@ export default class Info_delivery extends React.Component {
       </Grid>
       </div>
     );
-  }
-}
-
-const style = {
-  card:{
-      border: 'solid',
-      borderColor: 'red'
   }
 }
