@@ -49,9 +49,8 @@ function getSteps() {
 async function getInfoUser(){
   var data = {};
   var res = await AuthService.getUserInfo(localStorage.getItem('eToken'));
-  // console.log(res);
   if (res.user) {
-    data = {info : {lastname: res.user.lastname, mail: res.user.email,name: res.user.name,phone: res.user.phone}, adress : {pays: res.user.pays,ville: res.user.ville,code_postal: res.user.code_postal,departement: res.user.departement,voie: res.user.voie}};
+    data = {info : {id_user: res.user.user_id, lastname: res.user.lastname, mail: res.user.email,name: res.user.name,phone: res.user.phone}, adress : {pays: res.user.pays,ville: res.user.ville,code_postal: res.user.code_postal,departement: res.user.departement,voie: res.user.voie}};
     localStorage.setItem('eUser_info', JSON.stringify(data.info));
     localStorage.setItem('eUser_adress', JSON.stringify(data.adress));
   }
@@ -92,10 +91,10 @@ function StepperCheckout() {
     localStorage.removeItem('eUser_delivery');
     setActiveStep(0);
   }
-
+  
   return (
     <div style={{width: 700}}>
-    <Container>
+    <Container style={{backgroundColor: '#ffffffc9', border: '1px solid #e5a771'}}>
     <div className={classes.root}>
       <Stepper style={{backgroundColor: 'transparent'}} activeStep={activeStep} orientation="vertical">
         {steps.map((label, index) => (
@@ -112,28 +111,24 @@ function StepperCheckout() {
                   >
                     Back
                   </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}
-                  >
-                    {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
-                  </Button>
+                  {
+                    activeStep !== 3
+                    ? (                  <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleNext}
+                                        className={classes.button}
+                                      >
+                                        {activeStep === steps.length - 1 ? 'Confirmer le paiement' : 'Next'}
+                                      </Button>)
+                    : (false)
+                  }
                 </div>
               </div>
             </StepContent>
           </Step>
         ))}
       </Stepper>
-      {activeStep === steps.length && (
-        <Paper square elevation={0} className={classes.resetContainer}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
-          <Button onClick={handleReset} className={classes.button}>
-            Reset
-          </Button>
-        </Paper>
-      )}
     </div>
     </Container>
     </div>

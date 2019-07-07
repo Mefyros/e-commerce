@@ -73,6 +73,7 @@ export default class Navbar extends React.Component {
         
           <S.LogoContainer href="/">
             <S.Logo src="/eco_logo.png" alt="logo"/>
+            <S.Link href="/about-us"><span>ABOUT</span><span>US</span></S.Link>
           </S.LogoContainer>
 
           <S.SearchBarContainer>

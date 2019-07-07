@@ -57,6 +57,15 @@ export default class SideBarMenu extends React.Component {
     ))
   }
 
+  getExelButton = () => {
+    return (
+      <S.ExelTab id="menu-exel" onClick={this.getExelFile}>
+        <S.IconLeft id="menu-icon" className="fas fa-file-alt"/>
+        <S.Label id="menu-label" href="https://ddd0d153.ngrok.io/api/userCollection" download>Download exel stats file</S.Label>
+      </S.ExelTab>
+    );
+  }
+
   render() {
     const { showTabs } = this.state;
 
@@ -68,11 +77,8 @@ export default class SideBarMenu extends React.Component {
             : (<S.ShowButton id="menu-button" className="fas fa-bars" onClick={this.handleShow}/>)
         }
         <S.TabsContainer id="menu">
-          { 
-            showTabs
-              ? this.getTabs()
-              : (null)
-          }
+          {showTabs && this.getTabs()}
+          {showTabs && this.getExelButton()}
         </S.TabsContainer>
       </S.Container>
     )

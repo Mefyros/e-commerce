@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Transporter;
 use App\Product;
 use App\BankingCredentials;
@@ -11,6 +12,7 @@ use App\Order;
 use App\OrderStep;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\PackageOption;
 
 class CheckoutController extends Controller
 {
@@ -32,24 +34,34 @@ class CheckoutController extends Controller
             $credentials = BankingCredentials::where('creditCardNumber', $request->credentials['creditCardNumber'])
             ->where('expiration', $request->credentials['expiration'])
             ->first();
-            $user_id = (null !== Auth::user()) ? Auth::user()->id : null;
-            if(!Hash::check($request->credentials['ccv'], $credentials->ccv)){
-                return response('invalid creditcard number', 401);
+            if(null !== $credentials){
+                if(!Hash::check($request->credentials['ccv'], $credentials->ccv)){
+                    return response('invalid creditcard number', 401);
+                }
             }
         }
-        
+        $user_id = (null !== Auth::user()) ? Auth::user()->id : User::where('email', $request->userEmail)->first()->id;
+        $packageOption = new packageOptionController;
+        $options = $packageOption->getAll();
+        foreach($options as $o){
+            $options = ($o->name === $request->packageOption) ? $o->name : null;
+        }
         $order = Order::create([
             'user_id' => $user_id,
             'cart' => json_encode($cart),
             'address' => json_encode($request->address),
-            'transporter_id' => $request->transporter,
+            'transporter_id' => $request->transporter_id,
+            'step' => 2,
+            'order_id' => (isset($request->order_id) ? $request->order_id : null),
+            'packageOption' => $options
         ]);
         $order = Order::find($order->id);
         $temp = [
             'id' => $order->id,
             'cart' => $order->cart,
             'step' => $order->orderStep->step,
-            'ordered' => $order->created_at
+            'ordered' => $order->created_at,
+            'packageOption' => $order->packageOption,
         ];
         return $temp;
         
