@@ -17,7 +17,20 @@ export default class CheckoutService {
           });
   }
 
-  
+  static async getPackage() {
+      return Axios.post(`/api/packageOption`,
+               {
+                  headers: {
+                      "Content-type": "application/json"
+                  }
+              })
+          .then(res => {
+              return res.data;
+          })
+          .catch(err => {
+              return err;
+          });
+  }
 
 
 }
