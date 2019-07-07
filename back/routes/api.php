@@ -93,6 +93,7 @@ Route::delete('/supplier/{id}', 'SuppliersController@delete');
 Route::put('/supplier/{id}', 'SuppliersController@update');
 
 Route::get('/order', 'OrderController@getAll');
+Route::get('/order/{id}', 'OrderController@get');
 Route::delete('/order/{id}', 'OrderController@delete');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {

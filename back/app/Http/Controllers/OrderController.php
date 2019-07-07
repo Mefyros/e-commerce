@@ -8,7 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Order;
 use App\User;
 use App\Product;
-use PDF;
 
 
 class OrderController extends Controller
@@ -27,6 +26,9 @@ class OrderController extends Controller
             ];
         }
         return $temp;
+    }
+    public function get($id){
+        return Order::find($id);
     }
     public function getAll(){
         $orders = Order::all();
@@ -54,7 +56,8 @@ class OrderController extends Controller
         $order = Order::find($id);
         $user = User::find($order['user_id']);
         $temp = [
-            'user' => $user,
+            'user' => (null !== $user) ? $user : $order['user_id'],
+            'step' => $order['orderStep'],
             'id' => $order->id,
             'cart' => [],
             'total_price' => 0,
@@ -70,9 +73,6 @@ class OrderController extends Controller
             ];
             $temp['total_price'] += $product['price'] * $p->quantity;
         }
-        return view('invoice', ['order' => $temp]);
-        // $pdf = PDF::loadView('myPDF', $order);
-  
-        // return $pdf->download('itsolutionstuff.pdf');
+        return view('invoice', $temp);
     }
 }
