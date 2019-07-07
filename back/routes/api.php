@@ -110,16 +110,17 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('/user/info', 'UserInfoController@update');
     Route::get('/user/info', 'UserInfoController@get');
     Route::post('/user/info', 'UserInfoController@create');
+    Route::get('/user/order', 'OrderController@getAllByUser');
     Route::post('/user/creditcard', 'BankingCredentialsController@create');
     Route::delete('/user/creditcard/{id}', 'BankingCredentialsController@remove');
     Route::get('/user/creditcard', 'BankingCredentialsController@get');
     Route::post('/user/creditcard/check', 'BankingCredentialsController@check');
     Route::post('/order', 'CheckoutController@orderCommand');
-    Route::get('/user/order', 'OrderController@getAllByUser');
     Route::post('/product/{id}/review', 'ReviewController@create');
     Route::get('/product/{id}/review', 'ReviewController@get');
     Route::post('/review/{id}/poce', 'ReviewController@poce');
     Route::post('/user/password', 'UserController@passwordModifer');
     Route::get('userCollection', 'UserController@userCollection');
 });
+Route::get('order/{id}/bill', 'OrderController@invoice');
 Route::get('userCollection', 'UserController@userCollection');

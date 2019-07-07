@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Order;
+use App\User;
+use App\Product;
+use PDF;
 
 
 class OrderController extends Controller
@@ -46,5 +49,30 @@ class OrderController extends Controller
         } else {
             return ['err' => 'order not found'];
         }
+    }
+    public function invoice($id){
+        $order = Order::find($id);
+        $user = User::find($order['user_id']);
+        $temp = [
+            'user' => $user,
+            'id' => $order->id,
+            'cart' => [],
+            'total_price' => 0,
+        ];
+        foreach(json_decode($order->cart) as $p){
+            $product = Product::find($p->id);
+            $temp['cart'][] = [
+                'id' => $product['id'],
+                'name' => $product['name'],
+                'photos' => json_decode($product['photos'])[0],
+                'quantity' => $p->quantity,
+                'price' => $product['price'] * $p->quantity,
+            ];
+            $temp['total_price'] += $product['price'] * $p->quantity;
+        }
+        return view('invoice', ['order' => $temp]);
+        // $pdf = PDF::loadView('myPDF', $order);
+  
+        // return $pdf->download('itsolutionstuff.pdf');
     }
 }
