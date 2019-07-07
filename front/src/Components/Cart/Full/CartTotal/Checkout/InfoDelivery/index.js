@@ -1,6 +1,8 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import {css} from 'emotion';
@@ -14,6 +16,8 @@ export default class Info_delivery extends React.Component {
     this.state = {
       fournisseur: [],
       selectFurnissor: null,
+      selected : "",
+      packageoption :[]
     };
   }
 
@@ -33,14 +37,15 @@ export default class Info_delivery extends React.Component {
   }
 
   async componentDidMount(){
-    var temp = [];
-    var deliveryOption = await CheckoutService.getDelivery(this.dataDelivery());
+    let temp = [];
+    const deliveryOption = await CheckoutService.getDelivery(this.dataDelivery());
+    const packageo = await CheckoutService.getPackage();
     for (var i = 0; i < deliveryOption.length; i++) {
       if (deliveryOption[i].disponibility !== "indisponible") {
         temp.push(deliveryOption[i]);
       }
     }
-    await this.setState({fournisseur: temp});
+    await this.setState({fournisseur: temp, packageoption : packageo});
   }
 
   selectFurnissor(selectFurnissor, id){
@@ -48,8 +53,14 @@ export default class Info_delivery extends React.Component {
     this.setState({selectFurnissor});
   }
 
+  async handleChange(event) {
+    await this.setState({selected : event.target.value})
+    localStorage.setItem("package_option",this.state.selected)
+    
+  }
+
   render(){
-    const {selectFurnissor} = this.state;
+    const {selectFurnissor, packageoption,selected} = this.state;
 
     return(
       <div>
@@ -69,6 +80,28 @@ export default class Info_delivery extends React.Component {
           </CardActionArea>
         </Card>
       )}
+      {packageoption.length != 0 
+        ? (
+            <>
+              <Select
+                value={selected}
+                onChange={(e) => this.handleChange(e)}
+                inputProps={{
+                  name: 'selected',
+                  id : 'pack'
+                }}
+                displayEmpty
+              >
+                <MenuItem value="">
+                <em>None Selected</em>
+              </MenuItem>
+              {packageoption.map((item, key) => {
+                  return <MenuItem value={item.name}>{item.name}</MenuItem>
+              })}
+              </Select>
+            </>)      
+          : (null)
+        }
 
       </Grid>
       </div>

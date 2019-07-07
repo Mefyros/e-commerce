@@ -9,7 +9,7 @@ export const header = css`
   background-color: ${Color.white} !important;
 
   @media (max-width: 768px) {
-    height: 150px;
+    height: 187px;
   }
 `;
 
@@ -31,6 +31,33 @@ export const LogoContainer = styled.a`
 export const Logo = styled.img`
   width: 82px;
   height: 50px;
+`;
+
+export const Link = styled.a`
+  text-align: right;
+  margin: 0;
+  width: 100%;
+
+  span {
+    margin: 0;
+    font-weight: 500;
+    font-size: 1.1em;
+    color: ${Color.ecoGreen};
+
+    &:last-child {
+      color: ${Color.ecoBrown};
+    }
+  }
+
+  &:hover {
+    span {
+      color: ${Color.ecoGreenHover};
+
+      &:last-child {
+        color: ${Color.ecoBrownHover};
+      }
+    }
+  }
 `;
 
 export const SearchBarContainer = styled.div`

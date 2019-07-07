@@ -21,6 +21,6 @@ export const
     `;
 export const
     filterPrice = css`
-        width: 250px;
+        width: 100%;
         justify-content: center;
     `;
