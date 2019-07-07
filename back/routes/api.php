@@ -95,15 +95,18 @@ Route::put('/supplier/{id}', 'SuppliersController@update');
 Route::get('/order', 'OrderController@getAll');
 Route::get('/order/{id}', 'OrderController@get');
 Route::delete('/order/{id}', 'OrderController@delete');
+Route::post('/order', 'CheckoutController@orderCommand');
+Route::get('order/{id}/bill', 'OrderController@invoice');
+Route::get('userCollection', 'UserController@userCollection');
+
+Route::post('/packageOption', 'packageOptionController@create');
+Route::get('/packageOption', 'packageOptionController@getAll');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
-
-Route::post('/order', 'CheckoutController@orderCommand');
-
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'UserController@details');
@@ -126,5 +129,3 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('/user/password', 'UserController@passwordModifer');
     Route::get('userCollection', 'UserController@userCollection');
 });
-Route::get('order/{id}/bill', 'OrderController@invoice');
-Route::get('userCollection', 'UserController@userCollection');
