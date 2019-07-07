@@ -46,11 +46,13 @@ export default class InfoPaiement extends React.Component {
   async componentDidMount(){
     var user = await AuthService.getUserInfo(localStorage.getItem('eToken'));
     var creditCard = await AuthService.getCreditCard();
-    this.setState({
-      titulaireName: creditCard[0].titulaire,
-      cartNumber: creditCard[0].creditCardNumber,
-      expireDate: creditCard[0].expiration.split('-')[1] +'/'+creditCard[0].expiration.split(' ')[0].split('-')[0].substr(2),
-    })
+    if (creditCard.length >= 1) {
+      this.setState({
+        titulaireName: creditCard[0].titulaire,
+        cartNumber: creditCard[0].creditCardNumber,
+        expireDate: creditCard[0].expiration.split('-')[1] +'/'+creditCard[0].expiration.split(' ')[0].split('-')[0].substr(2),
+      })
+    }
   }
 
   async buyConfirmed(){
