@@ -29,12 +29,14 @@ class CheckoutController extends Controller
     public function orderCommand(Request $request){
         $userCart = new UserCartController();
         $cart = $userCart->parseCart($request->cart);
-        if($request->paymentOption === "creditCard"){
+        if(isset($request->credentials)){
             $credentials = BankingCredentials::where('creditCardNumber', $request->credentials['creditCardNumber'])
-            ->where('expiration', $request->credentials['expiration'])
+            ->where('expiration', $request->credentials['expiration'].'-01')
             ->first();
-            if(!Hash::check($request->credentials['ccv'], $credentials->ccv)){
-                return response('invalid creditcard number', 401);
+            if(null !== $credentials){
+                if(!Hash::check($request->credentials['ccv'], $credentials->ccv)){
+                    return response('invalid creditcard ccv', 401);
+                }
             }
         }
         $user_id = (null !== Auth::user()) ? Auth::user()->id : User::where('email', $request->userEmail)->first()->id;
@@ -43,8 +45,8 @@ class CheckoutController extends Controller
             'cart' => json_encode($cart),
             'address' => json_encode($request->address),
             'transporter_id' => $request->transporter_id,
-            'step' => 2,
-            'order_id' => $request->order_id
+            'step' => (isset($request->credentials) ? 1 : 2),
+            'order_id' => (isset($request->order_id) ? $request->order_id : null ) 
         ]);
         $order = Order::find($order->id);
         $temp = [
