@@ -32,12 +32,11 @@ class CheckoutController extends Controller
             $credentials = BankingCredentials::where('creditCardNumber', $request->credentials['creditCardNumber'])
             ->where('expiration', $request->credentials['expiration'])
             ->first();
-            $user_id = (null !== Auth::user()) ? Auth::user()->id : null;
             if(!Hash::check($request->credentials['ccv'], $credentials->ccv)){
                 return response('invalid creditcard number', 401);
             }
         }
-        
+        $user_id = (null !== Auth::user()) ? Auth::user()->id : $request->userEmail;
         $order = Order::create([
             'user_id' => $user_id,
             'cart' => json_encode($cart),
