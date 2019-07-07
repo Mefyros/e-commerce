@@ -41,8 +41,8 @@ export default class Info_delivery extends React.Component {
     console.log(this.state);
   }
 
-  selectFurnissor(e){
-    console.log(e);
+  selectFurnissor(id){
+    localStorage.setItem('eUser_delivery', JSON.stringify({transporter_id: id}));
   }
 
   render(){
@@ -50,7 +50,7 @@ export default class Info_delivery extends React.Component {
       <div>
       <Grid container direction="row" justify='space-around'>
       {this.state.fournisseur.map((item, i) =>
-        <Card raised={true} style={style.card} id={i} onClick={() => this.selectFurnissor(this)}>
+        <Card raised={true} style={style.card} id={i} onClick={() => this.selectFurnissor(item.id)}>
          <CardActionArea>
           <CardContent>
           <h3>{item.name}</h3>
