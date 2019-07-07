@@ -12,6 +12,7 @@ import SearchResult from './SearchResult';
 import Account from './User';
 import NotFound from './NotFound';
 import AboutUs from './AboutUs';
+import Order from './Order';
 
 const mapStateToProps = state => {
   return {
@@ -54,31 +55,32 @@ class Routes extends React.Component {
     else if (isLogin) {
       return this.userRoutes();
     }
-    
+
   }
 
   render() {
     return (
       <Switch>
-    
+
           <Route exact path="/" component={Home} />
           <Redirect from="/home" to="/"/>
-    
+
           {/* To get params in this components => this.props.match.params.id */}
           <Route exact path="/product/:id" component={Product} />
-    
+          <Route exact path='/order/:id' component={Order}/>
+
           <Route exact path="/c/:classes" component={Menuccsc} />
           <Route exact path="/c/:classes/:categorie" component={Menuccsc} />
           <Route exact path="/c/:classes/:categorie/:subcategorie" component={Menuccsc} />
-    
+
           <Route exact path="/cart" component={Cart} />
-    
+
           <Route exact path="/search/:keyword" component={SearchResult} />
           <Route exact path="/search/categorie/:categorie/:keyword" component={SearchResult} />
 
           <Route exact path="/about-us" component={AboutUs} />
           <Redirect from="/about" to="/about-us"/>
-  
+
           {this.privateRoutes()}
           {/* {this.notFound()} */}
 
