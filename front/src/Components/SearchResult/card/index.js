@@ -23,12 +23,25 @@ class CustomCard extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            ...props.product,
-            photos: JSON.parse(props.product.photos) || [],
+            ...props.item,
+            photos: JSON.parse(props.item.photos) || [],
         }
-        this.productLink = `/product/${props.product.id}`;
-        this.productLinkId = `product${props.product.id}`;
+        this.productLink = `/product/${props.item.id}`;
+        this.productLinkId = `product${props.item.id}`;
     }
+
+    setItemData = () => {
+        const {item} = this.props;
+
+        this.setState({
+            ...item,
+            photos: JSON.parse(item.photos) || [],
+        })
+
+        this.productLink = `/product/${item.id}`;
+        this.productLinkId = `product${item.id}`;
+    }
+
 
     showProduct = e => {
         if (e.target.id !== 'add-to-cart' && e.target.tagName !== 'path' && e.target.tagName !== 'svg') {
@@ -44,13 +57,17 @@ class CustomCard extends React.Component {
     }
 
     render() {
-        const { name, photos, price, description } = this.state;
+        const { id, name, photos, price, description } = this.props.item;
+        const image = JSON.parse(photos);
+
+        this.productLink = `/product/${id}`;
+        this.productLinkId = `product${id}`;
 
         return (
             <Card className={css(S.cardStyle)} onClick={this.showProduct}>
                 <CardMedia
                     className={css(S.media)}
-                    image={photos[0]}
+                    image={image[0]}
                     title={name}
                 />
                 <CardContent className={css(S.content)}>

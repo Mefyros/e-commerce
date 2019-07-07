@@ -162,7 +162,6 @@ export default class SearchResult extends Component{
   render(){
     const {maxPrice, cat, subCat, brand, products} = this.state;
     const result = this.getProducts(products) || [];
-    console.log(result)
 
     return(
       <Container>
@@ -267,7 +266,7 @@ export default class SearchResult extends Component{
 
           </Grid>
           <Grid  item xs={8}>
-            {result.map((product, key) => <CustomCard key={key} product={product}/>)}
+            {result.map((product, key) => <CustomCard key={key} item={product}/>)}
           </Grid>
         </Grid>
       </Container>
