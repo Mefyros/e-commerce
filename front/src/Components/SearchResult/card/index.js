@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import * as S from './style';
 import { css } from 'emotion';
 import { connect } from 'react-redux';
-import { addToCart } from '../../../../Redux/Action/CartAction';
-import Button from '../../../DefaultComponent/Button';
+import { addToCart } from '../../../Redux/Action/CartAction';
+import Button from '../../DefaultComponent/Button';
 
 const mapStateToProps = state => {
     return { products: state.cart };
@@ -22,9 +22,10 @@ const mapDispatchToProps = dispatch => ({
 class CustomCard extends React.Component {
     constructor(props) {
         super(props);
+        console.log(props)
         this.state = {
             ...props.product,
-            photos: JSON.parse(props.product.photos),
+            photos: JSON.parse(props.product.photos) || [],
         }
         this.productLink = `/product/${props.product.id}`;
         this.productLinkId = `product${props.product.id}`;
