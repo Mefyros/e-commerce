@@ -19,13 +19,9 @@ class BankingCredentialsController extends Controller
             'expiration' => $request->expiration,
             'titulaire' => $request->titulaire
         ]);
-        $creditCard->creditCardNumber =  str_repeat('*', strlen($creditCard->creditCardNumber) - 4) . substr($creditCard->creditCardNumber, -4);
         return $creditCard;
     }
     public function get(){
-        if(isset(Auth::user()->creditCards[0])){
-        Auth::user()->creditCards[0]->creditCardNumber = str_repeat('*', strlen(Auth::user()->creditCards[0]->creditCardNumber) - 4) . substr(Auth::user()->creditCards[0]->creditCardNumber, -4);
-        }
         return Auth::user()->creditCards;
     }
     public function check(Request $request){
