@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 use App\Transporter;
 use App\Product;
 use App\BankingCredentials;
@@ -36,12 +37,14 @@ class CheckoutController extends Controller
                 return response('invalid creditcard number', 401);
             }
         }
-        $user_id = (null !== Auth::user()) ? Auth::user()->id : $request->userEmail;
+        $user_id = (null !== Auth::user()) ? Auth::user()->id : User::where('email', $request->userEmail)->first()->id;
         $order = Order::create([
             'user_id' => $user_id,
             'cart' => json_encode($cart),
             'address' => json_encode($request->address),
-            'transporter_id' => $request->transporter,
+            'transporter_id' => $request->transporter_id,
+            'step' => 2,
+            'order_id' => $request->order_id
         ]);
         $order = Order::find($order->id);
         $temp = [
