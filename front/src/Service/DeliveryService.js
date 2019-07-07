@@ -18,7 +18,7 @@ export default class CheckoutService {
   }
 
   static async getPackage() {
-      return Axios.post(`/api/packageOption`,
+      return Axios.get(`/api/packageOption`,
                {
                   headers: {
                       "Content-type": "application/json"

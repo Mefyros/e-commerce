@@ -52,7 +52,8 @@ class CheckoutController extends Controller
             'address' => json_encode($request->address),
             'transporter_id' => $request->transporter_id,
             'step' => 2,
-            'order_id' => (isset($request->order_id) ? $request->order_id : null)
+            'order_id' => (isset($request->order_id) ? $request->order_id : null),
+            'packageOption' => $options
         ]);
         $order = Order::find($order->id);
         $temp = [

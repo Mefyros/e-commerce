@@ -61,7 +61,7 @@ export default class SideBarMenu extends React.Component {
     return (
       <S.ExelTab id="menu-exel" onClick={this.getExelFile}>
         <S.IconLeft id="menu-icon" className="fas fa-file-alt"/>
-        <S.Label id="menu-label" href="https://c15152a1.ngrok.io/api/userCollection" download>Download exel stats file</S.Label>
+        <S.Label id="menu-label" href="https://ddd0d153.ngrok.io/api/userCollection" download>Download exel stats file</S.Label>
       </S.ExelTab>
     );
   }

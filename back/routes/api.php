@@ -107,6 +107,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
+Route::get('userCollection', 'UserController@userCollection');
+
 
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'UserController@details');
@@ -127,5 +129,4 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/product/{id}/review', 'ReviewController@get');
     Route::post('/review/{id}/poce', 'ReviewController@poce');
     Route::post('/user/password', 'UserController@passwordModifer');
-    Route::get('userCollection', 'UserController@userCollection');
 });
