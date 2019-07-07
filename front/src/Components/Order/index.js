@@ -14,6 +14,10 @@ import Tableau from './Component/Tableau';
 import Stepper from './Component/Stepper';
 
 import TicketService from '../../Service/TicketService'
+import BillService from '../../Service/BillService.js';
+
+import CircularProgress from '@material-ui/core/CircularProgress';
+import * as S from './style';
 
 import { makeStyles } from '@material-ui/core/styles';
 
@@ -38,11 +42,16 @@ export default class Order extends React.Component {
   }
 
   async componentDidMount(){
+    console.log(this.state.id_command);
+    var bill = await BillService.getBills(this.state.id_command);
     var order = await TicketService.getById(this.state.id_command);
+    console.log(order);
     if (order.id) {
-      await this.setState({order: order, exist: true});
+      await this.setState({order: order, exist: true, pdf: bill});
     }
+    console.log(this.state.pdf);
     console.log(this.state.order);
+    console.log(bill);
   }
 
   render(){
@@ -63,7 +72,16 @@ export default class Order extends React.Component {
         <Grid container direction='row' justify='center'>
         <Tableau style={{border: '1px solid'}} cart={this.state.order.cart} />
         </Grid>
+        <Grid style={{marginTop: 40}} container direction='row' justify='center'>
+          <S.Link href={this.state.pdf.pdf} download>
+          <Grid container direction='row' justify='center' alignItems="baseline">
+            <h2 style={{fontWeight: 'normal'}}>Telecharger votre facture</h2>
+            <i style={{marginLeft: 20, fontSize: '40px'}} className="fas fa-file-invoice"></i>
+          </Grid>
+          </S.Link>
+        </Grid>
         </Container>
+
         </div>
       );
     }else {

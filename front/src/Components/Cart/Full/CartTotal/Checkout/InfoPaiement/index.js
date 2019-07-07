@@ -62,6 +62,19 @@ export default class InfoPaiement extends React.Component {
     var userCart = JSON.parse(localStorage.getItem('cart'));
     const package_option = localStorage.getItem('package_option');
 
+    console.log({
+        cart: JSON.parse(localStorage.getItem('cart')),
+        credentials: {
+          creditCardNumber: cartNumber,
+          expiration: expireDate.replace("/", "-"),
+          ccv: ccv,
+        },
+        userEmail: userInfo.mail,
+        adress: userAdress,
+        transporter_id: userDelivery.transporter_id,
+        paymentOption: 'creditCard'
+    });
+
     var sendOrderRes = await CheckoutService.createOrder({
         cart: JSON.parse(localStorage.getItem('cart')),
         credentials: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Container from '@material-ui/core/Container';
+import Button from '@material-ui/core/Container'
 
 import TicketService from '../../../Service/TicketService.js';
 import BillService from '../../../Service/BillService.js';
@@ -12,6 +13,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import * as S from './style';
+
+import { Link } from "react-router-dom";
 
 
 export default class Commands extends React.Component {
@@ -36,7 +39,7 @@ export default class Commands extends React.Component {
 
   getBills = async (id) => {
     return await BillService.getBills(id)
-    
+
   }
 
   render(){
@@ -65,7 +68,7 @@ export default class Commands extends React.Component {
                   <TableCell>{item.id}</TableCell>
                   <TableCell>{item.ordered.split('T')[0]} [{item.ordered.split('T')[1].split('.000000Z')[0]}]</TableCell>
                   <TableCell>{item.step}</TableCell>
-                  <TableCell>Pas de detail</TableCell>
+                  <TableCell><Button component={Link} color="inherit" to={'/order/'+item.id}>Voir les detail</Button></TableCell>
                   {item.bill ? <TableCell><S.Link href={item.bill} download><i className="fas fa-file-invoice"></i></S.Link></TableCell> :<CircularProgress/>}
                 </TableRow>
               )

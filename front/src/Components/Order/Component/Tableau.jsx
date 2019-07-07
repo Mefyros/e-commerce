@@ -31,7 +31,7 @@ export default class Tableau extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      cart: JSON.parse(this.props.cart),
+      cart: this.props.cart,
     }
     this.totalPrice = this.totalPrice.bind(this);
   }
@@ -71,7 +71,7 @@ export default class Tableau extends React.Component {
           <TableCell component="th" scope="row">
             <Avatar style={{width: 50, height: 50}} alt="Remy Sharp" src={item.image} />
           </TableCell>
-          <TableCell align="left"><h5>AMD Ryzen Threadripper 1920X (3,5 GHz)</h5></TableCell>
+          <TableCell align="left"><h5>{item.name}</h5></TableCell>
           <TableCell align="right"><h4>{item.price}$</h4></TableCell>
           <TableCell align="right"><h4>{item.price * item.quantity}$</h4></TableCell>
           <TableCell align="right"><h4>x{item.quantity}</h4></TableCell>
@@ -81,7 +81,7 @@ export default class Tableau extends React.Component {
         </TableBody>
       </Table>
       <Grid style={{marginTop: 20}} container direction='row' justify='flex-end'>
-        <h3>Total : {this.totalPrice()} EUR</h3>
+        <h3 style={{padding: '12px', borderRadius: '9px', backgroundColor: '#b5e3c3'}}>Total : {this.totalPrice()} EUR</h3>
       </Grid>
       </div>
     );
