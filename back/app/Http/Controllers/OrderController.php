@@ -32,9 +32,9 @@ class OrderController extends Controller
         $order = Order::find($id);
         $temp = [];
         foreach (json_decode($order->cart) as $key => $p){
-            $product = Product::find($p['id']);
+            $product = Product::find($p->id);
             $temp[] = $p;
-            $temp[$key]['name'] = $product->name;
+            $temp[$key]->name = $product->name;
         }
         $order->cart = $temp;
         return $order;
