@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
 class CustomCard extends React.Component {
     constructor(props) {
         super(props);
-        console.log(props)
         this.state = {
             ...props.product,
             photos: JSON.parse(props.product.photos) || [],
