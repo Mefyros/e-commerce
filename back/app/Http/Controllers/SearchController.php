@@ -14,10 +14,10 @@ class SearchController extends Controller
         foreach($results as $result)
         if($results){
             $temp = [];
-            foreach($results as $result){
+            foreach($results as $key => $result){
                 $temp[] = $result;
-                $temp->categorie;
-                $temp->subCategorie;
+                $temp[$key]->categorie;
+                $temp[$key]->subCategorie;
             }
             // if($request->specs){
             //     foreach($results as $product){
