@@ -3,7 +3,6 @@ import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
 import CardContent from '@material-ui/core/CardContent';
 import Grid from '@material-ui/core/Grid';
 import {css} from 'emotion';
@@ -17,7 +16,8 @@ export default class Info_delivery extends React.Component {
     this.state = {
       fournisseur: [],
       selectFurnissor: null,
-      selected : ""
+      selected : "",
+      packageoption :[]
     };
   }
 
@@ -53,9 +53,9 @@ export default class Info_delivery extends React.Component {
     this.setState({selectFurnissor});
   }
 
-  handleChange(event) {
-    console.log('oui')
-    this.setState({selected : event.target.value})
+  async handleChange(event) {
+    await this.setState({selected : event.target.value})
+    localStorage.setItem("package_option",this.state.selected)
     
   }
 
@@ -80,7 +80,7 @@ export default class Info_delivery extends React.Component {
           </CardActionArea>
         </Card>
       )}
-      {packageoption 
+      {packageoption.length != 0 
         ? (
             <>
               <Select
