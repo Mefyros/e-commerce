@@ -28,7 +28,15 @@ class OrderController extends Controller
         return $temp;
     }
     public function get($id){
-        return Order::find($id);
+        $order = Order::find($id);
+        $temp = [];
+        foreach (json_decode($order->cart) as $key => $p){
+            $product = Product::find($p['id']);
+            $temp[] = $p;
+            $temp[$key]['name'] = $product->name;
+        }
+        $order->cart = $temp;
+        return $order;
     }
     public function getAll(){
         $orders = Order::all();
