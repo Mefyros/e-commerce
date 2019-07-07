@@ -28,8 +28,9 @@ export default class Commands extends React.Component {
     for(let i in order) {
       const bill = await this.getBills(order[i].id)
       order[i].bill = bill.pdf
+      await this.setState({order})
+
     }
-    await this.setState({order})
 
   }
 
