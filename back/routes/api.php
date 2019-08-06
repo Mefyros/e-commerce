@@ -93,15 +93,21 @@ Route::delete('/supplier/{id}', 'SuppliersController@delete');
 Route::put('/supplier/{id}', 'SuppliersController@update');
 
 Route::get('/order', 'OrderController@getAll');
+Route::get('/order/{id}', 'OrderController@get');
 Route::delete('/order/{id}', 'OrderController@delete');
+Route::post('/order', 'CheckoutController@orderCommand');
+Route::get('order/{id}/bill', 'OrderController@invoice');
+Route::get('userCollection', 'UserController@userCollection');
+
+Route::post('/packageOption', 'packageOptionController@create');
+Route::get('/packageOption', 'packageOptionController@getAll');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('login', 'UserController@login');
 Route::post('register', 'UserController@register');
-
-Route::post('/order', 'CheckoutController@orderCommand');
+Route::get('userCollection', 'UserController@userCollection');
 
 
 Route::group(['middleware' => 'auth:api'], function(){
@@ -113,6 +119,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::put('/user/info', 'UserInfoController@update');
     Route::get('/user/info', 'UserInfoController@get');
     Route::post('/user/info', 'UserInfoController@create');
+    Route::get('/user/order', 'OrderController@getAllByUser');
     Route::post('/user/creditcard', 'BankingCredentialsController@create');
     Route::delete('/user/creditcard/{id}', 'BankingCredentialsController@remove');
     Route::get('/user/creditcard', 'BankingCredentialsController@get');
@@ -122,6 +129,4 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('/product/{id}/review', 'ReviewController@get');
     Route::post('/review/{id}/poce', 'ReviewController@poce');
     Route::post('/user/password', 'UserController@passwordModifer');
-    Route::get('userCollection', 'UserController@userCollection');
 });
-Route::get('userCollection', 'UserController@userCollection');

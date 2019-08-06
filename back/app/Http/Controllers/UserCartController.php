@@ -39,6 +39,7 @@ class UserCartController extends Controller
                 $temp = Product::find($product['id']);
                 $products[] = [
                     'id' => $temp->id,
+                    'name' => $temp->name,
                     'price' => $temp->price,
                     'image' => json_decode($temp->photos)[0],
                     'quantity' => $product['quantity'],

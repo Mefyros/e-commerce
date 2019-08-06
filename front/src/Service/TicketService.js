@@ -20,4 +20,18 @@ export default class Ticket {
           })
       }
   }
+
+  static async getById(id) {
+      return Axios.get(`/api/order/${id}`, {
+              headers: {
+                  "Content-type": "application/json"
+              }
+          })
+          .then(res => {
+              return res.data;
+          })
+          .catch(err => {
+              return err;
+          });
+  }
 }

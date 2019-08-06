@@ -2,6 +2,8 @@ import styled from '@emotion/styled';
 import Color from '../../Color';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   position: fixed;
   z-index: 9999;
   top: 150px;
@@ -32,4 +34,37 @@ export const ShowButton = styled.i`
 
 export const TabsContainer = styled.div`
   box-shadow: ${Color.hoverShadow};
+`;
+
+export const ExelTab = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 1em 2em;
+  background-color: ${Color.white};
+
+  i, a {
+    user-select: none;
+  }
+
+  &:hover {
+    cursor: pointer;
+
+    i, a {
+      color: ${Color.ecoBrownHover};
+    }
+  }
+`;
+
+export const Label = styled.a`
+  margin: 0;
+  margin-right: 1em;
+  font-size: 1em;
+  color: ${Color.darkGrey};
+`;
+
+export const IconLeft = styled.i`
+  font-size: 1em;
+  margin-right: 1em;
 `;

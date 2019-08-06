@@ -12,6 +12,7 @@ use App\Order;
 use App\OrderStep;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
+use App\PackageOption;
 
 class CheckoutController extends Controller
 {
@@ -35,11 +36,18 @@ class CheckoutController extends Controller
             ->first();
             if(null !== $credentials){
                 if(!Hash::check($request->credentials['ccv'], $credentials->ccv)){
+
                     return response('invalid creditcard ccv', 401);
+
                 }
             }
         }
         $user_id = (null !== Auth::user()) ? Auth::user()->id : User::where('email', $request->userEmail)->first()->id;
+        $packageOption = new packageOptionController;
+        $options = $packageOption->getAll();
+        foreach($options as $o){
+            $options = ($o->name === $request->packageOption) ? $o->name : null;
+        }
         $order = Order::create([
             'user_id' => $user_id,
             'cart' => json_encode($cart),
@@ -53,7 +61,8 @@ class CheckoutController extends Controller
             'id' => $order->id,
             'cart' => $order->cart,
             'step' => $order->orderStep->step,
-            'ordered' => $order->created_at
+            'ordered' => $order->created_at,
+            'packageOption' => $order->packageOption,
         ];
         return $temp;
         

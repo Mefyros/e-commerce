@@ -16,6 +16,6 @@ export const appendBar = css`
   }
 
   @media (max-width: 768px) {
-    top: 133px;
+    top: 170px;
   }
 `;
